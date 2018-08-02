@@ -10,7 +10,11 @@ $jsonObj = json_decode($jsonString);
 $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 $messages =  $message->{"text"}
-}
+
+$messageData = [
+'type' => 'text',
+'text' => "送信したメッセージ : $messages"
+];
 
 // 返送情報の作成と送信
 $response = [
