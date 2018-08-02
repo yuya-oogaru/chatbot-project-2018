@@ -1,7 +1,7 @@
 <?php
 
-//composerでインストールしたライブラリ読み込み
-include '/vendor/autoload.php';
+//composer縺ｧ繧､繝ｳ繧ｹ繝医�ｼ繝ｫ縺励◆繝ｩ繧､繝悶Λ繝ｪ隱ｭ縺ｿ霎ｼ縺ｿ
+require_once __DIR__.'/vendor/autoload.php';
 
 $inputString = file_get_contents('php://input');
 error_log($inputString);
