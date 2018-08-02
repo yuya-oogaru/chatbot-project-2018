@@ -12,9 +12,9 @@ $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
 
-$response = $bot -> replyMessage($replyToken, $textMessageBuilder);
+$replyToken = $event->getReplyToken();
 
-error_log('token = '.$replyToken.');
+$response = $bot -> replyMessage($replyToken, $textMessageBuilder);
 
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
