@@ -1,32 +1,30 @@
 <?php
 
-use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
-use \LINE\LINEBot;
-use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
-use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
-use \LINE\LINEBot\Constant\HTTPHeader;
+// Composerでインストールしたライブラリを一括読み込み
+require_once __DIR__ . '/vendor/autoload.php';
 
-//LINESDKの読み込み
-require_once(__DIR__."/vendor/autoload.php");
+// アクセストークンを使いCurlHTTPClientをインスタンス化
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
+// CurlHTTPClientとシークレットを使いLINEBotをインスタンス化
+$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
+// LINE Messaging APIがリクエストに付与した署名を取得
+$signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
-//LINEから送られてきたらtrueになる
-if(isset($_SERVER["HTTP_".HTTPHeader::LINE_SIGNATURE])){
-
-//LINEBOTにPOSTで送られてきた生データの取得
-  $inputData = file_get_contents("php://input");
-
-//LINEBOTSDKの設定
-  $httpClient = new CurlHTTPClientgetenv('CHANNEL_ACCESS_TOKEN');
-  $Bot = new LINEBot($HttpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
-  $signature = $_SERVER["HTTP_".HTTPHeader::LINE_SIGNATURE]; 
-  $Events = $Bot->parseEventRequest($InputData, $Signature);
-
-//大量にメッセージが送られると複数分のデータが同時に送られてくるため、foreachをしている。
-foreach($Events as $event){
-    $SendMessage = new MultiMessageBuilder();
-    $TextMessageBuilder = new TextMessageBuilder("よろぽん！");
-    $SendMessage->add($TextMessageBuilder);
-    $Bot->replyMessage($event->getReplyToken(), $SendMessage);
+// 署名が正当かチェック。正当であればリクエストをパースし配列へ
+$events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
+// 配列に格納された各イベントを
+foreach ($events as $event) {
+$bot->replyText($event->getReplyToken(), 'TextMessage');
+}
+// テキストを返信。引数はLINEBot、返信先、テキスト
+function replyTextMessage($bot, $replyToken, $text) {
+  // 返信を行いレスポンスを取得
+  // TextMessageBuilderの引数はテキスト
+  $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text));
+  // レスポンスが異常な場合
+  if (!$response->isSucceeded()) {
+    // エラー内容を出力
+    error_log('Failed! '. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
 }
 ?>
