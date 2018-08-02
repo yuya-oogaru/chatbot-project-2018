@@ -1,22 +1,32 @@
 <?php
 
-//composerでインストールしたライブラリ読み込み
-require_once __DIR__.'/vendor/autoload.php';
+use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
+use \LINE\LINEBot;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
+use \LINE\LINEBot\Constant\HTTPHeader;
 
-$inputData = file_get_contents("php://input");
+//LINESDKの読み込み
+require_once(__DIR__."/vendor/autoload.php");
 
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
-$signature = $_SERVER["HTTP_". \LINE\LINEBot\Constant\HTTPHeader :: LINE_SIGNATURE]; 
-$Events = $Bot->parseEventRequest($inputData, $signature);
+//LINEから送られてきたらtrueになる
+if(isset($_SERVER["HTTP_".HTTPHeader::LINE_SIGNATURE])){
 
+//LINEBOTにPOSTで送られてきた生データの取得
+  $inputData = file_get_contents("php://input");
+
+//LINEBOTSDKの設定
+  $httpClient = new CurlHTTPClientgetenv('CHANNEL_ACCESS_TOKEN');
+  $Bot = new LINEBot($HttpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
+  $signature = $_SERVER["HTTP_".HTTPHeader::LINE_SIGNATURE]; 
+  $Events = $Bot->parseEventRequest($InputData, $Signature);
+
+//大量にメッセージが送られると複数分のデータが同時に送られてくるため、foreachをしている。
 foreach($Events as $event){
-
-$SendMessage = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
-$SendMessage->add($textMessageBuilder);
-$response = $bot -> replyMessage($event->getReplyToken(), $textMessageBuilder);
-
-echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+    $SendMessage = new MultiMessageBuilder();
+    $TextMessageBuilder = new TextMessageBuilder("よろぽん！");
+    $SendMessage->add($TextMessageBuilder);
+    $Bot->replyMessage($event->getReplyToken(), $SendMessage);
+  }
 }
 ?>
