@@ -1,23 +1,62 @@
 <?php
+// まずは HTTPステータス 200 を返す
+http_response_code(200) ;
+echo '200 {}';
 
-// Composerでインストールしたライブラリを一括読み込み
-require_once __DIR__ . '/vendor/autoload.php';
+// 送られて来たJSONデータを取得
+$json_string = file_get_contents('php://input');
+$json = json_decode($json_string);
+// JSONデータから返信先を取得
+$replyToken = $json->events[0]->replyToken;
+// JSONデータから送られてきたメッセージを取得
+$message = $json->events[0]->message->text;
 
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
-printf("client = %d\n",$httpClient);
+// HTTPヘッダを設定
+$channelToken = getenv('CHANNEL_ACCESS_TOKEN');
+$headers = [
+	'Authorization: Bearer ' . $channelToken,
+	'Content-Type: application/json; charset=utf-8',
+];
 
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
-printf("bot = %d\n",$bot);
+// POSTデータを設定してJSONにエンコード
+$post = [
+	'replyToken' => $replyToken,
+	'messages' => [
+		[
+			'type' => 'text',
+			'text' => '「' . $message . '」',
+		],
+	],
+];
+$post = json_encode($post);
 
-$inputData = file_get_contents('php://input');
-error_log($inputData);
+// HTTPリクエストを設定
+$ch = curl_init('https://api.line.me/v2/bot/message/reply');
+$options = [
+	CURLOPT_CUSTOMREQUEST => 'POST',
+	CURLOPT_HTTPHEADER => $headers,
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_BINARYTRANSFER => true,
+	CURLOPT_HEADER => true,
+	CURLOPT_POSTFIELDS => $post,
+];
 
-$replyToken = new \LINE\LINEBot\Event\BaseEvent\getReplyToken();
+// 実行
+curl_setopt_array($ch, $options);
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
-$response = $bot->replyMessage($replyToken, $textMessageBuilder);
-error_log($replyToken);
+// エラーチェック
+$result = curl_exec($ch);
+$errno = curl_errno($ch);
+if ($errno) {
+	return;
+}
 
-echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+// HTTPステータスを取得
+$info = curl_getinfo($ch);
+$httpStatus = $info['http_code'];
 
-?>
+$responseHeaderSize = $info['header_size'];
+$body = substr($result, $responseHeaderSize);
+
+// 200 だったら OK
+echo $httpStatus . ' ' . $body;
