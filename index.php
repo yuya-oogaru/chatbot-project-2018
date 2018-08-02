@@ -10,10 +10,12 @@ $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET
 $signature = $_SERVER["HTTP_".HTTPHeader::LINE_SIGNATURE]; 
 $Events = $Bot->parseEventRequest($inputString, $Signature);
 
+foreach($Events as $event){
+
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
 
-$response = $bot -> replyMessage($events->getReplyToken(), $textMessageBuilder);
+$response = $bot -> replyMessage($event->getReplyToken(), $textMessageBuilder);
 
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-
+}
 ?>
