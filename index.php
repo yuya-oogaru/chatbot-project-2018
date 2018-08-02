@@ -24,7 +24,7 @@ $post = [
 	'messages' => [
 		[
 			'type' => 'text',
-			'text' => '「' . $message . '」',
+			'text' => '. $message .',
 		],
 	],
 ];
