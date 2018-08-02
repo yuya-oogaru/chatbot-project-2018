@@ -10,7 +10,9 @@ $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS
 
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
 
-$response = $bot -> replyMessage($replyToken, $text);
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
+
+$response = $bot -> replyMessage($replyToken, $textMessageBuilder);
 
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
