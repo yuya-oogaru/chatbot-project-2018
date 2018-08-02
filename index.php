@@ -1,25 +1,40 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
 
-$jsonString = file_get_contents('php://input');
-error_log($jsonString);
-$jsonObj = json_decode($jsonString);
+$access_token = /* your access token */;
+
+$url = 'https://api.line.me/v2/bot/message/reply';
+
+// receive json data from line webhook
+$raw = file_get_contents('php://input');
+$receive = json_decode($raw, true);
+
+// parse received events
+$event = $receive['events'][0];
+$reply_token  = $event['replyToken'];
+$message_text = $event['message']['text'];
 
 
-// 取得メッセージと送り返す先の指定
-$message = $jsonObj->{"events"}[0]->{"message"};
-$replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
-$messages =  $message->{"text"}
+// build request headers
+$headers = array('Content-Type: application/json',
+                 'Authorization: Bearer ' . $access_token);
 
-$messageData = [
-'type' => 'text',
-'text' => "送信したメッセージ : $messages"
-];
+// build request body
+$message = array('type' => 'text',
+                 'text' => $message_text);
 
-// 返送情報の作成と送信
-$response = [
-    'replyToken' => $replyToken,
-    'messages' => [$messageData,$messageData2]  // 複数送信時は、ここを増やすこと
-];
+$body = json_encode(array('replyToken' => $reply_token,
+                          'messages'   => array($message)));
 
-?>
+
+// post json with curl
+$options = array(CURLOPT_URL            => $url,
+                 CURLOPT_CUSTOMREQUEST  => 'POST',
+                 CURLOPT_RETURNTRANSFER => true,
+                 CURLOPT_HTTPHEADER     => $headers,
+                 CURLOPT_POSTFIELDS     => $body);
+
+$curl = curl_init();
+curl_setopt_array($curl, $options);
+curl_exec($curl);
+curl_close($curl);
+
