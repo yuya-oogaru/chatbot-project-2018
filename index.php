@@ -12,4 +12,11 @@ printf("bot = %d\n",$bot);
 $inputData = file_get_contents('php://input');
 error_log($inputData);
 
+//$replyToken = new 
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+$response = $bot->replyMessage($event->getReplyToken(), $textMessageBuilder);
+error_log($event->getReplyToken());
+
+echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+
 ?>
