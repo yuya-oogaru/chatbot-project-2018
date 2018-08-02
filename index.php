@@ -14,4 +14,12 @@ $response = $bot->replyMessage('<replyToken>', $textMessageBuilder);
 
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
+$profResponse = $bot->getProfile('<userId>');
+if ($profResponse->isSucceeded()) {
+    $profile = $profResponse->getJSONDecodedBody();
+    echo $profile['displayName'];
+    echo $profile['pictureUrl'];
+    echo $profile['statusMessage'];
+}
+
 ?>
