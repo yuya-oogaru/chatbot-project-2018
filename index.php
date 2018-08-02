@@ -9,8 +9,10 @@ error_log($inputString);
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
 
-printf("httpClient = %s \n",$httpClient);
-printf("bot = %s \n",$bot);
+print "http client $httpClient
+";
+print "bot $bot
+";
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
 
