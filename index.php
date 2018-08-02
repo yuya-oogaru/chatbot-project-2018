@@ -1,6 +1,5 @@
 <?php
 
-<?php
 //composerでインストールしたライブラリ読み込み
 require_once __DIR__.'/vendor/autoload.php';
 
