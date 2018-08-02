@@ -6,6 +6,9 @@ $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET
 $sign = $_SERVER["HTTP_" . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $sign);
 
+$inputString = file_get_contents('php://input');
+error_log($inputString);
+
 foreach ($events as $event) {
   if (!($event instanceof \LINE\LINEBot\Event\MessageEvent) ||
       !($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
