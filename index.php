@@ -14,6 +14,8 @@ $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text)
 
 $response = $bot -> replyMessage($replyToken, $textMessageBuilder);
 
+error_log($replyToken);
+
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
 ?>
