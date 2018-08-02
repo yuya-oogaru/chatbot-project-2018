@@ -7,7 +7,7 @@ $inputString = file_get_contents('php://input');
 
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
-$signature = $_SERVER["HTTP_".HTTPHeader::LINE_SIGNATURE]; 
+$signature = $_SERVER["HTTP_". \LINE\LINEBot\Constant\HTTPHeader :: LINE_SIGNATURE]; 
 $Events = $Bot->parseEventRequest($inputString, $Signature);
 
 foreach($Events as $event){
