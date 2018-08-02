@@ -4,12 +4,10 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
-print(' $httpClient
-');
+printf("client = %s\n",$httpClient);
 
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
-print(' $bot
-');
+printf("bot = %s\n",$bot);
 
 $inputData = file_get_contents('php://input');
 error_log($inputData);
