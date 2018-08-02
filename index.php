@@ -10,10 +10,8 @@ $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS
 
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
 
+$response = $bot -> replyMessage($replyToken, $text);
 
-$signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
-error_log($signature);
-
-function replyTextMassage($bot, $replyToken, $text);
+echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
 ?>
