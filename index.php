@@ -3,7 +3,7 @@
 //composerでインストールしたライブラリ読み込み
 require_onec__DIR__ . '/vendor/autoload.php';
 
-$httpClient = new \LINE\LINEBot\HTTPCLient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
 
 $bot = new \LINE\LINEBot($httpClient, ['channnelSecret' => getenv('CHANNEL_SECRET')]);
 
