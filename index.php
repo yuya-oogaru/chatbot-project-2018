@@ -54,7 +54,8 @@ if($startPos != 'false'){
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. substr($getMessage, 0, $routeNamePos). ']です。')
 		);
 	}
-}else{
+}
+if($startPos == 'false'){
 	/*メッセージに対して返信を変える*/
 	switch($getMessage){
 		case 'テスト':
@@ -75,7 +76,7 @@ if($startPos != 'false'){
 
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage)
 			//new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
 		);
 	}
