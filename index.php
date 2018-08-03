@@ -40,6 +40,8 @@ $replyToken = $json->events[0]->replyToken;
 $startPos = strpos($getMessage, '--------------------');
 $endPos = strrpos($getMessage, '--------------------');
 
+$preSendMessage = 'default text';
+
 /*返信*/
 if($startPos != 'false'){
 	foreach ($events as $event) {
@@ -51,13 +53,6 @@ if($startPos != 'false'){
 		);
 	}
 }else{
-
-	/*受信メッセージ抽出*/
-	$getMessage = $json->events[0]->message->text;
-
-	/*リプライトークン（返信証明）取得*/
-	$replyToken = $json->events[0]->replyToken;
-	
 	/*メッセージに対して返信を変える*/
 	switch($getMessage){
 		case 'テスト':
