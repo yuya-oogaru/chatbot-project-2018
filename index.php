@@ -42,7 +42,7 @@ $replyToken = $json->events[0]->replyToken;
 $startPos = mb_strpos($getMessage, '--------------------');
 
 /*必要情報の抽出*/
-$routeNamePos = strpos($getMessage, '  ');
+$routeNamePos = mb_strpos($getMessage, '  ',1 , "UTF-8");
 $transitTimePos = mb_strpos($getMessage, '　', $routeNamePos, "UTF-8");
 $transitTimePos = $transitTimePos + $routeNamePos;
 $totalPricePos = $transitTimePos + 4;
@@ -53,7 +53,7 @@ if($startPos != false){
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. substr($getMessage, 0, $routeNamePos). ']です。'),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. mb_substr($getMessage, 0, $routeNamePos, "UTF-8"). ']です。'),
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('日付は['. substr($getMessage, $routeNamePos, 12). ']です。'),
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($transitTimePos),
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($totalPricePos)
