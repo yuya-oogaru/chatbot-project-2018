@@ -59,8 +59,8 @@ switch($getMessage){
 foreach ($events as $event) {
 	replyMultiMessage($bot, $replyToken, 
 	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(strlen($preSendMessage)),
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(strrev($preSendMessage)),
+	//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(strlen($preSendMessage)),
+	//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(strrev($preSendMessage)),
 	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(strpos($preSendMessage, '\n')),
 	new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
 	);
