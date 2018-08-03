@@ -1,81 +1,29 @@
 <?php
-http_response_code(200) ;
-echo '200 {}';
 
-// HTTPヘッダーを取得
-$headers = getallheaders();
-// HTTPヘッダーから、署名検証用データを取得
-$headerSignature = $headers["X-Line-Signature"];
-// 送られて来たJSONデータを取得
-$json_string = file_get_contents('php://input');
-$json = json_decode($json_string);
+// Composerでインストールしたライブラリを一括読み込み
+require_once __DIR__ . '/vendor/autoload.php';
 
-// Channel secretを秘密鍵として、JSONデータからハッシュ値を計算
-$channelSecret = 'メモした Channel Secret の文字列';
-$httpRequestBody = $json_string;
-$hash = hash_hmac('sha256', $httpRequestBody, $channelSecret, true);
-$signature = base64_encode($hash);
-// HTTPヘッダーから得た値と、計算したハッシュ値を比較
-if($headerSignature !== $signature)
-{
-	return;
+// アクセストークンを使いCurlHTTPClientをインスタンス化
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
+// CurlHTTPClientとシークレットを使いLINEBotをインスタンス化
+$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
+// LINE Messaging APIがリクエストに付与した署名を取得
+$signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
+
+// 署名が正当かチェック。正当であればリクエストをパースし配列へ
+$events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
+// 配列に格納された各イベントをループで処理
+foreach ($events as $event) {
+$bot->replyText($event->getReplyToken(), 'TextMessage');
 }
-
-if($json->events[0]->type !== 'message')
-{
-	return;
+// テキストを返信。引数はLINEBot、返信先、テキスト
+function replyTextMessage($bot, $replyToken, $text) {
+  // 返信を行いレスポンスを取得
+  // TextMessageBuilderの引数はテキスト
+  $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text));
+  // レスポンスが異常な場合
+  if (!$response->isSucceeded()) {
+    // エラー内容を出力
+    error_log('Failed! '. $response->getHTTPStatus . ' ' . $response->getRawBody());
+  }
 }
-// JSONデータから返信先を取得
-$replyToken = $json->events[0]->replyToken;
-// JSONデータからメッセージを取得
-$message = $json->events[0]->message->text;
-
-// HTTPヘッダを設定
-$channelToken = getenv('CHANNEL_ACCESS_TOKEN');
-$headers = [
-	'Authorization: Bearer ' . $channelToken,
-	'Content-Type: application/json; charset=utf-8',
-];
-
-// POSTデータを設定してJSONにエンコード
-$post = [
-	'replyToken' => $replyToken,
-	'messages' => [
-		[
-			'type' => 'text',
-			'text' => $message,
-		],
-	],
-];
-$post = json_encode($post);
-
-// HTTPリクエストを設定
-$ch = curl_init('https://api.line.me/v2/bot/message/reply');
-$options = [
-	CURLOPT_CUSTOMREQUEST => 'POST',
-	CURLOPT_HTTPHEADER => $headers,
-	CURLOPT_RETURNTRANSFER => true,
-	CURLOPT_BINARYTRANSFER => true,
-	CURLOPT_HEADER => true,
-	CURLOPT_POSTFIELDS => $post,
-];
-
-// 実行
-curl_setopt_array($ch, $options);
-
-// エラーチェック
-$result = curl_exec($ch);
-$errno = curl_errno($ch);
-if ($errno) {
-	return;
-}
-
-// HTTPステータスを取得
-$info = curl_getinfo($ch);
-$httpStatus = $info['http_code'];
-
-$responseHeaderSize = $info['header_size'];
-$body = substr($result, $responseHeaderSize);
-
-// 200 だったら OK
-echo $httpStatus . ' ' . $body;
