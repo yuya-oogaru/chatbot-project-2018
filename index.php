@@ -46,6 +46,8 @@ switch($getMessage){
 		$preSendMessage = '偉大な開発者の名前';
 		$stickerType = 119;
 		break;
+	case 'うるさい':
+		return;
 	default :
 		$preSendMessage = $json->events[0]->message->text;
 		$stickerType = 113;
@@ -84,25 +86,6 @@ function replyMultiMessage($bot, $replyToken, ...$msgs) {
   if (!$response->isSucceeded()) {
     error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
-}
-
-/******ボタンメッセージテンプレート******/
-function replyButtonsTemplate($bot, $replyToken, $alternativeText, $imageUrl, $title, $text, ...$actions) {
-	$actionArray = array();
-
-	foreach($actions as $value) {
-		array_push($actionArray, $value);
-	}
-
-	$builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
-		$alternativeText,
-		new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder ($title, $text, $imageUrl, $actionArray)
-	);
-	
-	$response = $bot->replyMessage($replyToken, $builder);
-	if (!$response->isSucceeded()) {
-		error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
-	}
 }
 
 ?>
