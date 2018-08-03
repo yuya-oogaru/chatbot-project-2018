@@ -2,73 +2,73 @@
 *           ** LINE TEST BOT Project(2018/08/03)**
 *
 *
-*                      ãƒ†ã‚¹ãƒˆãƒ—ãƒ­ã‚°ãƒ©ãƒ ï¼ï¼
-*                      æœ¬ç•ªã§ä½¿ç”¨ã—ãªã„ã“ã¨
+*                      ƒeƒXƒgƒvƒƒOƒ‰ƒ€II
+*                      –{”Ô‚ÅŽg—p‚µ‚È‚¢‚±‚Æ
 *
 *
 *************************************************************/
 
 <?php
 
-// Composerã§ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ãŸãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ä¸€æ‹¬èª­ã¿è¾¼ã¿
+// Composer‚ÅƒCƒ“ƒXƒg[ƒ‹‚µ‚½ƒ‰ƒCƒuƒ‰ƒŠ‚ðˆêŠ‡“Ç‚Ýž‚Ý
 require_once __DIR__ . '/vendor/autoload.php';
 
-// é€ã‚‰ã‚Œã¦æ¥ãŸJSONãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
+// ‘—‚ç‚ê‚Ä—ˆ‚½JSONƒf[ƒ^‚ðŽæ“¾
 $json_string = file_get_contents('php://input');
 error_log(file_get_contents('php://input'));
 $json = json_decode($json_string);
 
-/****ç½²åèªè¨¼****/
+/****–¼”FØ****/
 
-// ã‚¢ã‚¯ã‚»ã‚¹ãƒˆãƒ¼ã‚¯ãƒ³ã‚’ä½¿ã„CurlHTTPClientã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
+// ƒAƒNƒZƒXƒg[ƒNƒ“‚ðŽg‚¢CurlHTTPClient‚ðƒCƒ“ƒXƒ^ƒ“ƒX‰»
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
-// CurlHTTPClientã¨ã‚·ãƒ¼ã‚¯ãƒ¬ãƒƒãƒˆã‚’ä½¿ã„LINEBotã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
+// CurlHTTPClient‚ÆƒV[ƒNƒŒƒbƒg‚ðŽg‚¢LINEBot‚ðƒCƒ“ƒXƒ^ƒ“ƒX‰»
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
-// LINE Messaging APIãŒãƒªã‚¯ã‚¨ã‚¹ãƒˆã«ä»˜ä¸Žã—ãŸç½²åã‚’å–å¾—
+// LINE Messaging API‚ªƒŠƒNƒGƒXƒg‚É•t—^‚µ‚½–¼‚ðŽæ“¾
 $signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
-// ç½²åãŒæ­£å½“ã‹ãƒã‚§ãƒƒã‚¯ã€‚æ­£å½“ã§ã‚ã‚Œã°ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’ãƒ‘ãƒ¼ã‚¹ã—é…åˆ—ã¸
+// –¼‚ª³“–‚©ƒ`ƒFƒbƒNB³“–‚Å‚ ‚ê‚ÎƒŠƒNƒGƒXƒg‚ðƒp[ƒX‚µ”z—ñ‚Ö
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
 
 /****************/
 
-/*å—ä¿¡ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æŠ½å‡º*/
+/*ŽóMƒƒbƒZ[ƒW’Šo*/
 $getMessage = $json->events[0]->message->text;
 
 
-/*ãƒªãƒ—ãƒ©ã‚¤ãƒˆãƒ¼ã‚¯ãƒ³ï¼ˆè¿”ä¿¡è¨¼æ˜Žï¼‰å–å¾—*/
+/*ƒŠƒvƒ‰ƒCƒg[ƒNƒ“i•ÔMØ–¾jŽæ“¾*/
 $replyToken = $json->events[0]->replyToken;
 
-/*ã‚¸ãƒ§ãƒ«ãƒ€ãƒ³ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‹ã©ã†ã‹åˆ¤æ–­*/
+/*ƒWƒ‡ƒ‹ƒ_ƒ“‚ÌƒƒbƒZ[ƒW‚©‚Ç‚¤‚©”»’f*/
 $startPos = mb_strpos($getMessage, '--------------------');
 
-/*å¿…è¦æƒ…å ±ã®æŠ½å‡º*/
+/*•K—vî•ñ‚Ì’Šo*/
 $routeNamePos = strpos($getMessage, '  ');
-//$transitTimePos = mb_strpos($getMessage, 'ã€€');
+//$transitTimePos = mb_strpos($getMessage, '@');
 
 $preSendMessage = 'default text';
-new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos);
-/*è¿”ä¿¡*/
+/*•ÔM*/
 if($startPos != 'false'){
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('å…¥åŠ›ã•ã‚ŒãŸçµŒè·¯ã¯['. substr($getMessage, 0, $routeNamePos). ']ã§ã™ã€‚')
-			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('æ—¥ä»˜ã¯['. substr($getMessage, $routeNamePos, 12). ']ã§ã™ã€‚'),
-			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('ä¹—æ›å›žæ•°ã¯['. substr($getMessage, $transitTimePos, 12). ']ã§ã™ã€‚'),
-			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('é‹è³ƒåˆè¨ˆã¯['. substr($getMessage, ($transitTimePos + 12), 12). ']ã§ã™ã€‚')
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('“ü—Í‚³‚ê‚½Œo˜H‚Í['. substr($getMessage, 0, $routeNamePos). ']‚Å‚·B'),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('“ú•t‚Í['. substr($getMessage, $routeNamePos, 12). ']‚Å‚·B'),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('æŠ·‰ñ”‚Í['. substr($getMessage, $transitTimePos, 12). ']‚Å‚·B')
+			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('‰^’À‡Œv‚Í['. substr($getMessage, ($transitTimePos + 12), 12). ']‚Å‚·B')
 		);
 	}
 }else{
-	/*ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã«å¯¾ã—ã¦è¿”ä¿¡ã‚’å¤‰ãˆã‚‹*/
+	/*ƒƒbƒZ[ƒW‚É‘Î‚µ‚Ä•ÔM‚ð•Ï‚¦‚é*/
 	switch($getMessage){
-		case 'ãƒ†ã‚¹ãƒˆ':
-			$preSendMessage = 'ãƒ†ã‚¹ãƒˆå®Œäº†ï¼';
+		case 'ƒeƒXƒg':
+			$preSendMessage = 'ƒeƒXƒgŠ®—¹I';
 			$stickerType = 114;
 			break;
-		case 'å¤§è»½':
-			$preSendMessage = 'å‰å¤§ãªé–‹ç™ºè€…ã®åå‰';
+		case '‘åŒy':
+			$preSendMessage = 'ˆÌ‘å‚ÈŠJ”­ŽÒ‚Ì–¼‘O';
 			$stickerType = 119;
 			break;
-		case 'ã†ã‚‹ã•ã„':
+		case '‚¤‚é‚³‚¢':
 			return;
 		default :
 			$preSendMessage = $json->events[0]->message->text;
@@ -84,11 +84,11 @@ if($startPos != 'false'){
 	}
 }
 
-/******ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ©ãƒ³ãƒãƒ£******/
+/******ƒƒbƒZ[ƒWƒ‰ƒ“ƒ`ƒƒ******/
 function replyMultiMessage($bot, $replyToken, ...$msgs) {
-  // MultiMessageBuilderã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
+  // MultiMessageBuilder‚ðƒCƒ“ƒXƒ^ƒ“ƒX‰»
   $builder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
-  // ãƒ“ãƒ«ãƒ€ãƒ¼ã«ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å…¨ã¦è¿½åŠ 
+  // ƒrƒ‹ƒ_[‚ÉƒƒbƒZ[ƒW‚ð‘S‚Ä’Ç‰Á
   foreach($msgs as $value) {
     $builder->add($value);
   }
