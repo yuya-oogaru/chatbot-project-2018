@@ -44,10 +44,10 @@ $endPos = strrpos($getMessage, '--------------------');
 if($startPos != 'false'){
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage),
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($endPos),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(substr($preSendMessage, $startPos, ($endPos - $startPos)))
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(substr($getMessage, $startPos, ($endPos - $startPos)))
 		);
 	}
 }else{
