@@ -57,16 +57,26 @@ switch($getMessage){
 
 $startPos = strpos($preSendMessage, '--------------------');
 $endPos = strrpos($preSendMessage, '--------------------');
+
 /*返信*/
 foreach ($events as $event) {
-	replyMultiMessage($bot, $replyToken, 
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
-	//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(strrev($preSendMessage)),
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($endPos),
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(substr($preSendMessage, $startPos, ($endPos - $startPos)))
-	//new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
-	);
+	if($startPos != 'false'){
+	
+		replyMultiMessage($bot, $replyToken, 
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($endPos),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(substr($preSendMessage, $startPos, ($endPos - $startPos)))
+		);
+		
+	}else{
+	
+		replyMultiMessage($bot, $replyToken, 
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
+			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
+		);
+		
+	}
 }
 
 /******メッセージおうむ返し関数(未使用)******/
