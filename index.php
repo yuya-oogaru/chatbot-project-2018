@@ -40,9 +40,11 @@ $replyToken = $json->events[0]->replyToken;
 $sendMessage =  new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage);
 
 replyTextMessage($events, $bot, $replyToken, $sendMessage);
+replyStampMessage($bot, $replyToken, 1, 1);
 
-/* 配列に格納された各イベントをループで処理 */
+/******メッセージおうむ返し関数******/
 function replyTextMessage($events, $bot, $replyToken, $sendMessage){
+/* 配列に格納された各イベントをループで処理 */
 	foreach ($events as $event) {
 		$response = $bot->replyMessage($replyToken, $sendMessage);
 		
@@ -51,5 +53,16 @@ function replyTextMessage($events, $bot, $replyToken, $sendMessage){
 	    	// エラー内容を出力
 			error_log('Failed! '. $response->getHTTPStatus . ' ' . $response->getRawBody());
 		}
+	}
+}
+/******スタンプ返信関数******/
+function replyStampMessage($bot, $relpyToken, $packageID, $stickerID){
+	$response = $bot->replyMessage($replyToken, new \LINE\LINEBot\
+		MessageBuilder\StickerMessageBuilder($packageID, $stickerID));
+
+	// レスポンスが異常な場合
+	if (!$response->isSucceeded()) {
+	// エラー内容を出力
+		error_log('Failed! '. $response->getHTTPStatus . ' ' . $response->getRawBody());
 	}
 }
