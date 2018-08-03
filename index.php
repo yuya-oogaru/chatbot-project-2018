@@ -43,7 +43,8 @@ $startPos = mb_strpos($getMessage, '--------------------');
 
 /*必要情報の抽出*/
 $routeNamePos = strpos($getMessage, '  ');
-$transitTimePos = mb_strpos($getMessage, '　', 0, "UTF-8");
+$transitTimePos = mb_strpos($getMessage, '　', $routeNamePos, "UTF-8");
+$totalPricePos = $transitTimePos + 12;
 
 $preSendMessage = 'default text';
 /*返信*/
@@ -54,8 +55,8 @@ if($startPos != 'false'){
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. substr($getMessage, 0, $routeNamePos). ']です。'),
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('日付は['. substr($getMessage, $routeNamePos, 12). ']です。'),
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($transitTimePos),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('乗換回数は['. substr($getMessage, $transitTimePos, 12). ']です。')
-			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('運賃合計は['. substr($getMessage, ($transitTimePos + 12), 12). ']です。')
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('乗換回数は['. substr($getMessage, $transitTimePos, 12). ']です。').
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('運賃合計は['. substr($getMessage, $totalPricePos , 12). ']です。')
 		);
 	}
 }else{
