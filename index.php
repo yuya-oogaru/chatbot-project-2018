@@ -57,7 +57,6 @@ switch($getMessage){
 
 $startPos = strpos($preSendMessage, '--------------------');
 $endPos = strrpos($preSendMessage, '--------------------');
-$
 /*返信*/
 foreach ($events as $event) {
 	replyMultiMessage($bot, $replyToken, 
