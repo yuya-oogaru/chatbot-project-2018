@@ -52,7 +52,7 @@ if($startPos != 'false'){
 		replyMultiMessage($bot, $replyToken, 
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. substr($getMessage, 0, $routeNamePos). ']です。'),
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('日付は['. substr($getMessage, $routeNamePos, 12). ']です。'),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('乗換回数は['. substr($getMessage, $transitTimePos, 12). ']です。'),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('乗換回数は['. substr($getMessage, $transitTimePos, 12). ']です。')
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('運賃合計は['. substr($getMessage, ($transitTimePos + 12), 12). ']です。')
 		);
 	}
