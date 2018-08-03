@@ -55,7 +55,7 @@ if($startPos != false){
 		replyMultiMessage($bot, $replyToken, 
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. mb_substr($getMessage, 0, $routeNamePos, "UTF-8"). ']です。'),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('日付は['. mb_substr($getMessage, $routeNamePos, 7, "UTF-8"). ']です。'),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('日付は['. mb_substr($getMessage, $routeNamePos, 11, "UTF-8"). ']です。'),
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($transitTimePos),
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($totalPricePos)
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('乗換回数は['. mb_substr($getMessage, $transitTimePos, 5, "UTF-8"). ']です。'),
