@@ -59,26 +59,23 @@ $startPos = strpos($preSendMessage, '--------------------');
 $endPos = strrpos($preSendMessage, '--------------------');
 
 /*返信*/
-foreach ($events as $event) {
-	if($startPos != 'false'){
-	
+if($startPos != 'false'){
+	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($endPos),
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(substr($preSendMessage, $startPos, ($endPos - $startPos)))
 		);
-		
-	}else{
-	
+	}
+}else{
+	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
 			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
 		);
-		
 	}
 }
-
 /******メッセージおうむ返し関数(未使用)******/
 function replyTextMessage($bot, $replyToken, $sendMessage){
 /* 配列に格納された各イベントをループで処理 */
