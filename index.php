@@ -40,7 +40,7 @@ $replyToken = $json->events[0]->replyToken;
 $startPos = strpos($getMessage, '--------------------');
 $endPos = strrpos($getMessage, '--------------------');
 
-$routeNamePos = strpos($getMessage, ' ');
+$routeNamePos = strpos($getMessage, '  ');
 
 $preSendMessage = 'default text';
 
@@ -76,7 +76,7 @@ if($startPos != 'false'){
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
-			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
+			//new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
 		);
 	}
 }
