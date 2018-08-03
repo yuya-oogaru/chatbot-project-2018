@@ -52,23 +52,29 @@ if($startPos != 'false'){
 	}
 }else{
 
-/*メッセージに対して返信を変える*/
-switch($getMessage){
-	case 'テスト':
-		$preSendMessage = 'テスト完了！';
-		$stickerType = 114;
-		break;
-	case '大軽':
-		$preSendMessage = '偉大な開発者の名前';
-		$stickerType = 119;
-		break;
-	case 'うるさい':
-		return;
-	default :
-		$preSendMessage = $json->events[0]->message->text;
-		$stickerType = 113;
-		break;
-}
+	/*受信メッセージ抽出*/
+	$getMessage = $json->events[0]->message->text;
+
+	/*リプライトークン（返信証明）取得*/
+	$replyToken = $json->events[0]->replyToken;
+	
+	/*メッセージに対して返信を変える*/
+	switch($getMessage){
+		case 'テスト':
+			$preSendMessage = 'テスト完了！';
+			$stickerType = 114;
+			break;
+		case '大軽':
+			$preSendMessage = '偉大な開発者の名前';
+			$stickerType = 119;
+			break;
+		case 'うるさい':
+			return;
+		default :
+			$preSendMessage = $json->events[0]->message->text;
+			$stickerType = 113;
+			break;
+	}
 
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
