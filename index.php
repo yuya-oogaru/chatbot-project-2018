@@ -55,8 +55,8 @@ function replyTextMessage($bot, $replyToken, $sendMessage){
 	}
 }
 /******スタンプ返信関数******/
-function replyStampMessage($bot, $relpyToken, $packageID, $stickerID){
-	$response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder($packageID, $stickerID));
+function replyStampMessage($bot, $relpyToken, $packageId, $stickerId){
+	$response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder($packageId, $stickerId));
 
 	// レスポンスが異常な場合
 	if (!$response->isSucceeded()) {
