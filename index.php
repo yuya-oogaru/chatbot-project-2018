@@ -36,14 +36,11 @@ $getMessage = $json->events[0]->message->text;
 /*リプライトークン（返信証明）取得*/
 $replyToken = $json->events[0]->replyToken;
 
-/*返信メッセージ構築*/
-$sendMessage =  new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage);
-
-/*返信スタンプ構築*/
-$sendSticker = new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, 1)
-
 foreach ($events as $event) {
-	replyMultiMessage($bot, $replyToken, $sendMessage, $sendSticker);
+	replyMultiMessage($bot, $replyToken, 
+	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage),
+	new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, 1)
+	);
 }
 
 /******メッセージおうむ返し関数******/
