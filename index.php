@@ -10,6 +10,8 @@
 
 <?php
 
+# yum install php-mbstring
+
 // Composerでインストールしたライブラリを一括読み込み
 require_once __DIR__ . '/vendor/autoload.php';
 
