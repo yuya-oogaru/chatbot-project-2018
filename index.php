@@ -42,7 +42,7 @@ $startPos = strpos($getMessage, '--------------------');
 
 /*必要情報の抽出*/
 $routeNamePos = strpos($getMessage, '  ');
-$transitTimePos = strpos($getMessage, '　');
+$transitTimePos = mb_strpos($getMessage, '　');
 
 $preSendMessage = 'default text';
 
