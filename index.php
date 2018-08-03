@@ -42,10 +42,6 @@ foreach ($events as $event) {
 	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage),
 	new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, 113)
 	);
-	replyMultiMessage($bot, $replyToken, 
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage),
-	new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, 114)
-	);
 }
 
 /******メッセージおうむ返し関数(未使用)******/
