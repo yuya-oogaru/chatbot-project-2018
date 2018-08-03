@@ -40,14 +40,13 @@ $replyToken = $json->events[0]->replyToken;
 $sendMessage =  new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage);
 
 replyTextMessage($events, $bot, $replyToken, $sendMessage);
-replyStampMessage($bot, $replyToken, 1, 1);
 
 /******メッセージおうむ返し関数******/
 function replyTextMessage($events, $bot, $replyToken, $sendMessage){
 /* 配列に格納された各イベントをループで処理 */
 	foreach ($events as $event) {
 		$response = $bot->replyMessage($replyToken, $sendMessage);
-		
+		replyStampMessage($bot, $replyToken, 1, 1);
 		// レスポンスが異常な場合
 		if (!$response->isSucceeded()) {
 	    	// エラー内容を出力
