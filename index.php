@@ -33,12 +33,15 @@ $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
 /*受信メッセージ抽出*/
 $getMessage = $json->events[0]->message->text;
 
+/*リプライトークン（返信証明）取得*/
+$replyToken = $json->events[0]->replyToken;
+
 /*返信メッセージ構築*/
 $sendMessage =  new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage);
 
 foreach ($events as $event) {
-	replyTextMessage($bot, $event->getReplyToken(), $sendMessage);
-	replyStampMessage($bot, $event->getReplyToken(), 1, 1);
+	replyTextMessage($bot, $replyToken, $sendMessage);
+	replyStampMessage($bot, $relpyToken, 1, 1);
 }
 
 /******メッセージおうむ返し関数******/
@@ -53,8 +56,7 @@ function replyTextMessage($bot, $replyToken, $sendMessage){
 }
 /******スタンプ返信関数******/
 function replyStampMessage($bot, $relpyToken, $packageID, $stickerID){
-	$response = $bot->replyMessage($replyToken, new \LINE\LINEBot\
-		MessageBuilder\StickerMessageBuilder($packageID, $stickerID));
+	$response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder($packageID, $stickerID));
 
 	// レスポンスが異常な場合
 	if (!$response->isSucceeded()) {
