@@ -47,6 +47,7 @@ $transitTimePos = mb_strpos($getMessage, '　', 1, "UTF-8");
 $transitTimePos += 1;
 $totalPricePos = mb_strpos($getMessage, '　', $transitTimePos, "UTF-8");
 $totalPricePos += 1;
+$totalPriceEndPos = mb_strpos($getMessage, '\n', $totalPricePos, "UTF-8");
 
 $preSendMessage = 'default text';
 /*返信*/
@@ -59,7 +60,7 @@ if($startPos != false){
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($transitTimePos),
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($totalPricePos)
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('乗換回数は['. mb_substr($getMessage, $transitTimePos, 5, "UTF-8"). ']です。'),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('運賃合計は['. mb_substr($getMessage, $totalPricePos, 5, "UTF-8"). ']です。')
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('運賃合計は['. mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8"). ']です。')
 		);
 	}
 }else{
