@@ -37,6 +37,21 @@ $getMessage = $json->events[0]->message->text;
 /*リプライトークン（返信証明）取得*/
 $replyToken = $json->events[0]->replyToken;
 
+$startPos = strpos($getMessage, '--------------------');
+$endPos = strrpos($getMessage, '--------------------');
+
+/*返信*/
+if($startPos != 'false'){
+	foreach ($events as $event) {
+		replyMultiMessage($bot, $replyToken, 
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($endPos),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(substr($preSendMessage, $startPos, ($endPos - $startPos)))
+		);
+	}
+}else{
+
 /*メッセージに対して返信を変える*/
 switch($getMessage){
 	case 'テスト':
@@ -55,35 +70,11 @@ switch($getMessage){
 		break;
 }
 
-$startPos = strpos($preSendMessage, '--------------------');
-$endPos = strrpos($preSendMessage, '--------------------');
-
-/*返信*/
-if($startPos != 'false'){
-	foreach ($events as $event) {
-		replyMultiMessage($bot, $replyToken, 
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($endPos),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(substr($preSendMessage, $startPos, ($endPos - $startPos)))
-		);
-	}
-}else{
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
 			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
 		);
-	}
-}
-/******メッセージおうむ返し関数(未使用)******/
-function replyTextMessage($bot, $replyToken, $sendMessage){
-/* 配列に格納された各イベントをループで処理 */
-	$response = $bot->replyMessage($replyToken, $sendMessage);
-	// レスポンスが異常な場合
-	if (!$response->isSucceeded()) {
-	   	// エラー内容を出力
-		error_log('text send Failed! '. $response->getHTTPStatus . ' ' . $response->getRawBody());
 	}
 }
 
