@@ -39,7 +39,6 @@ $replyToken = $json->events[0]->replyToken;
 /*返信メッセージ構築*/
 $sendMessage =  new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage);
 
-
 replyTextMessage($events, $bot, $replyToken, $sendMessage);
 
 /* 配列に格納された各イベントをループで処理 */
