@@ -43,9 +43,8 @@ $startPos = mb_strpos($getMessage, '--------------------');
 
 /*必要情報の抽出*/
 $routeNamePos = mb_strpos($getMessage, '  ',1 , "UTF-8");
-$transitTimePos = mb_strpos($getMessage, '　', $routeNamePos, "UTF-8");
-$transitTimePos = $transitTimePos + $routeNamePos;
-$totalPricePos = $transitTimePos + 4;
+$transitTimePos = mb_strpos($getMessage, '　', 1, "UTF-8");
+$totalPricePos = mb_strpos($getMessage, '　', $transitTimePos, "UTF-8");
 
 $preSendMessage = 'default text';
 /*返信*/
@@ -54,7 +53,7 @@ if($startPos != false){
 		replyMultiMessage($bot, $replyToken, 
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. mb_substr($getMessage, 0, $routeNamePos, "UTF-8"). ']です。'),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('日付は['. substr($getMessage, $routeNamePos, 12). ']です。'),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('日付は['. mb_substr($getMessage, $routeNamePos, 4, "UTF-8"). ']です。'),
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($transitTimePos),
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($totalPricePos)
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('乗換回数は['. mb_substr($getMessage, $transitTimePos, 4, "UTF-8"). ']です。'),
@@ -82,8 +81,8 @@ if($startPos != false){
 
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage)
-			//new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
+			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
 		);
 	}
 }
