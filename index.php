@@ -38,14 +38,14 @@ $replyToken = $json->events[0]->replyToken;
 
 /*返信*/
 foreach ($events as $event) {
-	replyMultiMessage($bot, $replyToken, 
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage),
-	new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, 113)
-	);
+	//replyMultiMessage($bot, $replyToken, 
+	//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage),
+	//new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, 113)
+	//);
 	
 	replyButtonsTemplate(
 	$bot,
-    $event->getReplyToken(),
+    $replyToken,
     'お天気お知らせ - 今日は天気予報は晴れです',
     'https://' . $_SERVER['HTTP_HOST'] . '/imgs/template.jpg',
     'お天気お知らせ',
