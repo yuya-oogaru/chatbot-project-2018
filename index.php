@@ -40,12 +40,15 @@ $replyToken = $json->events[0]->replyToken;
 switch($getMessage){
 	case 'テスト':
 		$preSendMessage = 'テスト完了！';
+		$stickerType = 114;
 		break;
 	case '大軽':
-		$preSendMessage = '開発者の名前';
+		$preSendMessage = '偉大な開発者の名前';
+		$stickerType = 119;
 		break;
 	default :
 		$preSendMessage = $json->events[0]->message->text;
+		$stickerType = 113;
 		break;
 }
 
@@ -53,7 +56,7 @@ switch($getMessage){
 foreach ($events as $event) {
 	replyMultiMessage($bot, $replyToken, 
 	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
-	new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, 113)
+	new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
 	);
 }
 
