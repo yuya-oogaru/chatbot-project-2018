@@ -55,14 +55,18 @@ switch($getMessage){
 		break;
 }
 
+$startPos = strpos($preSendMessage, '--------------------');
+$endPos = strrpos($preSendMessage, '--------------------');
+$
 /*返信*/
 foreach ($events as $event) {
 	replyMultiMessage($bot, $replyToken, 
 	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
 	//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(strrev($preSendMessage)),
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(strpos($preSendMessage, '--------------------')),
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(strrpos($preSendMessage, '--------------------')),
-	new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
+	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
+	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($endPos),
+	//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(substr(strpos($preSendMessage, '--------------------'), )),
+	//new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
 	);
 }
 
