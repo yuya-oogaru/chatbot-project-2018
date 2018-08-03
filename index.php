@@ -32,17 +32,14 @@ $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
 /****************/
 
 /*受信メッセージ抽出*/
-//$getMessage = $json->events[0]->message->text;
+$getMessage = $json->events[0]->message->text;
 
-$getMessage = '桜ノ宮〜東京  8/ 3(金) 13:47 - 16:43\n2時間56分　乗換2回　14,650円\n--------------------\n切符利用時の運賃です。\n[ 8/ 3]\n13:47発　桜ノ宮\n　大阪環状
-線大阪方面関空快速≪日根野で切り離し注意≫(関西空港行)\n13:55発　大阪\n　ＪＲ京都線(高槻行)\n14:10発　新大阪\n　のぞみ364号(N700系)(東京行)\n16:43着　
-東京\n\n--------------------\n詳しい結果はコチラ\nジョルダン乗換案内\n';
 
 /*リプライトークン（返信証明）取得*/
 $replyToken = $json->events[0]->replyToken;
 
 /*ジョルダンのメッセージかどうか判断*/
-$startPos = mb_strpos($getMessage, 'ジョルダン乗換案内');
+$startPos = mb_strpos($getMessage, '--------------------');
 
 /*必要情報の抽出*/
 $routeNamePos = strpos($getMessage, '  ');
@@ -54,12 +51,10 @@ new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos);
 if($startPos != 'false'){
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($routeNamePos),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($transitTimePos),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. substr($getMessage, 0, $routeNamePos). ']です。'),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('日付は['. substr($getMessage, $routeNamePos, 12). ']です。'),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('乗換回数は['. substr($getMessage, $transitTimePos, 12). ']です。'),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('運賃合計は['. substr($getMessage, ($transitTimePos + 12), 12). ']です。')
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. substr($getMessage, 0, $routeNamePos). ']です。')
+			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('日付は['. substr($getMessage, $routeNamePos, 12). ']です。'),
+			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('乗換回数は['. substr($getMessage, $transitTimePos, 12). ']です。'),
+			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('運賃合計は['. substr($getMessage, ($transitTimePos + 12), 12). ']です。')
 		);
 	}
 }else{
