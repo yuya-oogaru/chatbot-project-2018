@@ -1,14 +1,33 @@
 <?php
-// まずは HTTPステータス 200 を返す
 http_response_code(200) ;
 echo '200 {}';
 
+// HTTPヘッダーを取得
+$headers = getallheaders();
+// HTTPヘッダーから、署名検証用データを取得
+$headerSignature = $headers["X-Line-Signature"];
 // 送られて来たJSONデータを取得
 $json_string = file_get_contents('php://input');
 $json = json_decode($json_string);
+
+// Channel secretを秘密鍵として、JSONデータからハッシュ値を計算
+$channelSecret = 'メモした Channel Secret の文字列';
+$httpRequestBody = $json_string;
+$hash = hash_hmac('sha256', $httpRequestBody, $channelSecret, true);
+$signature = base64_encode($hash);
+// HTTPヘッダーから得た値と、計算したハッシュ値を比較
+if($headerSignature !== $signature)
+{
+	return;
+}
+
+if($json->events[0]->type !== 'message')
+{
+	return;
+}
 // JSONデータから返信先を取得
 $replyToken = $json->events[0]->replyToken;
-// JSONデータから送られてきたメッセージを取得
+// JSONデータからメッセージを取得
 $message = $json->events[0]->message->text;
 
 // HTTPヘッダを設定
