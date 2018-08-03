@@ -39,18 +39,19 @@ $replyToken = $json->events[0]->replyToken;
 /*返信メッセージ構築*/
 $sendMessage =  new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage);
 
-replyTextMessage($events, $bot, $replyToken, $sendMessage);
+foreach ($events as $event) {
+	replyTextMessage($bot, $replyToken, $sendMessage);
+	replyStampMessage($bot, $relpyToken, 1, 1);
+}
 
 /******メッセージおうむ返し関数******/
-function replyTextMessage($events, $bot, $replyToken, $sendMessage){
+function replyTextMessage($bot, $replyToken, $sendMessage){
 /* 配列に格納された各イベントをループで処理 */
-	foreach ($events as $event) {
-		$response = $bot->replyMessage($replyToken, $sendMessage);
-		// レスポンスが異常な場合
-		if (!$response->isSucceeded()) {
-	    	// エラー内容を出力
-			error_log('Failed! '. $response->getHTTPStatus . ' ' . $response->getRawBody());
-		}
+	$response = $bot->replyMessage($replyToken, $sendMessage);
+	// レスポンスが異常な場合
+	if (!$response->isSucceeded()) {
+	   	// エラー内容を出力
+		error_log('Failed! '. $response->getHTTPStatus . ' ' . $response->getRawBody());
 	}
 }
 /******スタンプ返信関数******/
