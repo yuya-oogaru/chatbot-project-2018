@@ -43,7 +43,7 @@ $startPos = mb_strpos($getMessage, '--------------------');
 
 /*必要情報の抽出*/
 $routeNamePos = strpos($getMessage, '  ');
-//$transitTimePos = mb_strpos($getMessage, '　', 0, "UTF-8");
+$transitTimePos = mb_strpos($getMessage, '　', 0, "UTF-8");
 
 $preSendMessage = 'default text';
 /*返信*/
