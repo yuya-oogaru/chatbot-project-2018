@@ -10,8 +10,6 @@
 
 <?php
 
-# yum install php-mbstring
-
 // Composerでインストールしたライブラリを一括読み込み
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -61,8 +59,8 @@ switch($getMessage){
 foreach ($events as $event) {
 	replyMultiMessage($bot, $replyToken, 
 	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(mb_strlen($preSendMessage)),
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(mb_strcut($preSendMessage,1,1)),
+	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(strlen($preSendMessage)),
+	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(strrev($preSendMessage)),
 	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(strpos($preSendMessage, '\n')),
 	new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
 	);
