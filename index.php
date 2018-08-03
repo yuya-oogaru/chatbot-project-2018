@@ -45,14 +45,14 @@ $routeNamePos = strpos($getMessage, '  ');
 //$transitTimePos = mb_strpos($getMessage, '　');
 
 $preSendMessage = 'default text';
-
+new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos);
 /*返信*/
 if($startPos != 'false'){
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($routeNamePos),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($transitTimePos),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. substr($getMessage, 0, $routeNamePos). ']です。')
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($transitTimePos)
+			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. substr($getMessage, 0, $routeNamePos). ']です。'),
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('日付は['. substr($getMessage, $routeNamePos, 12). ']です。'),
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('乗換回数は['. substr($getMessage, $transitTimePos, 12). ']です。'),
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('運賃合計は['. substr($getMessage, ($transitTimePos + 12), 12). ']です。')
