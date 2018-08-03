@@ -47,7 +47,7 @@ $transitTimePos = mb_strpos($getMessage, '　', 1, "UTF-8");
 $transitTimePos += 1;
 $totalPricePos = mb_strpos($getMessage, '　', $transitTimePos, "UTF-8");
 $totalPricePos += 1;
-$totalPriceEndPos = mb_strpos($getMessage, '\n', $totalPricePos, "UTF-8");
+$totalPriceEndPos = mb_strpos($getMessage, '円', $totalPricePos, "UTF-8");
 
 $preSendMessage = 'default text';
 /*返信*/
