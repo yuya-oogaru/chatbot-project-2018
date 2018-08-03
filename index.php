@@ -14,13 +14,8 @@ $signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATUR
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
 // 配列に格納された各イベントをループで処理
 foreach ($events as $event) {
-$bot->replyText($event->getReplyToken(), 'TextMessage');
-}
-// テキストを返信。引数はLINEBot、返信先、テキスト
-function replyTextMessage($bot, $replyToken, $text) {
-  // 返信を行いレスポンスを取得
-  // TextMessageBuilderの引数はテキスト
-  $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text));
+
+  $response = $bot->replyMessage($json->events[0]->replyToken, $message = $json->events[0]->message->text);
   // レスポンスが異常な場合
   if (!$response->isSucceeded()) {
     // エラー内容を出力
