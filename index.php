@@ -36,14 +36,15 @@ $getMessage = $json->events[0]->message->text;
 /*リプライトークン（返信証明）取得*/
 $replyToken = $json->events[0]->replyToken;
 
+/*返信*/
 foreach ($events as $event) {
 	replyMultiMessage($bot, $replyToken, 
 	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage),
-	new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, 1)
+	new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(113, 1)
 	);
 }
 
-/******メッセージおうむ返し関数******/
+/******メッセージおうむ返し関数(未使用)******/
 function replyTextMessage($bot, $replyToken, $sendMessage){
 /* 配列に格納された各イベントをループで処理 */
 	$response = $bot->replyMessage($replyToken, $sendMessage);
@@ -53,16 +54,7 @@ function replyTextMessage($bot, $replyToken, $sendMessage){
 		error_log('text send Failed! '. $response->getHTTPStatus . ' ' . $response->getRawBody());
 	}
 }
-/******スタンプ返信関数******/
-function replyStampMessage($bot, $relpyToken, $packageId, $stickerId){
-	$response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder($packageId, $stickerId));
 
-	// レスポンスが異常な場合
-	if (!$response->isSucceeded()) {
-	// エラー内容を出力
-		error_log('stamp send Failed! '. $response->getHTTPStatus . ' ' . $response->getRawBody());
-	}
-}
 /******メッセージランチャ******/
 function replyMultiMessage($bot, $replyToken, ...$msgs) {
   // MultiMessageBuilderをインスタンス化
