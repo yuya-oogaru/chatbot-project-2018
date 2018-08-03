@@ -45,7 +45,7 @@ switch($getMessage){
 		$preSendMessage = '開発者の名前';
 		break;
 	default :
-		$preSendMessage = $getMassage;
+		$preSendMessage = $json->events[0]->message->text;
 		break;
 }
 
