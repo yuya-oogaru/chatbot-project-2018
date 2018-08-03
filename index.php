@@ -44,6 +44,7 @@ $startPos = mb_strpos($getMessage, '--------------------');
 /*必要情報の抽出*/
 $routeNamePos = strpos($getMessage, '  ');
 $transitTimePos = mb_strpos($getMessage, '　', $routeNamePos, "UTF-8");
+$transitTimePos += $routeNamePos;
 $totalPricePos = $transitTimePos + 12;
 
 $preSendMessage = 'default text';
