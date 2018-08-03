@@ -63,7 +63,7 @@ foreach ($events as $event) {
 	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
 	//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(strrev($preSendMessage)),
 	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($endPos),
+	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($endPos)
 	//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(substr(strpos($preSendMessage, '--------------------'), )),
 	//new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
 	);
