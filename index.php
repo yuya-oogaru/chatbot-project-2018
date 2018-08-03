@@ -50,8 +50,8 @@ if($startPos != false){
 		replyMultiMessage($bot, $replyToken, 
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($routeNamePos),
-			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(substr($getMessage, $startPos, ($endPos - $startPos)))
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['.substr($getMessage, 0, $routeNamePos).']です。')
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(substr($getMessage, $startPos, ($endPos - $startPos)))
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. substr($getMessage, 0, $routeNamePos). ']です。')
 		);
 	}
 }else{
