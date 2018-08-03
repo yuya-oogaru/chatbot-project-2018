@@ -36,10 +36,23 @@ $getMessage = $json->events[0]->message->text;
 /*リプライトークン（返信証明）取得*/
 $replyToken = $json->events[0]->replyToken;
 
+/*メッセージに対して返信を変える*/
+switch($getMessage){
+	case 'テスト':
+		$preSendMessage = 'テスト完了！';
+		break;
+	case '大軽':
+		$preSendMessage = '開発者の名前';
+		break;
+	default :
+		$preSendMessage = $getMassage;
+		break;
+}
+
 /*返信*/
 foreach ($events as $event) {
 	replyMultiMessage($bot, $replyToken, 
-	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage),
+	new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
 	new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, 113)
 	);
 }
