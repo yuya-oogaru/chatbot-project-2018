@@ -46,7 +46,6 @@ function replyTextMessage($events, $bot, $replyToken, $sendMessage){
 /* 配列に格納された各イベントをループで処理 */
 	foreach ($events as $event) {
 		$response = $bot->replyMessage($replyToken, $sendMessage);
-		replyStampMessage($bot, $replyToken, 1, 1);
 		// レスポンスが異常な場合
 		if (!$response->isSucceeded()) {
 	    	// エラー内容を出力
@@ -65,3 +64,5 @@ function replyStampMessage($bot, $relpyToken, $packageID, $stickerID){
 		error_log('Failed! '. $response->getHTTPStatus . ' ' . $response->getRawBody());
 	}
 }
+
+?>
