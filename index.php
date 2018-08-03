@@ -38,7 +38,7 @@ $getMessage = $json->events[0]->message->text;
 $replyToken = $json->events[0]->replyToken;
 
 /*ジョルダンのメッセージかどうか判断*/
-$startPos = strpos($getMessage, '--------------------');
+$startPos = mb_strpos($getMessage, 'ジョルダン乗換案内');
 
 /*必要情報の抽出*/
 $routeNamePos = strpos($getMessage, '  ');
