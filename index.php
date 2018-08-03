@@ -2,8 +2,8 @@
 *           ** LINE TEST BOT Project(2018/08/03)**
 *
 *
-*
-*
+*                      テストプログラム！！
+*                      本番で使用しないこと
 *
 *
 *************************************************************/
@@ -37,10 +37,12 @@ $getMessage = $json->events[0]->message->text;
 /*リプライトークン（返信証明）取得*/
 $replyToken = $json->events[0]->replyToken;
 
-$startPos = strpos($getMessage, '--------------------');
-$endPos = strrpos($getMessage, '--------------------');
+/*ジョルダンのメッセージかどうか判断*/
+$startPos = strpos($getMessage, 'ジョルダン乗換案内');
 
+/*必要情報の抽出*/
 $routeNamePos = strpos($getMessage, '  ');
+$transitTimePos = strpos($getMessage, '　');
 
 $preSendMessage = 'default text';
 
@@ -48,14 +50,12 @@ $preSendMessage = 'default text';
 if($startPos != 'false'){
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
-			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($routeNamePos),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(substr($getMessage, $startPos, ($endPos - $startPos))),
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. substr($getMessage, 0, $routeNamePos). ']です。')
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. substr($getMessage, 0, $routeNamePos). ']です。'),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('日付は['. substr($getMessage, $routeNamePos, 10). ']です。'),
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('乗換回数は['. substr($getMessage, $transitTimePos, 10). ']です。')
 		);
 	}
-}
-if($startPos == 'false'){
+}else{
 	/*メッセージに対して返信を変える*/
 	switch($getMessage){
 		case 'テスト':
