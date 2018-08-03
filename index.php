@@ -40,10 +40,7 @@ $replyToken = $json->events[0]->replyToken;
 $sendMessage =  new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getMessage);
 
 foreach ($events as $event) {
-	replyMultiMessage($bot, $replyToken,
-    new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($sendMessage),
-    new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, 1)
-  );
+	replyMultiMessage($bot, $replyToken, $sendMessage, new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, 1));
 }
 
 /******メッセージおうむ返し関数******/
