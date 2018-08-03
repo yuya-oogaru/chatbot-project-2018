@@ -17,6 +17,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 $json_string = file_get_contents('php://input');
 $json = json_decode($json_string);
 
+/*コンソールにJSONデータ表示
+error_log($json_string);
+
 /****署名認証****/
 
 // アクセストークンを使いCurlHTTPClientをインスタンス化
