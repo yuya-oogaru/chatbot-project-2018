@@ -51,6 +51,14 @@ $totalPricePos += 1;
 $totalPriceEndPos = mb_strpos($getMessage, '円', $totalPricePos, "UTF-8");
 
 $preSendMessage = 'default text';
+
+/*データ抽出*/
+$routes = mb_substr($getMessage, 1, $routeNamePos, "UTF-8");
+$date = mb_substr($getMessage, ($routeNamePos + 1), (($dateEndPos - $routeNamePos) + 1), "UTF-8");
+$transit = mb_substr($getMessage, ($transitTimePos + 2), ($transitTimeEndPos - ($transitTimePos + 2)), "UTF-8");
+$price = mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8");
+
+
 /*返信*/
 if($startPos != false){
 	foreach ($events as $event) {
@@ -58,19 +66,11 @@ if($startPos != false){
 		
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('交通費データは以下の内容で登録可能です。
 			
-			'.'経路 : ['.mb_substr($getMessage, 0, $routeNamePos, "UTF-8").']
-			'.'日付 : ['.mb_substr($getMessage, $routeNamePos, (($dateEndPos - $routeNamePos) + 1), "UTF-8").']
-			'.'乗換回数 : ['.mb_substr($getMessage, ($transitTimePos + 2), ($transitTimeEndPos - ($transitTimePos + 2)), "UTF-8").']
-			'.'運賃合計 : ['. mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8").']\n'
-				)
-		
-			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
-			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('入力された経路は['. mb_substr($getMessage, 0, $routeNamePos, "UTF-8"). ']です。'),
-			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('日付は['. mb_substr($getMessage, $routeNamePos, (($dateEndPos - $routeNamePos) + 1), "UTF-8"). ']です。'),
-			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($transitTimePos),
-			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($totalPricePos)
-			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('乗換回数は['. mb_substr($getMessage, ($transitTimePos + 2), ($transitTimeEndPos - ($transitTimePos + 2)), "UTF-8"). ']回です。'),
-			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('運賃合計は['. mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8"). ']円です。')
+			'.'経路 : ['.$routes.']
+			'.'日付 : ['.$date.']
+			'.'乗換回数 : ['.$transit.']回
+			'.'運賃合計 : ['.$price.']円'
+			)
 		);
 	}
 }else{
