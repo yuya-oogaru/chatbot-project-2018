@@ -34,7 +34,6 @@ $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
 /*受信メッセージ抽出*/
 $getMessage = $json->events[0]->message->text;
 
-
 /*リプライトークン（返信証明）取得*/
 $replyToken = $json->events[0]->replyToken;
 
@@ -52,7 +51,14 @@ $totalPriceEndPos = mb_strpos($getMessage, '円', $totalPricePos, "UTF-8");
 
 $preSendMessage = 'default text';
 
-/*データ抽出*/
+/*****データ抽出*****/
+/*ユーザー情報*/
+$response = $json->events[0]->source->userId;
+if ($response->isSucceeded()) {
+	$profile = $response->getJSONDecodedBody();
+}
+
+/*交通費データ*/
 $routes = mb_substr($getMessage, 1, $routeNamePos, "UTF-8");
 $date = mb_substr($getMessage, ($routeNamePos + 1), (($dateEndPos - $routeNamePos) + 1), "UTF-8");
 $transit = mb_substr($getMessage, ($transitTimePos + 2), ($transitTimeEndPos - ($transitTimePos + 2)), "UTF-8");
@@ -66,6 +72,7 @@ if($startPos != false){
 		
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('交通費データは以下の内容で登録可能です。
 			
+			'.'登録者名 : ['.$profile['displayName'].']'
 			'.'経路 : ['.$routes.']
 			'.'日付 : ['.$date.']
 			'.'乗換回数 : ['.$transit.']回
