@@ -72,6 +72,7 @@ if($startPos != false){
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('交通費データは以下の内容で登録可能です。
 			
 			'.'登録者名 : ['.$profile['displayName'].']
+			'.'登録日時 : ['.data('Y/m/d').']
 			'.'経路 : ['.$routes.']
 			'.'乗車日 : ['.$date.']
 			'.'乗換回数 : ['.$transit.']回
@@ -87,7 +88,7 @@ if($startPos != false){
 			$stickerType = 114;
 			break;
 		case '大軽':
-			$preSendMessage = '偉大な開発者の名前';
+			$preSendMessage = '開発者の名前';
 			$stickerType = 119;
 			break;
 		case 'うるさい':
