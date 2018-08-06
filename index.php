@@ -97,9 +97,11 @@ if($messageType != false){
 			
 			'.'登録者名 : ['.$profile['displayName'].']
 			'.'登録日時 : ['.date('Y/m/d').']
+			
 			'.'経路 : ['.$routes.']
 			'.'乗車日 : ['.$travelDate.']
 			'.'乗換回数 : ['.$transit.'回]
+			
 			'.'運賃合計 : ['.$price.'円]'
 			),
 			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(3, 229)
