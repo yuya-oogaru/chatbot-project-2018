@@ -105,20 +105,21 @@ $price = mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPrice
 
 
 /*返信*/
+/*以下、インデントがおかしいのは、表示文字列内にインデントのＴＡＢが挿入されてしまうため*/
 if($messageType != false){
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(
-				'交通費データは以下の内容で登録可能です。
+'交通費データは以下の内容で登録可能です。
+				
+'.'登録者名 : ['.$profile['displayName'].']
+'.'登録日時 : ['.date('Y/m/d').']
 			
-				'.'登録者名 : ['.$profile['displayName'].']
-				'.'登録日時 : ['.date('Y/m/d').']
+'.'経路 : ['.$routes.']
+'.'乗車日 : ['.$travelDate.']
+'.'乗換回数 : ['.$transit.'回]
 			
-				'.'経路 : ['.$routes.']
-				'.'乗車日 : ['.$travelDate.']
-				'.'乗換回数 : ['.$transit.'回]
-			
-				'.'運賃合計 : ['.$price.'円]'
+'.'運賃合計 : ['.$price.'円]'
 			),
 			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(3, 229)
 		);
