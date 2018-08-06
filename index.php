@@ -36,7 +36,7 @@ $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
 /****************/
 
 /*受信メッセージ抽出*/
-$getMessage = $json->events[0]->message->text;
+$getMessage = $json->events[0]->message->text; 
 
 /*リプライトークン（返信証明）取得*/
 $replyToken = $json->events[0]->replyToken;
@@ -67,7 +67,14 @@ $messageType = mb_strpos($getMessage, 'ジョルダン乗換案内', 1, "UTF-8")
 *********************************************************************/
 
 /*交通費データの抽出場所特定*/
-
+/*******************************
+$routeNamePos      :経路の記述箇所（末尾）
+$dateEndPos        :乗車日の記述箇所（末尾）
+$transitTimePos    :乗換回数の記述箇所（先頭）
+$transitTimeEndPos :乗換回数の記述箇所（末尾）
+$totalPricePos     :運賃合計の記述箇所（先頭）
+$totalPriceEndPos  :運賃合計の記述箇所（末尾）
+********************************/
 $routeNamePos = mb_strpos($getMessage, '  ',1 , "UTF-8");
 $dateEndPos = mb_strpos($getMessage, ')',$routeNamePos , "UTF-8");
 $transitTimePos = mb_strpos($getMessage, '乗換', 1, "UTF-8");
@@ -84,7 +91,13 @@ $preSendMessage = 'default text';
 $response = $json->events[0]->source->userId;
 $profile = $bot->getProfile($response)->getJSONDecodedBody();
 
-/*交通費データ*/
+/*******交通費データ*******/
+/**************************
+$route      :経路
+$travelData :乗車日
+$transit    :乗換回数
+$price      :運賃（合計）
+***************************/
 $routes = mb_substr($getMessage, 1, $routeNamePos, "UTF-8");
 $travelDate = mb_substr($getMessage, ($routeNamePos + 1), (($dateEndPos - $routeNamePos) + 1), "UTF-8");
 $transit = mb_substr($getMessage, ($transitTimePos + 2), ($transitTimeEndPos - ($transitTimePos + 2)), "UTF-8");
@@ -95,18 +108,17 @@ $price = mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPrice
 if($messageType != false){
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
-		
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(
-			'交通費データは以下の内容で登録可能です。
+				'交通費データは以下の内容で登録可能です。
 			
-			'.'登録者名 : ['.$profile['displayName'].']
-			'.'登録日時 : ['.date('Y/m/d').']
+				'.'登録者名 : ['.$profile['displayName'].']
+				'.'登録日時 : ['.date('Y/m/d').']
 			
-			'.'経路 : ['.$routes.']
-			'.'乗車日 : ['.$travelDate.']
-			'.'乗換回数 : ['.$transit.'回]
+				'.'経路 : ['.$routes.']
+				'.'乗車日 : ['.$travelDate.']
+				'.'乗換回数 : ['.$transit.'回]
 			
-			'.'運賃合計 : ['.$price.'円]'
+				'.'運賃合計 : ['.$price.'円]'
 			),
 			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(3, 229)
 		);
