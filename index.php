@@ -72,7 +72,7 @@ if($startPos != false){
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('交通費データは以下の内容で登録可能です。
 			
 			'.'登録者名 : ['.$profile['displayName'].']
-			'.'登録日時 : ['.data('Y/m/d').']
+			'.'登録日時 : ['.date('Y/m/d').']
 			'.'経路 : ['.$routes.']
 			'.'乗車日 : ['.$date.']
 			'.'乗換回数 : ['.$transit.']回
