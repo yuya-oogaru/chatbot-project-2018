@@ -60,7 +60,7 @@ if($startPos != false){
 				'経路 : ['.mb_substr($getMessage, 0, $routeNamePos, "UTF-8").']\n'.
 				'日付 : ['.mb_substr($getMessage, $routeNamePos, (($dateEndPos - $routeNamePos) + 1), "UTF-8").']\n'.
 				'乗換回数 : ['.mb_substr($getMessage, ($transitTimePos + 2), ($transitTimeEndPos - ($transitTimePos + 2)), "UTF-8").']\n'.
-				'運賃合計 : ['. mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8").']\n'.
+				'運賃合計 : ['. mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8").']\n'
 				)
 		
 			//new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($startPos),
