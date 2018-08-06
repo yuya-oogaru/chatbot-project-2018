@@ -54,9 +54,8 @@ $preSendMessage = 'default text';
 /*****データ抽出*****/
 /*ユーザー情報*/
 $response = $json->events[0]->source->userId;
-if ($response->isSucceeded()) {
-	$profile = $response->getJSONDecodedBody();
-}
+$profile = $response->getJSONDecodedBody();
+
 
 /*交通費データ*/
 $routes = mb_substr($getMessage, 1, $routeNamePos, "UTF-8");
