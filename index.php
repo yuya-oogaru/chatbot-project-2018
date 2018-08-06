@@ -10,6 +10,10 @@
 
 <?php
 
+/************************************************************
+＊ここからリプライトークン取得までは変えないで
+*************************************************************/
+
 // Composerでインストールしたライブラリを一括読み込み
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -62,7 +66,6 @@ $messageType = mb_strpos($getMessage, 'ジョルダン乗換案内', 1, "UTF-8")
 
 *********************************************************************/
 
-
 /*交通費データの抽出場所特定*/
 
 $routeNamePos = mb_strpos($getMessage, '  ',1 , "UTF-8");
@@ -93,7 +96,8 @@ if($messageType != false){
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
 		
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('交通費データは以下の内容で登録可能です。
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(
+			'交通費データは以下の内容で登録可能です。
 			
 			'.'登録者名 : ['.$profile['displayName'].']
 			'.'登録日時 : ['.date('Y/m/d').']
