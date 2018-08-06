@@ -2,8 +2,8 @@
 *           ** LINE TEST BOT Project(2018/08/03)**
 *
 *
-*                      テストプログラム！！
-*                      本番で使用しないこと
+*                   テストプログラム！！
+*                   本番で使用しないこと
 *
 *
 *************************************************************/
@@ -40,7 +40,8 @@ $replyToken = $json->events[0]->replyToken;
 /*ジョルダンのメッセージかどうか判断*/
 $startPos = mb_strpos($getMessage, 'ジョルダン乗換案内', 1, "UTF-8");
 
-/*必要情報の抽出*/
+/*交通費データの抽出場所特定*/
+
 $routeNamePos = mb_strpos($getMessage, '  ',1 , "UTF-8");
 $dateEndPos = mb_strpos($getMessage, ')',$routeNamePos , "UTF-8");
 $transitTimePos = mb_strpos($getMessage, '乗換', 1, "UTF-8");
@@ -52,10 +53,10 @@ $totalPriceEndPos = mb_strpos($getMessage, '円', $totalPricePos, "UTF-8");
 $preSendMessage = 'default text';
 
 /*****データ抽出*****/
+
 /*ユーザー情報*/
 $response = $json->events[0]->source->userId;
 $profile = $bot->getProfile($response)->getJSONDecodedBody();
-
 
 /*交通費データ*/
 $routes = mb_substr($getMessage, 1, $routeNamePos, "UTF-8");
@@ -75,9 +76,10 @@ if($startPos != false){
 			'.'登録日時 : ['.date('Y/m/d').']
 			'.'経路 : ['.$routes.']
 			'.'乗車日 : ['.$date.']
-			'.'乗換回数 : ['.$transit.']回
-			'.'運賃合計 : ['.$price.']円'
-			)
+			'.'乗換回数 : ['.$transit.'回]
+			'.'運賃合計 : ['.$price.'円]'
+			),
+			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(3, 229)
 		);
 	}
 }else{
