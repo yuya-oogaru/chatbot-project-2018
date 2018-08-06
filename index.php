@@ -54,7 +54,7 @@ $preSendMessage = 'default text';
 /*****データ抽出*****/
 /*ユーザー情報*/
 $response = $json->events[0]->source->userId;
-$profile = $response->getJSONDecodedBody();
+//$profile = $response->getJSONDecodedBody();
 
 
 /*交通費データ*/
@@ -71,9 +71,9 @@ if($startPos != false){
 		
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('交通費データは以下の内容で登録可能です。
 			
-			'.'登録者名 : ['.$profile['displayName'].']
+			'.'登録者名 : ['.$response.']
 			'.'経路 : ['.$routes.']
-			'.'日付 : ['.$date.']
+			'.'乗車日 : ['.$date.']
 			'.'乗換回数 : ['.$transit.']回
 			'.'運賃合計 : ['.$price.']円'
 			)
