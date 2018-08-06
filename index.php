@@ -4,8 +4,8 @@
 *
 *                   テストプログラム！！
 *                   本番で使用しないこと
-*
-*
+*             処理を全部メインメソッドに書いてるけど
+*                   本番では直します・・・・
 *************************************************************/
 
 <?php
@@ -38,7 +38,30 @@ $getMessage = $json->events[0]->message->text;
 $replyToken = $json->events[0]->replyToken;
 
 /*ジョルダンのメッセージかどうか判断*/
-$startPos = mb_strpos($getMessage, 'ジョルダン乗換案内', 1, "UTF-8");
+$messageType = mb_strpos($getMessage, 'ジョルダン乗換案内', 1, "UTF-8");
+
+
+/*********************************************************************
+                  ジョルダンフォーマット（受信データ）
+
+例):桜ノ宮～京橋　間
+
+桜ノ宮〜京橋  8/ 3(金) 14:09 - 14:11\n
+2分　乗換0回　120円\n
+--------------------\n
+切符利用時の運賃です。\n
+[ 8/ 3]\n
+14:09発　桜ノ宮\n
+　大阪環状線京橋方面\n
+14:11着　京橋\n
+\n
+--------------------\n
+詳しい結果はコチラ\n
+ジョルダン乗換案内\n
+(検索URL)\n
+
+*********************************************************************/
+
 
 /*交通費データの抽出場所特定*/
 
@@ -60,13 +83,13 @@ $profile = $bot->getProfile($response)->getJSONDecodedBody();
 
 /*交通費データ*/
 $routes = mb_substr($getMessage, 1, $routeNamePos, "UTF-8");
-$date = mb_substr($getMessage, ($routeNamePos + 1), (($dateEndPos - $routeNamePos) + 1), "UTF-8");
+$travelDate = mb_substr($getMessage, ($routeNamePos + 1), (($dateEndPos - $routeNamePos) + 1), "UTF-8");
 $transit = mb_substr($getMessage, ($transitTimePos + 2), ($transitTimeEndPos - ($transitTimePos + 2)), "UTF-8");
 $price = mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8");
 
 
 /*返信*/
-if($startPos != false){
+if($messageType != false){
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
 		
@@ -75,7 +98,7 @@ if($startPos != false){
 			'.'登録者名 : ['.$profile['displayName'].']
 			'.'登録日時 : ['.date('Y/m/d').']
 			'.'経路 : ['.$routes.']
-			'.'乗車日 : ['.$date.']
+			'.'乗車日 : ['.$travelDate.']
 			'.'乗換回数 : ['.$transit.'回]
 			'.'運賃合計 : ['.$price.'円]'
 			),
