@@ -187,10 +187,11 @@ if($messageType != false){
 
 
 /***************個人合計算出**************/
-function calcTotalPrice($userid){
+function calcTotalPrice($usersid){
 
 	$dbh = dbConnection::getConnection();
-	$sth = $dbh -> prepare("SELECT SUM(price) from routes WHERE userid = $userid");
+	$sth = $dbh -> prepare("SELECT SUM(price) from routes WHERE userid = :searchId");
+	$sth->bindValue(':searchId', $usersid, PDO::PARAM_STR);   
 	$sth->execute();
 	$result = $sth->fetch();
 	return $result;
