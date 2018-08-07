@@ -51,6 +51,36 @@ $replyToken = $json->events[0]->replyToken;
 /*ジョルダンのメッセージかどうか判断*/
 $messageType = mb_strpos($getMessage, 'ジョルダン乗換案内', 4, "UTF-8");
 
+/******ジョルダンのメッセージでない場合はここを実行して終了******/
+if($messageType == false){
+	/*メッセージに対して返信を変える*/
+	switch($getMessage){
+		case 'テスト':
+			$preSendMessage = 'テスト完了！';
+			$stickerType = 114;
+			break;
+		case '大軽':
+			$preSendMessage = '開発者の名前';
+			$stickerType = 119;
+			break;
+		case 'うるさい':
+			return;
+		default :
+			$preSendMessage = "無効なメッセージです。\n
+現在、当ＢＯＴがサポートしている経路情報は、ジョルダンフォーマットのみとなっています.";
+			$stickerType = 113;
+			break;
+	}
+
+	foreach ($events as $event) {
+		replyMultiMessage($bot, $replyToken, 
+			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
+			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
+		);
+	}
+	return;
+}
+/**************ここまで**************/
 
 /****************************************************************
              ジョルダンフォーマット（android受信データ）
@@ -137,34 +167,8 @@ if($messageType != false){
 			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(3, 229)
 		);
 	}
-	
-/*それ以外のメッセージ*/
 }else{
-	/*メッセージに対して返信を変える*/
-	switch($getMessage){
-		case 'テスト':
-			$preSendMessage = 'テスト完了！';
-			$stickerType = 114;
-			break;
-		case '大軽':
-			$preSendMessage = '開発者の名前';
-			$stickerType = 119;
-			break;
-		case 'うるさい':
-			return;
-		default :
-			$preSendMessage = "無効なメッセージです。\n
-現在、当ＢＯＴがサポートしている経路情報は、ジョルダンフォーマットのみとなっています.";
-			$stickerType = 113;
-			break;
-	}
 
-	foreach ($events as $event) {
-		replyMultiMessage($bot, $replyToken, 
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
-			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
-		);
-	}
 }
 
 /******メッセージランチャ******/
