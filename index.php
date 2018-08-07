@@ -191,7 +191,7 @@ function registerUser($name, $add_date, $route, $travel_data, $transit, $price, 
 	$sql = 'insert into '. TABLE_NAME .' (name, date, route, price) values (:name, :date, :route, :price)';
 	$sth = $dbh->prepare($sql);
 	$sth->bindValue(':name', $name, PDO::PARAM_STR);
-	$sth->bindValue(':route', date('Y/m/d'), PDO::PARAM_STR);
+	$sth->bindValue(':route', $add_date, PDO::PARAM_STR);
 	$sth->bindValue(':route', $route, PDO::PARAM_STR);
 	$sth->bindValue(':price', (intval($price)), PDO::PARAM_INT);
 	$sth->execute();
