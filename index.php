@@ -70,6 +70,7 @@ if($messageType == false){
 			$sth = $dbh -> prepare("SELECT * from routes");
 			$sth->execute();
 			$result = $sth->fetch(PDO::FETCH_ASSOC);
+			var_dump($result['name']);
 			$preSendMessage = $result['name'];
 			break;
 		default :
