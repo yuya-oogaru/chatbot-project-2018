@@ -75,7 +75,7 @@ $transitTimeEndPos :乗換回数の記述箇所（末尾）
 $totalPricePos     :運賃合計の記述箇所（先頭）
 $totalPriceEndPos  :運賃合計の記述箇所（末尾）
 ********************************/
-$routeNamePos = mb_strpos($getMessage, '  ',1 , "UTF-8");
+$routeNamePos = mb_strpos($getMessage, ' ',1 , "UTF-8");
 $dateEndPos = mb_strpos($getMessage, ')',$routeNamePos , "UTF-8");
 $transitTimePos = mb_strpos($getMessage, '乗換', 1, "UTF-8");
 $transitTimeEndPos = mb_strpos($getMessage, '回', 1, "UTF-8");
@@ -138,7 +138,8 @@ if($messageType != false){
 		case 'うるさい':
 			return;
 		default :
-			$preSendMessage = $json->events[0]->message->text;
+			$preSendMessage = "無効なメッセージです。\n
+			当ＢＯＴがサポートしている経路情報は、ジョルダンフォーマットのみとなっています。";
 			$stickerType = 113;
 			break;
 	}
