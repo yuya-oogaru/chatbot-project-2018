@@ -42,7 +42,7 @@ $getMessage = $json->events[0]->message->text;
 $replyToken = $json->events[0]->replyToken;
 
 /*ジョルダンのメッセージかどうか判断*/
-$messageType = mb_strpos($getMessage, 'ジョルダン乗換案内', 1, "UTF-8");
+$messageType = mb_strpos($getMessage, 'ジョルダン乗換案内', 4, "UTF-8");
 
 
 /****************************************************************
@@ -80,14 +80,18 @@ $dateEndPos = mb_strpos($getMessage, ')',$routeNamePos , "UTF-8");
 $transitTimePos = mb_strpos($getMessage, '乗換', 1, "UTF-8");
 $transitTimeEndPos = mb_strpos($getMessage, '回', 1, "UTF-8");
 $totalPricePos = mb_strpos($getMessage, '　', $transitTimePos, "UTF-8");
-$totalPricePos += 1;
+$totalPricePos += 1;/*ぱでぃんぐ*/
 $totalPriceEndPos = mb_strpos($getMessage, '円', $totalPricePos, "UTF-8");
 
-$preSendMessage = 'default text';
+$preSendMessage = 'default text';/*テキスト初期化*/
 
 /*****データ抽出*****/
 
 /*ユーザー情報*/
+/**************************
+$response  :ユーザーＩＤ
+$profile   :ユーザープロフィール(表示名,ユーザーID,画像のURL,ステータスメッセージ)
+***************************/
 $response = $json->events[0]->source->userId;
 $profile = $bot->getProfile($response)->getJSONDecodedBody();
 
@@ -104,8 +108,10 @@ $transit = mb_substr($getMessage, ($transitTimePos + 2), ($transitTimeEndPos - (
 $price = mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8");
 
 
-/*返信*/
+/***************返信******************/
 /*以下、インデントがおかしいのは、表示文字列内にインデントのＴＡＢが挿入されてしまうため*/
+
+/*ジョルダン乗換案内がlinebotに張り付けられたとき*/
 if($messageType != false){
 	foreach ($events as $event) {
 		replyMultiMessage($bot, $replyToken, 
@@ -113,7 +119,7 @@ if($messageType != false){
 '交通費データは以下の内容で登録可能です。
 				
 '.'登録者名 : ['.$profile['displayName'].']
-'.'登録日時 : ['.date('Y/m/d').']
+'.'登録日　 : ['.date('Y/m/d').']
 			
 '.'経路 : ['.$routes.']
 '.'乗車日 : ['.$travelDate.']
@@ -124,6 +130,8 @@ if($messageType != false){
 			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(3, 229)
 		);
 	}
+	
+/*それ以外のメッセージ*/
 }else{
 	/*メッセージに対して返信を変える*/
 	switch($getMessage){
@@ -167,4 +175,34 @@ function replyMultiMessage($bot, $replyToken, ...$msgs) {
   }
 }
 
+/*データベース接続クラス*/
+
+class dbConnection{
+	// インスタンス
+	protected static $db;
+	// コンストラクタ
+	private function __construct() {
+		try {
+			// 環境変数からデータベースへの接続情報を取得し
+			$url = parse_url(getenv('DATABASE_URL'));
+			// データソース
+			$dsn = sprintf('pgsql:host=%s;dbname=%s', $url['host'], substr($url['path'], 1));
+			// 接続を確立
+			self::$db = new PDO($dsn, $url['user'], $url['pass']);
+			// エラー時例外を投げるように設定
+			self::$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+		}
+		catch (PDOException $e) {
+			error_log('Connection Error: ' . $e->getMessage());
+		}
+	}
+
+	// シングルトン。存在しない場合のみインスタンス化
+	public static function getConnection() {
+		if (!self::$db) {
+			new dbConnection();
+		}
+		return self::$db;
+	}
+}
 ?>
