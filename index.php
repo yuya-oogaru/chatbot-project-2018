@@ -65,6 +65,16 @@ if($messageType == false){
 			break;
 		case 'うるさい':
 			return;
+		case '合計':
+			$dbh = dbConnection::getConnection();
+			$sth = $dbh -> prepare("SELECT SUM(price) as price FROM TABLE_NAME WHERE y=:y");
+			$sth -> bindParam(':y', $y, PDO::PARAM_STR);
+			$sth -> execute();
+			if($row = $sth -> fetch()){
+				$kei = $row['a1'];
+			}
+			$preSendMessage = '運賃の合計は'.$kei.'円です。';
+			break;
 		default :
 			$preSendMessage = "無効なメッセージです。\n
 現在、当ＢＯＴがサポートしている経路情報は、ジョルダンフォーマットのみとなっています.";
