@@ -78,7 +78,7 @@ if($messageType == false){
 			return;
 		case '合計':
 			$totalPrice = calcTotalPrice($response);
-			$preSendMessage = ''.$profile['displayName'].'さんが登録した経路の運賃合計は['.$totalPrice.'円]です。';
+			$preSendMessage = ''.$profile['displayName'].'さんが登録した経路の運賃合計は['.(number_format($totalPrice)).'円]です。';
 			$stickerType = 2;
 			
 			if($totalPrice == NULL){
