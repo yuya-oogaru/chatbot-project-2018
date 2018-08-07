@@ -67,7 +67,8 @@ if($messageType == false){
 			return;
 		case '見る':
 			$dbh = dbConnection::getConnection();
-			$sth = $dbh -> prepare('SELECT 'name' from routes');
+			$sth = $dbh -> prepare("SELECT * from routes");
+			$sth->execute();
 			$result = $sth->fetch(PDO::FETCH_ASSOC);
 			$preSendMessage = $result['name'];
 			break;
