@@ -74,7 +74,7 @@ if($messageType == false){
 			$sth = $dbh -> prepare("SELECT * from routes");
 			$sth->execute();
 			$result = $sth->fetch(PDO::FETCH_ASSOC);
-			$preSendMessage = 'blank';
+			$preSendMessage = $result['name'];
 			break;
 		default :
 			$preSendMessage = "無効なメッセージです。\n
