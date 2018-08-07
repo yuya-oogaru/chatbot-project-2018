@@ -10,12 +10,19 @@
 
 <?php
 
+// Composerでインストールしたライブラリを一括読み込み
+require_once __DIR__ . '/vendor/autoload.php';
+
+
+/************************マクロ定義*************************/
+define('TABLE_NAME_ROUTES', 'routes');
+
+/***********************************************************/
+
+
 /************************************************************
 ＊ここからリプライトークン取得までは変えないで
 *************************************************************/
-
-// Composerでインストールしたライブラリを一括読み込み
-require_once __DIR__ . '/vendor/autoload.php';
 
 // 送られて来たJSONデータを取得
 $json_string = file_get_contents('php://input');
@@ -46,7 +53,7 @@ $messageType = mb_strpos($getMessage, 'ジョルダン乗換案内', 4, "UTF-8")
 
 
 /****************************************************************
-             ジョルダンフォーマット（受信データ）
+             ジョルダンフォーマット（android受信データ）
 
 例):桜ノ宮～京橋　間
 
@@ -66,7 +73,7 @@ $messageType = mb_strpos($getMessage, 'ジョルダン乗換案内', 4, "UTF-8")
 
 ****************************************************************/
 
-/*交通費データの抽出場所特定*/
+/*交通費データの抽出場所特定(ジョルダンフォーマット（android）のみ対応)*/
 /*******************************
 $routeNamePos      :経路の記述箇所（末尾）
 $dateEndPos        :乗車日の記述箇所（末尾）
@@ -162,17 +169,17 @@ if($messageType != false){
 
 /******メッセージランチャ******/
 function replyMultiMessage($bot, $replyToken, ...$msgs) {
-  // MultiMessageBuilderをインスタンス化
-  $builder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
-  // ビルダーにメッセージを全て追加
-  foreach($msgs as $value) {
-    $builder->add($value);
-  }
-  $response = $bot->replyMessage($replyToken, $builder);
+	// MultiMessageBuilderをインスタンス化
+	$builder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
+	// ビルダーにメッセージを全て追加
+	foreach($msgs as $value) {
+		$builder->add($value);
+	}
+	$response = $bot->replyMessage($replyToken, $builder);
 	
-  if (!$response->isSucceeded()) {
-    error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
-  }
+	if (!$response->isSucceeded()) {
+		error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
+	}
 }
 
 /*データベース接続クラス*/
