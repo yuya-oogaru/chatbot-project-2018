@@ -91,6 +91,7 @@ if($messageType == false){
 			deleteRouteData($response);
 			$preSendMessage = ''.$profile['displayName'].'さんが登録した経路は削除されました。';
 			$stickerType = 108;
+			break;
 		default :
 			$preSendMessage = "無効なメッセージです。\n
 現在、当ＢＯＴがサポートしている経路情報は、ジョルダンフォーマットのみとなっています.";
