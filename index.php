@@ -156,7 +156,7 @@ $price = mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPrice
 
 /*ユーザー情報がＤＢにない場合*/
 
-registerUser($profile['displayName'], date('Y/m/d'), $routes, $travelDate, $transit, $price, 1);
+registerUser($profile['displayName'], date('Y/m/d'), $routes, $price, $response);
 
 
 /***************返信******************/
@@ -197,15 +197,16 @@ function calcTotalPrice($userName){
 }
 /*******ＤＢにユーザーを追加する関数*******/
 
-function registerUser($name, $add_date, $route, $travel_data, $transit, $price, $no){
+function registerUser($name, $add_date, $route, $price, $userid){
 	$dbh = dbConnection::getConnection();
-	$sql = 'insert into '. TABLE_NAME .' (name, date, route, price) values (:name, :date, :route, :price)';
+	$sql = 'insert into '. TABLE_NAME .' (name, date, route, price, userid) values (:name, :date, :route, :price, :userid)';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':name', $name, PDO::PARAM_STR);
 	$sth->bindValue(':date', $add_date, PDO::PARAM_STR);
 	$sth->bindValue(':route', $route, PDO::PARAM_STR);
 	$sth->bindValue(':price', (intval($price)), PDO::PARAM_INT);
+	$sth->bindValue(':price', (pgp_sym_encrypt($userid, \'' . getenv('DB_ENCRYPT_PASS') . '\')), PDO::PARAM_INT);
 	
 	$sth->execute();
 }
