@@ -77,7 +77,11 @@ if($messageType == false){
 		case 'うるさい':
 			return;
 		case '合計':
-			$preSendMessage = ''.$profile['displayName'].'さんが登録した経路の運賃合計は['.calcTotalPrice($response).'円]です。';
+			$totalPrice = calcTotalPrice($response);
+			if($totalPrice == 'false'){
+				$preSendMessage = ''.$profile['displayName'].'さんが登録した経路はありません。'
+			}
+			$preSendMessage = ''.$profile['displayName'].'さんが登録した経路の運賃合計は['.$totalPrice.'円]です。';
 
 			break;
 		default :
@@ -194,6 +198,9 @@ function calcTotalPrice($usersid){
 	$sth->bindValue(':searchId', $usersid, PDO::PARAM_STR);   
 	$sth->execute();
 	$result = $sth->fetch(PDO::FETCH_NUM);
+	if(!$result){
+		return 'false';
+	}
 	return $result[0];
 }
 /*******ＤＢにユーザーを追加する関数*******/
