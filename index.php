@@ -202,11 +202,11 @@ function registerUser($name, $add_date, $route, $price, $userid){
 	$sql = 'insert into '. TABLE_NAME .' (name, date, route, price, userid) values (:name, :date, :route, :price, :userid)';
 	$sth = $dbh->prepare($sql);
 	
-	$sth->bindValue(':name', $name, PDO::PARAM_STR);
-	$sth->bindValue(':date', $add_date, PDO::PARAM_STR);
-	$sth->bindValue(':route', $route, PDO::PARAM_STR);
-	$sth->bindValue(':price', (intval($price)), PDO::PARAM_INT);
-	$sth->bindValue(':userid', $userid, PDO::PARAM_INT);
+	$sth->bindValue(':name', $name, PDO::PARAM_STR);            /*登録者名（ラインアカウント名）*/
+	$sth->bindValue(':date', $add_date, PDO::PARAM_STR);        /*登録日*/
+	$sth->bindValue(':route', $route, PDO::PARAM_STR);          /*登録経路*/
+	$sth->bindValue(':price', (intval(str_replace(',', '', $price))), PDO::PARAM_INT);/*運賃合計*/
+	$sth->bindValue(':userid', $userid, PDO::PARAM_INT);        /*userID*/
 	
 	$sth->execute();
 }
