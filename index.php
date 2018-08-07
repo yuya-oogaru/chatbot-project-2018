@@ -67,11 +67,11 @@ if($messageType == false){
 			return;
 		case '見る':
 			$dbh = dbConnection::getConnection();
-			$sth = $dbh -> prepare("SELECT * from routes");
+			$sth = $dbh -> prepare("SELECT * from routes ORDER BY no ASC");
 			$sth->execute();
 			$result = $sth->fetch(PDO::FETCH_ASSOC);
 			var_dump($result['name']);
-			$preSendMessage = $result['name'];
+			$preSendMessage = 'blank';
 			break;
 		default :
 			$preSendMessage = "無効なメッセージです。\n
