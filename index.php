@@ -206,7 +206,7 @@ function registerUser($name, $add_date, $route, $price, $userid){
 	$sth->bindValue(':date', $add_date, PDO::PARAM_STR);
 	$sth->bindValue(':route', $route, PDO::PARAM_STR);
 	$sth->bindValue(':price', (intval($price)), PDO::PARAM_INT);
-	$sth->bindValue(':userid', (pgp_sym_encrypt($userid, \'' . getenv('DB_ENCRYPT_PASS') . '\')), PDO::PARAM_INT);
+	$sth->bindValue(':userid', (pgp_sym_encrypt($userid,'testpass')), PDO::PARAM_INT);
 	
 	$sth->execute();
 }
