@@ -15,7 +15,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 
 /************************マクロ定義*************************/
-define('TABLE_NAME_ROUTES', 'routes');
+define('TABLE_NAME', 'routes');
 
 /***********************************************************/
 
@@ -144,6 +144,12 @@ $travelDate = mb_substr($getMessage, ($routeNamePos + 1), (($dateEndPos - $route
 $transit = mb_substr($getMessage, ($transitTimePos + 2), ($transitTimeEndPos - ($transitTimePos + 2)), "UTF-8");
 $price = mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8");
 
+/******************DB参照・登録*********************/
+
+/*ユーザー情報がＤＢにない場合*/
+
+registerUser($response);
+
 
 /***************返信******************/
 /*以下、インデントがおかしいのは、表示文字列内にインデントのＴＡＢが挿入されてしまうため*/
@@ -169,6 +175,14 @@ if($messageType != false){
 	}
 }else{
 
+}
+/*******ＤＢにユーザーを追加する関数*******/
+
+function registerUser($userId){
+	$dbh = dbConnection::getConnection();
+	$sql = 'insert into '. TABLE_NAME .' (userid) values (pgp_sym_encrypt(?, \'' . getenv('DB_ENCRYPT_PASS') . '\'), ?) ';
+	$sth = $dbh->prepare($sql);
+	$sth->execute(array($userId));
 }
 
 /******メッセージランチャ******/
