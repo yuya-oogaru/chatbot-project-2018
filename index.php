@@ -148,7 +148,7 @@ $price = mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPrice
 
 /*ユーザー情報がＤＢにない場合*/
 
-registerUser($response);
+registerUser($response, date('Y/m/d'), $routes, $travelDate, $transit, $price, 1);
 
 
 /***************返信******************/
@@ -178,11 +178,11 @@ if($messageType != false){
 }
 /*******ＤＢにユーザーを追加する関数*******/
 
-function registerUser($userId){
+function registerUser($userId, $add_date, $route, $travel_data, $transit, $price, $no){
 	$dbh = dbConnection::getConnection();
-	$sql = 'insert into '. TABLE_NAME .' (userid) values (pgp_sym_encrypt(?, \'' . getenv('DB_ENCRYPT_PASS') . '\'), ?) ';
+	$sql = 'insert into '. TABLE_NAME .' (userid, add_date, route, travel_data, transit, price, no) values (pgp_sym_encrypt(?, \'' . getenv('DB_ENCRYPT_PASS') . '\'), ?) ';
 	$sth = $dbh->prepare($sql);
-	$sth->execute(array($userId));
+	$sth->execute(array($userId, $add_date, $route, $travel_data, $transit, $price, $no));
 }
 
 /******メッセージランチャ******/
