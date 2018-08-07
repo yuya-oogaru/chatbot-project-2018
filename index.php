@@ -70,10 +70,10 @@ if($messageType == false){
 		case 'うるさい':
 			return;
 		case '見る':
-			//$dbh = dbConnection::getConnection();
-			//$sth = $dbh -> prepare("SELECT * from routes");
-			//$sth->execute();
-			//$result = $sth->fetch(PDO::FETCH_ASSOC);
+			$dbh = dbConnection::getConnection();
+			$sth = $dbh -> prepare("SELECT * from routes");
+			$sth->execute();
+			$result = $sth->fetch(PDO::FETCH_ASSOC);
 			$preSendMessage = 'blank';
 			break;
 		default :
