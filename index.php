@@ -51,6 +51,10 @@ $replyToken = $json->events[0]->replyToken;
 /*ジョルダンのメッセージかどうか判断*/
 $messageType = mb_strpos($getMessage, 'ジョルダン乗換案内', 4, "UTF-8");
 
+
+$preSendMessage = 'default text';/*テキスト初期化*/
+$stickerType = 1;
+
 /******ジョルダンのメッセージでない場合はここを実行して終了******/
 if($messageType == false){
 	/*メッセージに対して返信を変える*/
