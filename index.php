@@ -77,7 +77,7 @@ if($messageType == false){
 		case 'うるさい':
 			return;
 		case '合計':
-			$preSendMessage = calcTotalPrice($profile['displayName']);
+			$preSendMessage = calcTotalPrice($response);
 
 			break;
 		default :
@@ -187,10 +187,10 @@ if($messageType != false){
 
 
 /***************個人合計算出**************/
-function calcTotalPrice($userName){
+function calcTotalPrice($userid){
 
 	$dbh = dbConnection::getConnection();
-	$sth = $dbh -> prepare("SELECT SUM(price) from routes WHERE name = $userName");
+	$sth = $dbh -> prepare("SELECT SUM(price) from routes WHERE name = $userid");
 	$sth->execute();
 	$result = $sth->fetch();
 	return $result;
