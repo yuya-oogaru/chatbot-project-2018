@@ -67,7 +67,7 @@ if($messageType == false){
 			return;
 		case '見る':
 			$dbh = dbConnection::getConnection();
-			$sth = $dbh -> prepare("SELECT * from routes ORDER BY no ASC");
+			$sth = $dbh -> prepare("SELECT * from routes");
 			$sth->execute();
 			$result = $sth->fetch(PDO::FETCH_ASSOC);
 			var_dump($result['name']);
