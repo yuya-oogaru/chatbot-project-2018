@@ -190,7 +190,7 @@ if($messageType != false){
 function calcTotalPrice($userid){
 
 	$dbh = dbConnection::getConnection();
-	$sth = $dbh -> prepare("SELECT SUM(price) from routes WHERE name = $userid");
+	$sth = $dbh -> prepare("SELECT SUM(price) from routes WHERE userid = $userid");
 	$sth->execute();
 	$result = $sth->fetch();
 	return $result;
