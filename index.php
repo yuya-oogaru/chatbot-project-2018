@@ -51,6 +51,13 @@ $replyToken = $json->events[0]->replyToken;
 /*ジョルダンのメッセージかどうか判断*/
 $messageType = mb_strpos($getMessage, 'ジョルダン乗換案内', 4, "UTF-8");
 
+/*ユーザー情報*/
+/**************************
+$response  :ユーザーＩＤ
+$profile   :ユーザープロフィール(表示名,ユーザーID,画像のURL,ステータスメッセージ)
+***************************/
+$response = $json->events[0]->source->userId;
+$profile = $bot->getProfile($response)->getJSONDecodedBody();
 
 $preSendMessage = 'default text';/*テキスト初期化*/
 $stickerType = 1;
@@ -69,12 +76,9 @@ if($messageType == false){
 			break;
 		case 'うるさい':
 			return;
-		case '見る':
-			$dbh = dbConnection::getConnection();
-			$sth = $dbh -> prepare("SELECT * from routes");
-			$sth->execute();
-			$result = $sth->fetch(PDO::FETCH_ASSOC);
-			$preSendMessage = $result['name'];
+		case '合計':
+			$preSendMessage = calcTotalPrice($profile['displayName']);
+
 			break;
 		default :
 			$preSendMessage = "無効なメッセージです。\n
@@ -135,13 +139,6 @@ $preSendMessage = 'default text';/*テキスト初期化*/
 
 /*****データ抽出*****/
 
-/*ユーザー情報*/
-/**************************
-$response  :ユーザーＩＤ
-$profile   :ユーザープロフィール(表示名,ユーザーID,画像のURL,ステータスメッセージ)
-***************************/
-$response = $json->events[0]->source->userId;
-$profile = $bot->getProfile($response)->getJSONDecodedBody();
 
 /*******交通費データ*******/
 /**************************
@@ -186,6 +183,17 @@ if($messageType != false){
 	}
 }else{
 
+}
+
+
+/***************個人合計算出**************/
+function calcTotalPrice($userName){
+
+	$dbh = dbConnection::getConnection();
+	$sth = $dbh -> prepare("SELECT SUM(price) from routes WHERE 'name' = $userName");
+	$sth->execute();
+	$result = $sth->fetch();
+	return $result;
 }
 /*******ＤＢにユーザーを追加する関数*******/
 
