@@ -138,9 +138,8 @@ if($messageType != false){
 		case 'うるさい':
 			return;
 		default :
-			$preSendMessage = "無効なメッセージです。\n
-			当ＢＯＴがサポートしている経路情報は、ジョルダンフォーマットのみとなっています.
-			";
+			$preSendMessage = "無効なメッセージです。\n"
+			"現在、当ＢＯＴがサポートしている経路情報は、ジョルダンフォーマットのみとなっています.";
 			$stickerType = 113;
 			break;
 	}
