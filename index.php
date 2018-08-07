@@ -67,7 +67,7 @@ if($messageType == false){
 			return;
 		case '合計':
 			$dbh = dbConnection::getConnection();
-			$sth = $dbh -> prepare("SELECT SUM(price) as price FROM TABLE_NAME WHERE y=:y");
+			$sth = $dbh -> prepare("SELECT SUM(price) as price FROM routes WHERE y=:y");
 			$sth -> bindParam(':y', $y, PDO::PARAM_STR);
 			$sth -> execute();
 			if($row = $sth -> fetch()){
