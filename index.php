@@ -71,7 +71,7 @@ if($messageType == false){
 			$sth -> bindParam(':y', $y, PDO::PARAM_STR);
 			$sth -> execute();
 			if($row = $sth -> fetch()){
-				$kei = $row['a1'];
+				$kei = $row['price'];
 			}
 			$preSendMessage = '運賃の合計は'.$kei.'円です。';
 			break;
@@ -194,7 +194,7 @@ function registerUser($name, $add_date, $route, $travel_data, $transit, $price, 
 	$sth = $dbh->prepare($sql);
 	$sth->bindValue(':name', $name, PDO::PARAM_STR);
 	$sth->bindValue(':route', $route, PDO::PARAM_STR);
-	$sth->bindValue(':price', $price, PDO::PARAM_INT);
+	$sth->bindValue(':price', (intval($price)), PDO::PARAM_INT);
 	$sth->execute();
 }
 
