@@ -66,11 +66,10 @@ if($messageType == false){
 		case 'うるさい':
 			return;
 		case '見る':
-			$dbh = dbConnection::getConnection();
-			$sth = $dbh -> prepare("SELECT * from routes");
-			$sth->execute();
-			$result = $sth->fetch(PDO::FETCH_ASSOC);
-			var_dump($result['name']);
+			//$dbh = dbConnection::getConnection();
+			//$sth = $dbh -> prepare("SELECT * from routes");
+			//$sth->execute();
+			//$result = $sth->fetch(PDO::FETCH_ASSOC);
 			$preSendMessage = 'blank';
 			break;
 		default :
@@ -147,7 +146,7 @@ $travelData :乗車日
 $transit    :乗換回数
 $price      :運賃（合計）
 ***************************/
-$routes = mb_substr($getMessage, 1, $routeNamePos, "UTF-8");
+$routes = mb_substr($getMessage, 0, $routeNamePos, "UTF-8");
 $travelDate = mb_substr($getMessage, ($routeNamePos + 1), (($dateEndPos - $routeNamePos) + 1), "UTF-8");
 $transit = mb_substr($getMessage, ($transitTimePos + 2), ($transitTimeEndPos - ($transitTimePos + 2)), "UTF-8");
 $price = mb_substr($getMessage, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8");
