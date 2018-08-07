@@ -182,9 +182,9 @@ function registerUser($name, $add_date, $route, $travel_data, $transit, $price, 
 	$dbh = dbConnection::getConnection();
 	$sql = 'insert into '. TABLE_NAME .' (name, route, price) values (:name, :route, :price)';
 	$sth = $dbh->prepare($sql);
-	$sth->bindValue(':name, $name, PDO::PARAM_STR);
-	$sth->bindValue(':route, $route, PDO::PARAM_STR);
-	$sth->bindValue(':price, $price, PDO::PARAM_INT);
+	$sth->bindValue(':name', $name, PDO::PARAM_STR);
+	$sth->bindValue(':route', $route, PDO::PARAM_STR);
+	$sth->bindValue(':price', $price, PDO::PARAM_INT);
 	$sth->execute();
 }
 
