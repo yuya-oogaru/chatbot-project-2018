@@ -65,13 +65,11 @@ if($messageType == false){
 			break;
 		case 'うるさい':
 			return;
-		case '合計':
+		case '見る':
 			$dbh = dbConnection::getConnection();
-			$sth = $dbh -> prepare("SELECT SUM(price) FROM routes");
-			$sth -> execute();
-			$total = $sth -> fetch(PDO::FETCH_ASSOC);
-			$kei = $total['price'];
-			$preSendMessage = '運賃の合計は'.$kei.'円です。';
+			$sth = $dbh -> prepare('SELECT 'name' from routes');
+			$result = $sth->fetch(PDO::FETCH_ASSOC);
+			$preSendMessage = $result['name'];
 			break;
 		default :
 			$preSendMessage = "無効なメッセージです。\n
@@ -188,9 +186,10 @@ if($messageType != false){
 
 function registerUser($name, $add_date, $route, $travel_data, $transit, $price, $no){
 	$dbh = dbConnection::getConnection();
-	$sql = 'insert into '. TABLE_NAME .' (name, route, price) values (:name, :route, :price)';
+	$sql = 'insert into '. TABLE_NAME .' (name, date, route, price) values (:name, :date, :route, :price)';
 	$sth = $dbh->prepare($sql);
 	$sth->bindValue(':name', $name, PDO::PARAM_STR);
+	$sth->bindValue(':route', date('Y/m/d'), PDO::PARAM_STR);
 	$sth->bindValue(':route', $route, PDO::PARAM_STR);
 	$sth->bindValue(':price', (intval($price)), PDO::PARAM_INT);
 	$sth->execute();
