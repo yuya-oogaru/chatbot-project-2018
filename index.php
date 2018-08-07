@@ -87,6 +87,10 @@ if($messageType == false){
 			}
 
 			break;
+		case '削除':
+			deleteRouteData($response);
+			$preSendMessage = ''.$profile['displayName'].'さんが登録した経路は削除されました。';
+			$stickerType = 108;
 		default :
 			$preSendMessage = "無効なメッセージです。\n
 現在、当ＢＯＴがサポートしている経路情報は、ジョルダンフォーマットのみとなっています.";
@@ -203,6 +207,15 @@ function calcTotalPrice($usersid){
 	$result = $sth->fetch(PDO::FETCH_NUM);
 
 	return $result[0];
+}
+
+/************削除（個人データのみ）*******/
+function deleteRouteData($usersid){
+
+	$dbh = dbConnection::getConnection();
+	$sth = $dbh -> prepare("delete from routes WHERE userid = :searchId");
+	$sth->bindValue(':searchId', $usersid, PDO::PARAM_STR);   
+	$sth->execute();
 }
 /*******ＤＢにユーザーを追加する関数*******/
 
