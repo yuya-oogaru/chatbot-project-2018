@@ -222,7 +222,7 @@ function deleteRouteData($usersid){
 
 function registerUser($name, $add_date, $route, $price, $userid){
 	$dbh = dbConnection::getConnection();
-	$sql = 'insert into '. TABLE_NAME .' (name, date, route, price, userid) values (:name, :date, :route, :price, :userid)';
+	$sql = 'insert into '. TABLE_NAME .' (name, date, route, price, userid, comfirmed) values (:name, :date, :route, :price, :userid, :comfirmed)';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':name', $name, PDO::PARAM_STR);            /*登録者名（ラインアカウント名）*/
@@ -230,6 +230,7 @@ function registerUser($name, $add_date, $route, $price, $userid){
 	$sth->bindValue(':route', $route, PDO::PARAM_STR);          /*登録経路*/
 	$sth->bindValue(':price', (intval(str_replace(',', '', $price))), PDO::PARAM_INT);/*運賃合計*/
 	$sth->bindValue(':userid', $userid, PDO::PARAM_INT);        /*userID*/
+	$sth->bindValue(':comfirmed', 0, PDO::PARAM_INT);        /*確定の有無(0＝未確定、1＝確定済)*/
 	
 	$sth->execute();
 }
