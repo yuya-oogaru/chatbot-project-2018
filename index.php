@@ -64,7 +64,7 @@ if($messageType == false){
 		case 'メニュー':
 		
 			foreach ($events as $event) {
-				$bot->replyMessage($replyToken, $template_msg);
+				$bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage));
 			}
 			
 			return;
