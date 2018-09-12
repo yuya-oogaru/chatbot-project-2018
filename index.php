@@ -17,6 +17,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $template_msg = file_get_contents(__DIR__ . '/template1.json');
 
+$template_msg = json_decode($template_msg);
+
 /************************************************************
 ＊ここからリプライトークン取得までは変えないで
 *************************************************************/
@@ -63,14 +65,18 @@ if($messageType == false){
 	switch($getMessage){
 		case 'メニュー':
 		
+		/*
 			foreach ($events as $event) {
-				$bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage));
-			}
+				$event->replyConfirmTemplate($bot, $replyToken,     );
+			}*/
 			
 			return;
 		case '大軽':
 			$preSendMessage = '開発者の名前';
 			$stickerType = 119;
+			break;
+		case 'テスト':
+			$preSendMessage = new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder($preSendMessage);
 			break;
 		case 'うるさい':
 			return;
@@ -127,5 +133,21 @@ function replyButtonsTemplate($bot, $replyToken, $alternativeText, $imageUrl, $t
     error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
 }
-
+// Confirmテンプレートを返信。引数はLINEBot、返信先、代替テキスト、
+// 本文、アクション(可変長引数)
+function replyConfirmTemplate($bot, $replyToken, $alternativeText, $text, ...$actions) {
+  $actionArray = array();
+  foreach($actions as $value) {
+    array_push($actionArray, $value);
+  }
+  $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
+    $alternativeText,
+    // Confirmテンプレートの引数はテキスト、アクションの配列
+    new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder ($text, $actionArray)
+  );
+  $response = $bot->replyMessage($replyToken, $builder);
+  if (!$response->isSucceeded()) {
+    error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
+  }
+}
 ?>
