@@ -67,16 +67,16 @@ if($messageType == false){
 		
 		/*
 			foreach ($events as $event) {
-				$event->replyConfirmTemplate($bot, $replyToken,     );
-			}*/
-			
+				$event->replyConfirmTemplate($bot, $replyToken);
+			}
+			*/
 			return;
 		case '大軽':
 			$preSendMessage = '開発者の名前';
 			$stickerType = 119;
 			break;
 		case 'テスト':
-			$preSendMessage = new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder($preSendMessage, 'tests');
+			$preSendMessage = $template_msg->message[0];
 			break;
 		case 'うるさい':
 			return;
@@ -112,6 +112,7 @@ function replyMultiMessage($bot, $replyToken, ...$msgs) {
 		error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
 	}
 }
+
 // Buttonsテンプレートを返信。引数はLINEBot、返信先、代替テキスト、
 // 画像URL、タイトル、本文、アクション(可変長引数)
 function replyButtonsTemplate($bot, $replyToken, $alternativeText, $imageUrl, $title, $text, ...$actions) {
@@ -133,6 +134,7 @@ function replyButtonsTemplate($bot, $replyToken, $alternativeText, $imageUrl, $t
     error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
 }
+
 // Confirmテンプレートを返信。引数はLINEBot、返信先、代替テキスト、
 // 本文、アクション(可変長引数)
 function replyConfirmTemplate($bot, $replyToken, $alternativeText, $text, ...$actions) {
