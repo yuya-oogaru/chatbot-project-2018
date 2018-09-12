@@ -15,8 +15,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 /*json*/
 
-$template_msg = file_get_contents(__DIR__ . '/template1.json');
+$template_msg = json_decode(file_get_contents(__DIR__ . '/template1.json'));
 
+echo $template_msg;
 /************************************************************
 ＊ここからリプライトークン取得までは変えないで
 *************************************************************/
@@ -63,11 +64,7 @@ if($messageType == false){
 	switch($getMessage){
 		case 'メニュー':
 		
-			$response = $bot->replyMessage($replyToken, $template_msg);
-
-			if (!$response->isSucceeded()) {
-				error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
-			}
+			
 			return;
 		case '大軽':
 			$preSendMessage = '開発者の名前';
