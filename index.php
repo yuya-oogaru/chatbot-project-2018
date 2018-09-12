@@ -13,6 +13,32 @@
 // Composerでインストールしたライブラリを一括読み込み
 require_once __DIR__ . '/vendor/autoload.php';
 
+/*json*/
+
+$template_msg = 
+
+{
+  "type": "template",
+  "altText": "this is a confirm template",
+  "template": {
+      "type": "confirm",
+      "text": "Are you sure?",
+      "actions": [
+          {
+            "type": "message",
+            "label": "Yes",
+            "text": "yes"
+          },
+          {
+            "type": "message",
+            "label": "No",
+            "text": "no"
+          }
+      ]
+  }
+};
+
+
 /************************************************************
 ＊ここからリプライトークン取得までは変えないで
 *************************************************************/
@@ -58,9 +84,13 @@ if($messageType == false){
 	/*メッセージに対して返信を変える*/
 	switch($getMessage){
 		case 'メニュー':
-			$preSendMessage = 'テスト完了！';
-			$stickerType = 114;
-			break;
+		
+				$response = $bot->replyMessage($replyToken, $template_msg);
+	
+				if (!$response->isSucceeded()) {
+					error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
+				}
+			return;
 		case '大軽':
 			$preSendMessage = '開発者の名前';
 			$stickerType = 119;
@@ -99,6 +129,26 @@ function replyMultiMessage($bot, $replyToken, ...$msgs) {
 		error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
 	}
 }
-
+// Buttonsテンプレートを返信。引数はLINEBot、返信先、代替テキスト、
+// 画像URL、タイトル、本文、アクション(可変長引数)
+function replyButtonsTemplate($bot, $replyToken, $alternativeText, $imageUrl, $title, $text, ...$actions) {
+  // アクションを格納する配列
+  $actionArray = array();
+  // アクションを全て追加
+  foreach($actions as $value) {
+    array_push($actionArray, $value);
+  }
+  // TemplateMessageBuilderの引数は代替テキスト、ButtonTemplateBuilder
+  $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
+    $alternativeText,
+    // ButtonTemplateBuilderの引数はタイトル、本文、
+    // 画像URL、アクションの配列
+    new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder ($title, $text, $imageUrl, $actionArray)
+  );
+  $response = $bot->replyMessage($replyToken, $builder);
+  if (!$response->isSucceeded()) {
+    error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
+  }
+}
 
 ?>
