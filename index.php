@@ -15,7 +15,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 /*json*/
 
-$template_msg = {"type": "template",
+$template_msg = array("type": "template",
   "altText": "this is a confirm template",
   "template": {
       "type": "confirm",
@@ -33,7 +33,7 @@ $template_msg = {"type": "template",
           }
       ]
   }
-};
+);
 
 
 /************************************************************
