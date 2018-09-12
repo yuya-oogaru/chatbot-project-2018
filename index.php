@@ -63,6 +63,9 @@ if($messageType == false){
 	switch($getMessage){
 		case 'メニュー':
 		
+			foreach ($events as $event) {
+				replyMultiMessage($bot, $replyToken, $template_msg);
+			}
 			
 			return;
 		case '大軽':
