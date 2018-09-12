@@ -15,7 +15,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 /*json*/
 
-$template_msg = json_decode(file_get_contents(__DIR__ . '/template1.json'));
+$template_msg = file_get_contents(__DIR__ . '/template1.json');
 
 /************************************************************
 ＊ここからリプライトークン取得までは変えないで
@@ -64,7 +64,7 @@ if($messageType == false){
 		case 'メニュー':
 		
 			foreach ($events as $event) {
-				replyMultiMessage($bot, $replyToken, $template_msg);
+				replyMessage($replyToken, $template_msg);
 			}
 			
 			return;
