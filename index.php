@@ -15,26 +15,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 /*json*/
 
-$template_msg = array("type": "template",
-  "altText": "this is a confirm template",
-  "template": {
-      "type": "confirm",
-      "text": "Are you sure?",
-      "actions": [
-          {
-            "type": "message",
-            "label": "Yes",
-            "text": "yes"
-          },
-          {
-            "type": "message",
-            "label": "No",
-            "text": "no"
-          }
-      ]
-  }
-);
-
+$template_msg = json_decode(file_get_contents(__DIR__ . '/template1.json'))
 
 /************************************************************
 ＊ここからリプライトークン取得までは変えないで
