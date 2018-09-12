@@ -76,7 +76,7 @@ if($messageType == false){
 			$stickerType = 119;
 			break;
 		case 'テスト':
-			$preSendMessage = new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder($preSendMessage);
+			$preSendMessage = new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder($preSendMessage, 'tests');
 			break;
 		case 'うるさい':
 			return;
