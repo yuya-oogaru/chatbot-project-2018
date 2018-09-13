@@ -4,7 +4,10 @@
 $json_template = file_get_contents(__DIR__. '/template1.json');
  
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
- 
+
+var_dump(json_decode($json_template))
+
+/*
 //APIから送信されてきたイベントオブジェクトを取得
 $json_string = file_get_contents('php://input');
 $json_obj = json_decode($json_string);
@@ -13,14 +16,14 @@ $json_obj = json_decode($json_string);
 $message = $json_obj->{"events"}[0]->{"message"};
 $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
  
-/*てすとー*/
+
 $post_data = ["replyToken" => $reply_token];
 
 array_push($post_data, json_decode($json_template));
 
 
  
- /*
+ 
 //ユーザーからのメッセージに対し、オウム返しをする
 $post_data = [
   "replyToken" => $reply_token,
@@ -31,7 +34,7 @@ $post_data = [
     ]
   ]
 ];
- */
+ 
 //curlを使用してメッセージを返信する
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
@@ -43,4 +46,4 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'Authorization: Bearer ' . $access_token
 ));
 $result = curl_exec($ch);
-curl_close($ch);
+curl_close($ch);*/
