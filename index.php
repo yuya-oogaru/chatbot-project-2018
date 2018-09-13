@@ -59,26 +59,31 @@ if(searchUserID($userID) == NULL){
 
 $status = searchStatus($userID)
 
-if($status == 'input'){
+switch($status){
 
-	foreach ($events as $event) {
-		replyConfirmTemplate($bot, 
-		$event->getReplyToken(), 
-		'Are you sure?','Are you sure?', 
-		new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('yes', 'yes'),
-		new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('no', 'no'));
-	}
-	updateStatus($userID, 'y/n');
-	updateTemp($userID, $getMessage);
-	
-}else if($status == 'y/n'){
+	case 'input':
+		foreach ($events as $event) {
+			replyConfirmTemplate($bot, 
+			$event->getReplyToken(), 
+			'Are you sure?','Are you sure?', 
+			new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('yes', 'yes'),
+			new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('no', 'no'));
+		}
+		updateStatus($userID, 'y/n');
+		updateTemp($userID, $getMessage);
+		
+		break;
+	case 'y/n':
 
-	$temp = searchTemp($userID);
-	foreach ($events as $event) {
-		$bot->replyMessage($replyToken, ''.$temp.'に対する返答は'.$getMessage.'');
-	}
-	updateStatus($userID, 'input');
-	updatTemp($userID, '');
+		$temp = searchTemp($userID);
+		foreach ($events as $event) {
+			$bot->replyMessage($replyToken, ''.$temp.'に対する返答は'.$getMessage.'');
+		}
+		updateStatus($userID, 'input');
+		updatTemp($userID, '');
+		break;
+	default :
+		break;
 }
 
 	return;
