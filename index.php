@@ -18,11 +18,11 @@ $post_data = ["replyToken" => $reply_token];
 
 array_push($post_data, json_decode($json_template));
 
-/*
+
 //json
 $post_data = [
 	"replyToken" => $reply_token,
-	"message" => [
+	"messages" => [
   		"type" => "template",
   		"altText" => "this is a confirm template",
   		"template" => [
@@ -44,8 +44,8 @@ $post_data = [
   	]
 ];
 
-*/
 
+/*
 //サンプル
 $response_format_text = makeTemplateData(1);
 
@@ -80,7 +80,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 ));
 $result = curl_exec($ch);
 curl_close($ch);
-
+/*
 function makeTemplate($length){
 
 	return[
@@ -114,5 +114,5 @@ function makeTemplateData($length){
 			"text" => "c"
 		]
 	];
-}
+}*/
 ?>
