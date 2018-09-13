@@ -5,10 +5,6 @@ $json_template = file_get_contents(__DIR__. '/template1.json');
  
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
 
-var_dump(json_decode($json_template))
-
-
-
 //APIから送信されてきたイベントオブジェクトを取得
 $json_string = file_get_contents('php://input');
 $json_obj = json_decode($json_string);
