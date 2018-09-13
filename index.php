@@ -93,19 +93,6 @@ switch($status){
 }
 
 	return;
-/******メッセージランチャ******/
-function replyMultiMessage($bot, $replyToken, ...$msgs) {
-	// MultiMessageBuilderをインスタンス化
-	$builder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
-	// ビルダーにメッセージを全て追加
-	foreach($msgs as $value) {
-		$builder->add($value);
-	}
-	$response = $bot->replyMessage($replyToken, $builder);
-	
-	if (!$response->isSucceeded()) {
-		error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
-	}
-}
+
 
 ?>
