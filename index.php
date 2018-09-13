@@ -13,6 +13,7 @@
 // Composerでインストールしたライブラリを一括読み込み
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/basicfunc.php';
+require_once __DIR__ . '/sql.php';
 
 /************************************************************
 ＊ここからリプライトークン取得までは変えないで
@@ -51,52 +52,36 @@ $userID = $json->events[0]->source->userId;
 $preSendMessage = 'default text';/*テキスト初期化*/
 $stickerType = 1;
 
-	/*メッセージに対して返信を変える*/
-	switch($getMessage){
-		case '大軽':
-			$preSendMessage = '開発者の名前';
-			$stickerType = 119;
-			break;
-		case 'テスト':
-			$preSendMessage = 'テストwww';
-			break;
-		case 'うるさい':
-			return;
-		default :
-			foreach ($events as $event) {
-				replyConfirmTemplate($bot, 
-				$event->getReplyToken(), 
-				'Are you sure?','Are you sure?', 
-				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('yes', 'yes'),
-				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('no', 'no'));
-			}
-			
-			registerUser($userID, waiting, $getMessage);
-			return;
-	}
+/*てすとしょり*/
+if(searchUserID($userID) == NULL){
+	registerUser($userID, input, $getMessage);
+}
+
+$status = searchStatus($userID)
+
+if($status == 'input'){
 
 	foreach ($events as $event) {
-		replyMultiMessage($bot, $replyToken, 
-			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
-			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
-		);
+		replyConfirmTemplate($bot, 
+		$event->getReplyToken(), 
+		'Are you sure?','Are you sure?', 
+		new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('yes', 'yes'),
+		new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('no', 'no'));
 	}
+	updateStatus($userID, 'y/n');
+	updateTemp($userID, $getMessage);
 	
-	return ;
+}else if($status == 'y/n'){
 
-/*******ＤＢにユーザーステータスを追加する関数*******/
-
-function registerUser($userID, $status, $tempData){
-	$dbh = dbConnection::getConnection();
-	$sql = 'insert into status (userID, status, tempData) values (:userID, :status, :tempData)';
-	$sth = $dbh->prepare($sql);
-	
-	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);            /*登録者ID（ラインアカウントID）*/
-	$sth->bindValue(':status', $status, PDO::PARAM_STR);            /*状態*/
-	$sth->bindValue(':tempData', $tempData, PDO::PARAM_STR);        /*一時データ*/
-	
-	$sth->execute();
+	$temp = searchTemp($userID);
+	foreach ($events as $event) {
+		$bot->replyMessage($replyToken, ''.$temp.'に対する返答は'.$getMessage.'');
+	}
+	updateStatus($userID, 'input');
+	updatTemp($userID, '');
 }
+
+	return;
 
 
 ?>
