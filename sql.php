@@ -42,7 +42,7 @@ function searchStatus($userID){
 function searchTemp($userID){
 
 	$dbh = dbConnection::getConnection();
-	$sql = 'SELECT status FROM tempData WHERE userID = :userID';
+	$sql = 'SELECT tempdata FROM status WHERE userID = :userID';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
