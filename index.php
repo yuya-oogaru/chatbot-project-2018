@@ -1,8 +1,6 @@
 
 <?php
  
-$json_template = file_get_contents(__DIR__. '/template1.json');
- 
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
 
 //APIから送信されてきたイベントオブジェクトを取得
@@ -12,17 +10,13 @@ $json_obj = json_decode($json_string);
 //イベントオブジェクトから必要な情報を抽出
 $message = $json_obj->{"events"}[0]->{"message"};
 $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
- 
-
-$post_data = ["replyToken" => $reply_token];
-
-array_push($post_data, json_decode($json_template));
 
 
 //json
 $post_data = [
 	"replyToken" => $reply_token,
 	"messages" => [
+	  [
   		"type" => "template",
   		"altText" => "this is a confirm template",
   		"template" => [
@@ -41,17 +35,8 @@ $post_data = [
           		]
       		]
   		]
+  	  ]
   	]
-];
-
-
-/*
-//サンプル
-$response_format_text = makeTemplateData(1);
-
-$post_data = [
-	"replyToken => $reply_token,
-	"messages => [$response_format_text]
 ];
 
 
@@ -81,38 +66,5 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 $result = curl_exec($ch);
 curl_close($ch);
 /*
-function makeTemplate($length){
 
-	return[
-		"type" => "template",
-		"altText" => "テストメッセージ",
-		"template" => [
-			"type" => "buttons",
-			"title" => "Menu",
-			"text" => "テストメッセージ",
-			"actions" => makeTemplateData($length)
-		]
-	];
-}
-function makeTemplateData($length){
-
-	return
-	[
-		[
-			"type" => "postback",
-			"label" => "a",
-			"text"=> "a"
-		],
-		[
-			"type" => "postback",
-			"label" => "b",
-			"text" => "b"
-		],
-		[
-			"type" => "postback",
-			"label" => "c",
-			"text" => "c"
-		]
-	];
-}*/
 ?>
