@@ -2,6 +2,8 @@
 <?php
  
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
+$test_json = file_get_contents(__DIR__ . '/template1.json');
+
 
 //APIから送信されてきたイベントオブジェクトを取得
 $json_string = file_get_contents('php://input');
@@ -11,7 +13,11 @@ $json_obj = json_decode($json_string);
 $message = $json_obj->{"events"}[0]->{"message"};
 $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 
-
+//json
+$post_data = [
+	"replyToken" => $reply_token,
+	"messages" => [json_decode($test_json)];
+/*
 //json
 $post_data = [
 	"replyToken" => $reply_token,
@@ -39,7 +45,7 @@ $post_data = [
   	]
 ];
 
-
+*/
 
 /*
 //ユーザーからのメッセージに対し、オウム返しをする
