@@ -195,7 +195,7 @@ $post_data = [
 ];
 
 
-	return json_encode($post_data);
+	return $post_data;
 
 }
 ?>
