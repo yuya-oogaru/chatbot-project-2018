@@ -1,5 +1,5 @@
 {
-  "replyToken": "NULL"
+  "replyToken": "NULL",
   "message":[
   "type": "template",
   "altText": "this is a confirm template",
