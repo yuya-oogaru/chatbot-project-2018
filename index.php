@@ -14,7 +14,6 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 $endFlag = 0;
-START:
 
 /************************************************************
 ＊ここからリプライトークン取得までは変えないで
@@ -44,6 +43,12 @@ $getMessage = $json->events[0]->message->text;
 /*リプライトークン（返信証明）取得*/
 $replyToken = $json->events[0]->replyToken;
 
+/*ユーザー情報*/
+/**************************
+$response  :ユーザーＩＤ
+***************************/
+$userID = $json->events[0]->source->userId;
+
 $preSendMessage = 'default text';/*テキスト初期化*/
 $stickerType = 1;
 
@@ -54,7 +59,11 @@ $stickerType = 1;
 			$stickerType = 119;
 			break;
 		case 'テスト':
-
+			$preSendMessage = 'テストwww;
+			break;
+		case 'うるさい':
+			return;
+		default :
 			foreach ($events as $event) {
 				replyConfirmTemplate($bot, 
 				$event->getReplyToken(), 
@@ -62,21 +71,9 @@ $stickerType = 1;
 				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('yes', 'yes'),
 				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('no', 'no'));
 			}
-			break;
-		case 'うるさい':
+			
+			registerUser($userID, waiting, $getMessage);
 			return;
-		case 'yes':
-			$preSendMessage = ''.$prevMsg.' に対する返答はyes';
-			$endFlag = 1;
-			break;
-		case 'no':
-			$preSendMessage = ''.$prevMsg.' に対する返答はno';
-			$endFlag = 1;
-			break;
-		default :
-			$preSendMessage = 'nop';
-			$stickerType = 113;
-			break;
 	}
 
 	foreach ($events as $event) {
@@ -86,12 +83,21 @@ $stickerType = 1;
 		);
 	}
 	
-	if($endFlag == 1){
-		return;
-	}
-	$prevMsg = $getMessage;
+return ;
 
-goto START;
+/*******ＤＢにユーザーステータスを追加する関数*******/
+
+function registerUser($userID, $status, $tempData){
+	$dbh = dbConnection::getConnection();
+	$sql = 'insert into status (userID, status, tempData) values (:userID, :status, :tempData)';
+	$sth = $dbh->prepare($sql);
+	
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);            /*登録者ID（ラインアカウントID）*/
+	$sth->bindValue(':status', $status, PDO::PARAM_STR);            /*状態*/
+	$sth->bindValue(':tempData', $tempData, PDO::PARAM_STR);        /*一時データ*/
+	
+	$sth->execute();
+}
 
 /******メッセージランチャ******/
 function replyMultiMessage($bot, $replyToken, ...$msgs) {
@@ -125,4 +131,36 @@ function replyConfirmTemplate($bot, $replyToken, $alternativeText, $text, ...$ac
     error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
 }
+
+/*データベース接続クラス*/
+
+class dbConnection{
+	// インスタンス
+	protected static $db;
+	// コンストラクタ
+	private function __construct() {
+		try {
+			// 環境変数からデータベースへの接続情報を取得し
+			$url = parse_url(getenv('DATABASE_URL'));
+			// データソース
+			$dsn = sprintf('pgsql:host=%s;dbname=%s', $url['host'], substr($url['path'], 1));
+			// 接続を確立
+			self::$db = new PDO($dsn, $url['user'], $url['pass']);
+			// エラー時例外を投げるように設定
+			self::$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+		}
+		catch (PDOException $e) {
+			error_log('Connection Error: ' . $e->getMessage());
+		}
+	}
+
+	// シングルトン。存在しない場合のみインスタンス化
+	public static function getConnection() {
+		if (!self::$db) {
+			new dbConnection();
+		}
+		return self::$db;
+	}
+}
+
 ?>
