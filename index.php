@@ -13,9 +13,8 @@
 // Composerでインストールしたライブラリを一括読み込み
 require_once __DIR__ . '/vendor/autoload.php';
 
-/*json*/
 
-$template_msg = file_get_contents(__DIR__ . '/template1.json');
+START:
 
 /************************************************************
 ＊ここからリプライトークン取得までは変えないで
@@ -45,96 +44,57 @@ $getMessage = $json->events[0]->message->text;
 /*リプライトークン（返信証明）取得*/
 $replyToken = $json->events[0]->replyToken;
 
-
-/*ユーザー情報*/
-/**************************
-$response  :ユーザーＩＤ
-$profile   :ユーザープロフィール(表示名,ユーザーID,画像のURL,ステータスメッセージ)
-***************************/
-$response = $json->events[0]->source->userId;
-$profile = $bot->getProfile($response)->getJSONDecodedBody();
-
+$prevMsg = 'dafault text';
 $preSendMessage = 'default text';/*テキスト初期化*/
 $stickerType = 1;
+$endFlag = 0;
 
-/******ジョルダンのメッセージでない場合はここを実行して終了******/
-if($messageType == false){
 	/*メッセージに対して返信を変える*/
 	switch($getMessage){
-		case 'メニュー':
-		
-			$preSendMessage = makeConfirmTemplate(1);
-			break;
-			
 		case '大軽':
 			$preSendMessage = '開発者の名前';
 			$stickerType = 119;
 			break;
 		case 'テスト':
+
 			foreach ($events as $event) {
 				replyConfirmTemplate($bot, 
 				$event->getReplyToken(), 
 				'Are you sure?','Are you sure?', 
-				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('yes', 'ignore'),
-				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('no', 'ignore'));
+				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('yes', 'yes'),
+				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('no', 'no'));
 			}
-			return;
+			break;
 		case 'うるさい':
 			return;
+		case 'yes':
+			$preSendMessage = ''.$prevMsg.' に対する返答はyes';
+			$endFlag = 1;
+			break;
+		case 'no':
+			$preSendMessage = ''.$prevMsg.' に対する返答はno';
+			$endFlag = 1;
+			break;
 		default :
-			$preSendMessage = "無効なメッセージです。\n
-現在、当ＢＯＴがサポートしている経路情報は、ジョルダンフォーマットのみとなっています.";
+			$preSendMessage = 'nop';
 			$stickerType = 113;
 			break;
 	}
 
 	foreach ($events as $event) {
-	
-	 // イベントがPostbackEventクラスのインスタンスであれば
-		if ($event instanceof \LINE\LINEBot\Event\PostbackEvent) {
-			replyTextMessage($bot, $event->getReplyToken(), 'Postback受信「' . $event->getPostbackData() . '」');
-			continue;
- 		}
- 		
 		replyMultiMessage($bot, $replyToken, 
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
 			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
 		);
 	}
-	return;
-}
-/**************ここまで**************/
-
-/*json*/
-
-function makeConfirmTemplate($void){
 	
-	return [
-		"type" => "template",
-		"altText" => "this is a confirm template",
-		"template" => [
-			"type" => "confirm",
-			"text" => "Are you sure?",
-			"actions" => makeActionTemplate($void)
-  		]
-  	];
-}
+	if($endFlag == 1){
+		return;
+	}
+	$prevMsg = $getMessage;
 
-function makeActionTemplate($void){
+goto START;
 
-
-	return [
-				[	"type" => "message",
-					"label" => "Yes",
-					"text" => "yes"
-				],
-				[
-					"type" => "message",
-					"label" => "No",
-					"text" => "no"
-				]
-			];
-}
 /******メッセージランチャ******/
 function replyMultiMessage($bot, $replyToken, ...$msgs) {
 	// MultiMessageBuilderをインスタンス化
@@ -148,28 +108,6 @@ function replyMultiMessage($bot, $replyToken, ...$msgs) {
 	if (!$response->isSucceeded()) {
 		error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
 	}
-}
-
-// Buttonsテンプレートを返信。引数はLINEBot、返信先、代替テキスト、
-// 画像URL、タイトル、本文、アクション(可変長引数)
-function replyButtonsTemplate($bot, $replyToken, $alternativeText, $imageUrl, $title, $text, ...$actions) {
-  // アクションを格納する配列
-  $actionArray = array();
-  // アクションを全て追加
-  foreach($actions as $value) {
-    array_push($actionArray, $value);
-  }
-  // TemplateMessageBuilderの引数は代替テキスト、ButtonTemplateBuilder
-  $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
-    $alternativeText,
-    // ButtonTemplateBuilderの引数はタイトル、本文、
-    // 画像URL、アクションの配列
-    new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder ($title, $text, $imageUrl, $actionArray)
-  );
-  $response = $bot->replyMessage($replyToken, $builder);
-  if (!$response->isSucceeded()) {
-    error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
-  }
 }
 
 // Confirmテンプレートを返信。引数はLINEBot、返信先、代替テキスト、
