@@ -46,72 +46,76 @@ $post_data = [
 	"replyToken" => $reply_token,
 	"messages" => [
 	[
-		"type"=> "bubble",
-		"styles"=> [
-			"footer"=> [
-				"separator"=> true
-			]
-  		],
-  		"body"=> [
-			"type"=> "box",
-    		"layout"=> "vertical",
-    		"contents"=> [
-      			[
-        			"type"=> "box",
-        			"layout"=> "vertical",
-        			"margin"=> "xxl",
-        			"spacing"=> "sm",
-        			"contents"=> [
-          				[
-            				"type"=> "text",
-            				"text"=> "内容確認",
-            				"weight"=> "bold",
-            				"size"=> "xxl",
-            				"margin"=> "md"
-          				],
-          				[
-            				"type"=> "separator",
-            				"margin"=> "md"
-          				]
-        			]
-      			],
-      			[
-        			"type"=> "box",
-        			"layout"=> "vertical",
-        			"margin"=> "xxl",
-        			"spacing"=> "sm",
-        			"contents"=> [
-          				[
-            				"type"=> "text",
-            				"text"=> "以上の内容で登録しますか？",
-            				"size"=> "md",
-            				"color"=> "#111111",
-            				"align"=> "center"
-          				],
-          				[
-            				"type"=> "button",
-            				"height"=> "md",
-            				"style"=> "primary",
-            				"action"=> [
-           						"type"=> "uri",
-              					"label"=> "はい",
-              					"uri"=> "https://example.com"
-            				]
-          				],
-          				[
-            				"type"=> "button",
-            				"height"=> "md",
-            				"style"=> "secondary",
-            				"action"=> [
-              					"type"=> "uri",
-              					"label"=> "いいえ",
-              					"uri"=> "https://example.com"
-            				]
-          				]
-        			]
-      			]
-    		]
-  		]
+		"type" => "flex",
+		"altText" => "test",
+		"contents" => [
+			"type"=> "bubble",
+			"styles"=> [
+				"footer"=> [
+					"separator"=> true
+				]
+  			],
+  			"body"=> [
+				"type"=> "box",
+    			"layout"=> "vertical",
+    			"contents"=> [
+      				[
+        				"type"=> "box",
+        				"layout"=> "vertical",
+        				"margin"=> "xxl",
+        				"spacing"=> "sm",
+        				"contents"=> [
+          					[
+            					"type"=> "text",
+            					"text"=> "内容確認",
+            					"weight"=> "bold",
+            					"size"=> "xxl",
+            					"margin"=> "md"
+          					],
+          					[
+            					"type"=> "separator",
+            					"margin"=> "md"
+          					]
+        				]
+      				],
+      				[
+        				"type"=> "box",
+        				"layout"=> "vertical",
+        				"margin"=> "xxl",
+        				"spacing"=> "sm",
+        				"contents"=> [
+          					[
+            					"type"=> "text",
+            					"text"=> "以上の内容で登録しますか？",
+            					"size"=> "md",
+            					"color"=> "#111111",
+            					"align"=> "center"
+          					],
+          					[
+            					"type"=> "button",
+           						"height"=> "md",
+            					"style"=> "primary",
+            					"action"=> [
+           							"type"=> "uri",
+              						"label"=> "はい",
+              						"uri"=> "https://example.com"
+            					]
+          					],
+          					[
+            					"type"=> "button",
+            					"height"=> "md",
+            					"style"=> "secondary",
+            					"action"=> [
+              						"type"=> "uri",
+              						"label"=> "いいえ",
+              						"uri"=> "https://example.com"
+            					]
+          					]
+        				]
+      				]
+    			]
+  			]
+		]
 	]
 	]
 ];
