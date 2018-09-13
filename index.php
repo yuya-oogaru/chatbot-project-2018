@@ -59,7 +59,7 @@ $stickerType = 1;
 			$stickerType = 119;
 			break;
 		case 'テスト':
-			$preSendMessage = 'テストwww;
+			$preSendMessage = 'テストwww';
 			break;
 		case 'うるさい':
 			return;
