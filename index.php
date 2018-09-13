@@ -54,7 +54,7 @@ $stickerType = 1;
 
 /*てすとしょり*/
 if(searchUserID($userID) == NULL){
-	registerUser($userID, input, $getMessage);
+	registerUser($userID, 'input', $getMessage);
 }
 
 $status = searchStatus($userID);
