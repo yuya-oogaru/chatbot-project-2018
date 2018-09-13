@@ -105,6 +105,86 @@ $post_data = [
             					]
           					],
           					[
+            					"type"=> "box",
+            					"layout"=> "horizontal",
+            					"contents"=> [
+              						[
+                						"type"=> "text",
+                						"text"=> "行先",
+                						"size"=> "xxs",
+                						"color"=> "#0000ff",
+                						"flex"=> 0
+              						],
+              						[
+                						"type"=> "text",
+                						"text"=> "OO精工株式会社",
+                						"size"=> "xs",
+                						"color"=> "#111111",
+                						"align"=> "end"
+              						]
+            					]
+          					],
+          					[
+            					"type"=> "box",
+            					"layout"=> "horizontal",
+            					"contents"=> [
+              						[
+                						"type"=> "text",
+                						"text"=> "経路",
+                						"size"=> "xxs",
+                						"color"=> "#0000ff",
+                						"flex"=> 0
+              						],
+              						[
+                						"type"=> "text",
+                						"text"=> "大阪～天王寺",
+                						"size"=> "xs",
+                						"color"=> "#111111",
+                						"align"=> "end"
+              						]
+            					]
+          					],
+          					[
+            					"type"=> "box",
+            					"layout"=> "horizontal",
+            					"contents"=> [
+              						[
+                						"type"=> "text",
+                						"text"=> "合計運賃",
+                						"size"=> "xxs",
+                						"color"=> "#0000ff",
+                						"flex"=> 0
+              						],
+              						[
+                						"type"=> "text",
+                						"text"=> "\140",
+                						"size"=> "xs",
+                						"color"=> "#111111",
+                						"align"=> "end"
+              						]
+            					]
+          					],
+          					[
+            					"type"=> "box",
+            					"layout"=> "horizontal",
+            					"contents"=> [
+              						[
+                						"type"=> "text",
+                						"text"=> "備考",
+                						"size"=> "xxs",
+                						"color"=> "#0000ff",
+                						"flex"=> 0
+              						],
+              						[
+                						"type"=> "text",
+                						"text"=> "往復",
+                						"size"=> "xs",
+                						"color"=> "#111111",
+                						"align"=> "end"
+              						]
+            					]
+          					],
+          					[
             					"type"=> "separator",
             					"margin"=> "md"
           					]
