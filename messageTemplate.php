@@ -4,7 +4,7 @@
 function confirmTemplate($reply_token){
 
 
-$post_data = [
+return [
 	"replyToken" => $reply_token,
 	"messages" => [
 	[
@@ -193,9 +193,6 @@ $post_data = [
 	]
 	]
 ];
-
-
-	return $post_data;
 
 }
 ?>
