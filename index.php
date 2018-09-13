@@ -57,7 +57,7 @@ if(searchUserID($userID) == NULL){
 	registerUser($userID, input, $getMessage);
 }
 
-$status = searchStatus($userID)
+$status = searchStatus($userID);
 
 switch($status){
 
