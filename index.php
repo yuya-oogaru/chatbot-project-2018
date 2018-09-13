@@ -16,7 +16,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 /*json*/
 
 $template_msg = file_get_contents(__DIR__ . '/template1.json');
-
+error_log(file_get_contents(__DIR__ . '/template1.json'));
 $template_msg = json_decode($template_msg);
 
 /************************************************************
@@ -76,7 +76,7 @@ if($messageType == false){
 			$stickerType = 119;
 			break;
 		case 'テスト':
-			$preSendMessage = $template_msg->message[0];
+			$preSendMessage = $template_msg;
 			break;
 		case 'うるさい':
 			return;
