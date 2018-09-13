@@ -71,8 +71,14 @@ if($messageType == false){
 			$stickerType = 119;
 			break;
 		case 'テスト':
-		
-			break;
+			foreach ($events as $event) {
+				replyConfirmTemplate($bot, 
+				$event->getReplyToken(), 
+				'Are you sure?','Are you sure?', 
+				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('yes', 'ignore'),
+				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('no', 'ignore'));
+			}
+			return;
 		case 'うるさい':
 			return;
 		default :
@@ -83,6 +89,13 @@ if($messageType == false){
 	}
 
 	foreach ($events as $event) {
+	
+	 // イベントがPostbackEventクラスのインスタンスであれば
+		if ($event instanceof \LINE\LINEBot\Event\PostbackEvent) {
+			replyTextMessage($bot, $event->getReplyToken(), 'Postback受信「' . $event->getPostbackData() . '」');
+			continue;
+ 		}
+ 		
 		replyMultiMessage($bot, $replyToken, 
 			new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
 			new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
