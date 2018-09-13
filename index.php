@@ -86,7 +86,7 @@ switch($status){
 			);
 		}
 		updateStatus($userID, 'input');
-		updatTemp($userID, '');
+		updateTemp($userID, '');
 		break;
 	default :
 		break;
