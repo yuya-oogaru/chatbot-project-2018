@@ -17,7 +17,7 @@ $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 $post_data = ["replyToken" => $reply_token];
 
 array_push($post_data, json_decode($json_template));
-
+/*
 //json
 $post_data = [
 	"replyToken" => $reply_token,
@@ -42,9 +42,9 @@ $post_data = [
   		]
   	]
 ];
+*/
 
 
-/*
 //ユーザーからのメッセージに対し、オウム返しをする
 $post_data = [
   "replyToken" => $reply_token,
@@ -55,7 +55,7 @@ $post_data = [
     ]
   ]
 ];
- */
+ 
 //curlを使用してメッセージを返信する
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
