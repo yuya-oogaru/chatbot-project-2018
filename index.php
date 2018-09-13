@@ -16,7 +16,7 @@ $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 /*てすとー*/
 $post_data = json_decode($json_template);
 
-$post_data->{"replyToken"} = $reply_token
+$post_data->{"replyToken"} = $reply_token;
  
  /*
 //ユーザーからのメッセージに対し、オウム返しをする
