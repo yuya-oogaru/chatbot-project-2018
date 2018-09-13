@@ -101,17 +101,17 @@ function makeTemplateData($length){
 		[
 			"type" => "postback",
 			"label" => "a",
-			"text":"a"
+			"text"=> "a"
 		],
 		[
 			"type" => "postback",
 			"label" => "b",
-			"text":"b"
+			"text" => "b"
 		],
 		[
 			"type" => "postback",
 			"label" => "c",
-			"text":"c"
+			"text" => "c"
 		]
 	];
 }
