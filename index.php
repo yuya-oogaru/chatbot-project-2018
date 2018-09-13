@@ -19,6 +19,14 @@ $template_msg = file_get_contents(__DIR__ . '/template1.json');
 error_log(file_get_contents(__DIR__ . '/template1.json'));
 $template_msg = json_decode($template_msg);
 
+
+$testMsg = array("message":["type": "template","altText": "this is a confirm template","template": {"type": "confirm","text": "Are you sure?","actions": [{"type": "message","label": "Yes","text": "yes"},{"type": "message","label": "No","text": "no"}]}]);
+
+
+
+
+
+
 /************************************************************
 ＊ここからリプライトークン取得までは変えないで
 *************************************************************/
@@ -67,9 +75,15 @@ if($messageType == false){
 		
 		/*
 			foreach ($events as $event) {
-				$event->replyConfirmTemplate($bot, $replyToken);
+				$event->replyMessage($replyToken, $template_msg->message));
 			}
 			*/
+			
+			  
+			foreach ($events as $event) {
+				$event->replyMessage($replyToken, $testMsg);
+			}
+			
 			return;
 		case '大軽':
 			$preSendMessage = '開発者の名前';
