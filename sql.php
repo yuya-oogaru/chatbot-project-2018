@@ -4,7 +4,7 @@
 function updateStatus($userID, $status){
 
 	$dbh = dbConnection::getConnection();
-	$sql 'UPDATE status SET status = :status WHERE userID = :userID';
+	$sql = 'UPDATE status SET status = :status WHERE userID = :userID';
 	$sth = $dbh->prepare($sql);
 
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
@@ -16,7 +16,7 @@ function updateStatus($userID, $status){
 function updateTemp($userID, $temp){
 
 	$dbh = dbConnection::getConnection();
-	$sql 'UPDATE status SET tempData = :temp WHERE userID = :userID';
+	$sql = 'UPDATE status SET tempData = :temp WHERE userID = :userID';
 	$sth = $dbh->prepare($sql);
 
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
@@ -28,7 +28,7 @@ function updateTemp($userID, $temp){
 function searchStatus($userID){
 
 	$dbh = dbConnection::getConnection();
-	$sql 'SELECT status FROM status WHERE userID = :userID';
+	$sql = 'SELECT status FROM status WHERE userID = :userID';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
@@ -42,7 +42,7 @@ function searchStatus($userID){
 function searchTemp($userID){
 
 	$dbh = dbConnection::getConnection();
-	$sql 'SELECT status FROM tempData WHERE userID = :userID';
+	$sql = 'SELECT status FROM tempData WHERE userID = :userID';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
@@ -56,7 +56,7 @@ function searchTemp($userID){
 function searchUserID($userID){
 
 	$dbh = dbConnection::getConnection();
-	$sql 'SELECT userID FROM status WHERE userID = :userID';
+	$sql = 'SELECT userID FROM status WHERE userID = :userID';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
