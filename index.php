@@ -42,7 +42,7 @@ $post_data = [
 ];*/
 /*************************************************/
 $post_data = confirmTemplate($reply_token);
-error_log($post_data);
+error_log('post_data = '.json_encode($post_data).'');
 /*************************************************/
 //curlを使用してメッセージを返信する
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
