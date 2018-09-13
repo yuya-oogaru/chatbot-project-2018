@@ -13,7 +13,7 @@
 // Composerでインストールしたライブラリを一括読み込み
 require_once __DIR__ . '/vendor/autoload.php';
 
-
+$endFlag = 0;
 START:
 
 /************************************************************
@@ -26,7 +26,7 @@ error_log(file_get_contents('php://input'));
 $json = json_decode($json_string);
 
 /****署名認証****/
-
+  
 // アクセストークンを使いCurlHTTPClientをインスタンス化
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
 // CurlHTTPClientとシークレットを使いLINEBotをインスタンス化
@@ -44,10 +44,8 @@ $getMessage = $json->events[0]->message->text;
 /*リプライトークン（返信証明）取得*/
 $replyToken = $json->events[0]->replyToken;
 
-$prevMsg = 'dafault text';
 $preSendMessage = 'default text';/*テキスト初期化*/
 $stickerType = 1;
-$endFlag = 0;
 
 	/*メッセージに対して返信を変える*/
 	switch($getMessage){
