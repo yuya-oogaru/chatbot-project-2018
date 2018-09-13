@@ -1,7 +1,7 @@
 
 <?php
  
-$json_template = file_get_contents(__DIR__. '/template1.json')
+$json_template = file_get_contents(__DIR__. '/template1.json');
  
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
  
