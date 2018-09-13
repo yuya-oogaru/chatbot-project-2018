@@ -16,7 +16,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 /*json*/
 
 $template_msg = file_get_contents(__DIR__ . '/template1.json');
-error_log(json_decode($template_msg));
 
 /************************************************************
 ＊ここからリプライトークン取得までは変えないで
@@ -64,26 +63,16 @@ if($messageType == false){
 	switch($getMessage){
 		case 'メニュー':
 		
-		/*
-			foreach ($events as $event) {
-				$event->replyMessage($replyToken, $template_msg->message));
-			}
-			*/
+			$preSendMessage = makeConfirmTemplate(1);
+			break;
 			
-			return;
 		case '大軽':
 			$preSendMessage = '開発者の名前';
 			$stickerType = 119;
 			break;
 		case 'テスト':
-			foreach ($events as $event) {
-				replyConfirmTemplate($bot, 
-				$event->getReplyToken(), 
-				'Are you sure?','Are you sure?', 
-				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('yes', 'ignore'),
-				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('no', 'ignore'));
-			}
-			return;
+		
+			break;
 		case 'うるさい':
 			return;
 		default :
@@ -103,7 +92,36 @@ if($messageType == false){
 }
 /**************ここまで**************/
 
+/*json*/
 
+function makeConfirmTemplate($void){
+	
+	return [
+		"type" => "template",
+		"altText" => "this is a confirm template",
+		"template" => [
+			"type" => "confirm",
+			"text" => "Are you sure?",
+			"actions" => makeActionTemplate($void)
+  		]
+  	];
+}
+
+function makeActionTemplate($void){
+
+
+	return [
+				[	"type" => "message",
+					"label" => "Yes",
+					"text" => "yes"
+				],
+				[
+					"type" => "message",
+					"label" => "No",
+					"text" => "no"
+				]
+			];
+}
 /******メッセージランチャ******/
 function replyMultiMessage($bot, $replyToken, ...$msgs) {
 	// MultiMessageBuilderをインスタンス化
