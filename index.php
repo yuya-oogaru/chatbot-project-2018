@@ -76,8 +76,14 @@ if($messageType == false){
 			$stickerType = 119;
 			break;
 		case 'テスト':
-			$preSendMessage = $template_msg;
-			break;
+			foreach ($events as $event) {
+				replyConfirmTemplate($bot, 
+				$event->getReplyToken(), 
+				'Are you sure?','Are you sure?', 
+				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('yes', 'ignore'),
+				new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('no', 'ignore'));
+			}
+			return;
 		case 'うるさい':
 			return;
 		default :
