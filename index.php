@@ -1,7 +1,7 @@
 
 <?php
  
-//require_once __DIR__ . '/messageTemplate.php';
+require_once __DIR__ . '/messageTemplate.php';
 
  
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
