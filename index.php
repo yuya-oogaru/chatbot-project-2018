@@ -17,6 +17,7 @@ $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 $post_data = ["replyToken" => $reply_token];
 
 array_push($post_data, json_decode($json_template));
+
 /*
 //json
 $post_data = [
@@ -42,9 +43,20 @@ $post_data = [
   		]
   	]
 ];
+
 */
 
+//サンプル
+$response_format_text = makeTemplateData(1);
 
+$post_data = [
+	"replyToken => $reply_token,
+	"messages => [$response_format_text]
+];
+
+
+
+/*
 //ユーザーからのメッセージに対し、オウム返しをする
 $post_data = [
   "replyToken" => $reply_token,
@@ -55,7 +67,7 @@ $post_data = [
     ]
   ]
 ];
- 
+ */
 //curlを使用してメッセージを返信する
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
@@ -68,4 +80,39 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 ));
 $result = curl_exec($ch);
 curl_close($ch);
+
+function makeTemplate($length){
+
+	return[
+		"type" => "template",
+		"altText" => "テストメッセージ",
+		"template" => [
+			"type" => "buttons",
+			"title" => "Menu",
+			"text" => "テストメッセージ",
+			"actions" => makeTemplateData($length)
+		]
+	];
+}
+function makeTemplateData($length){
+
+	return
+	[
+		[
+			"type" => "postback",
+			"label" => "a",
+			"text":"a"
+		],
+		[
+			"type" => "postback",
+			"label" => "b",
+			"text":"b"
+		],
+		[
+			"type" => "postback",
+			"label" => "c",
+			"text":"c"
+		]
+	];
+}
 ?>
