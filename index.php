@@ -76,8 +76,14 @@ switch($status){
 	case 'y/n':
 
 		$temp = searchTemp($userID);
+
+			$preSendMessage = ''.$temp.'に対する返答は'.$getMessage.'';
+			
 		foreach ($events as $event) {
-			$bot->replyMessage($replyToken, ''.$temp.'に対する返答は'.$getMessage.'');
+			replyMultiMessage($bot, $replyToken, 
+				new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($preSendMessage),
+				new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(1, $stickerType)
+			);
 		}
 		updateStatus($userID, 'input');
 		updatTemp($userID, '');
@@ -87,6 +93,19 @@ switch($status){
 }
 
 	return;
-
+/******メッセージランチャ******/
+function replyMultiMessage($bot, $replyToken, ...$msgs) {
+	// MultiMessageBuilderをインスタンス化
+	$builder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
+	// ビルダーにメッセージを全て追加
+	foreach($msgs as $value) {
+		$builder->add($value);
+	}
+	$response = $bot->replyMessage($replyToken, $builder);
+	
+	if (!$response->isSucceeded()) {
+		error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
+	}
+}
 
 ?>
