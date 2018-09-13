@@ -85,6 +85,38 @@ $post_data = [
         				"spacing"=> "sm",
         				"contents"=> [
           					[
+            					"type"=> "box",
+            					"layout"=> "horizontal",
+            					"contents"=> [
+              						[
+                						"type"=> "text",
+                						"text"=> "乗車日",
+                						"size"=> "xxs",
+                						"color"=> "#0000ff",
+                						"flex"=> 0
+              						],
+              						[
+                						"type"=> "text",
+                						"text"=> "9/20",
+                						"size"=> "xs",
+                						"color"=> "#111111",
+                						"align"=> "end"
+              						]
+            					]
+          					],
+          					[
+            					"type"=> "separator",
+            					"margin"=> "md"
+          					]
+        				]
+      				],
+      				[
+        				"type"=> "box",
+        				"layout"=> "vertical",
+        				"margin"=> "xxl",
+        				"spacing"=> "sm",
+        				"contents"=> [
+          					[
             					"type"=> "text",
             					"text"=> "以上の内容で登録しますか？",
             					"size"=> "md",
