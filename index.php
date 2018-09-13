@@ -7,6 +7,7 @@ $access_token = getenv('CHANNEL_ACCESS_TOKEN');
 
 var_dump(json_decode($json_template))
 
+?>
 /*
 //APIから送信されてきたイベントオブジェクトを取得
 $json_string = file_get_contents('php://input');
@@ -46,4 +47,5 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'Authorization: Bearer ' . $access_token
 ));
 $result = curl_exec($ch);
-curl_close($ch);*/
+curl_close($ch);
+*/
