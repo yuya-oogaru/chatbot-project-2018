@@ -15,6 +15,7 @@ $json_obj = json_decode($json_string);
 $message = $json_obj->{"events"}[0]->{"message"};
 $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 
+$post_data = confirmTemplate(1);
 /*
 //ユーザーからのメッセージに対し、オウム返しをする
 $post_data = [

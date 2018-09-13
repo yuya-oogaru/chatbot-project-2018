@@ -1,6 +1,8 @@
 <?php
 
 //確認テンプレート
+function confirmTemplate($void){
+
 $post_data = [
 	"replyToken" => $reply_token,
 	"messages" => [
@@ -27,6 +29,8 @@ $post_data = [
   	]
 ];
 
+	return $post_data;
 
+}
 ?>
 
