@@ -1,7 +1,7 @@
 
 <?php
  
-$access_token = '(getenv('CHANNEL_ACCESS_TOKEN'))';
+$access_token = getenv('CHANNEL_ACCESS_TOKEN');
  
 //APIから送信されてきたイベントオブジェクトを取得
 $json_string = file_get_contents('php://input');
