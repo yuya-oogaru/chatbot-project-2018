@@ -1,5 +1,5 @@
 <?php
-//**********‚¨‚¤‚Ş•Ô‚µƒeƒLƒXƒg************
+//**********ãŠã†ã‚€è¿”ã—ãƒ†ã‚­ã‚¹ãƒˆ************
 function textMessage($reply_token, $text){
 
 return
@@ -19,7 +19,7 @@ return
 ];
 
 }
-//***********Šm”Fƒeƒ“ƒvƒŒ[ƒg*************
+//***********ç¢ºèªãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ*************
 function confirmTemplate($reply_token){
 
 $action = confirmTemplateAction(1);
@@ -42,7 +42,7 @@ return
 ];
 
 }
-//Šm”FƒAƒNƒVƒ‡ƒ“ƒRƒ“ƒeƒ“ƒc
+//ç¢ºèªã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚³ãƒ³ãƒ†ãƒ³ãƒ„
 function confirmTemplateAction($void){
 
 return
@@ -60,7 +60,7 @@ return
 ];
 
 }
-//**********ƒ{ƒ^ƒ“ƒeƒ“ƒvƒŒ[ƒg***********
+//**********ãƒœã‚¿ãƒ³ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ***********
 function buttonTemplate($reply_token){
 
 $action = buttonTemplateAction(1);
@@ -106,7 +106,7 @@ return
 ];
 
 }
-//**********Flexƒeƒ“ƒvƒŒ[ƒg*************
+//**********Flexãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ*************
 function FlexTemplate($reply_token){
 
 $bubble = FlexTemplateBubble(1);
@@ -125,7 +125,7 @@ return
 ];
 
 }
-//Flexƒoƒuƒ‹
+//Flexãƒãƒ–ãƒ«
 function FlexTemplateBubble($void){
 
 $content = FlexTemplateContents(1);
@@ -142,7 +142,7 @@ return
 ];
 
 }
-//FlexƒRƒ“ƒeƒ“ƒc
+//Flexã‚³ãƒ³ãƒ†ãƒ³ãƒ„
 function FlexTemplateContents($void){
 
 $subContent = FlexTemplateContentsSub(1);
@@ -160,14 +160,14 @@ return
 ];
 
 }
-//FlexƒTƒuƒRƒ“ƒeƒ“ƒc
+//Flexã‚µãƒ–ã‚³ãƒ³ãƒ†ãƒ³ãƒ„
 function FlexTemplateContentsSub($void){
 
 return
 [
 	[
 		"type" => "text",
-		"text" => "“à—eŠm”F",
+		"text" => "å†…å®¹ç¢ºèª",
 		"weight" => "bold",
 		"size" => "xxl",
 		"margin" => "md"
