@@ -53,10 +53,12 @@ function DataListFlexTemplateContents($void){
 //Flexサブコンテンツ（項目）ビルダ
 function DataListFlexTemplateContentsBuilder($loop){
 
+	//リスト名表示
+	$contents[] = array("type" => "text","text" => "登録済み経路一覧","weight"=>"bold","color"=>"#00a100","size"=>"md","margin"=>"md");
 
 	/*サブコンテンツ（項目）配列を指定回数分連結*/
 	for($count = 0; $count < $loop; $count++){
-		$contents[] = DataListFlexTemplateContentsSubBox('9/1.', '株式会社OO.','大阪～京橋.','仮復.','9,999円');
+		$contents[] = DataListFlexTemplateContentsSubBox($count,'9/1.', '株式会社OO.','大阪～京橋.','仮復.','9,999円');
 	}
 
 	//合計金額
@@ -70,7 +72,10 @@ function DataListFlexTemplateContentsBuilder($loop){
 	return $contents;
 }
 //Flexサブコンテンツ（項目）
-function DataListFlexTemplateContentsSubBox($date, $destination, $route, $icon ,$price){
+function DataListFlexTemplateContentsSubBox($no, $date, $destination, $route, $icon ,$price){
+
+	//登録Noから経路までを結合
+	$margeText = '['.($no + 1).']'.$date.''.$destination.''.$route.'';
 
 	return
 	[
@@ -79,21 +84,7 @@ function DataListFlexTemplateContentsSubBox($date, $destination, $route, $icon ,
 		"contents"=> [
 			[
 				"type" => "text",
-				"text" => $date,
-				"size" => "xxs",
-				"color" => "#555555",
-				"flex" => 0
-			],
-			[
-				"type" => "text",
-				"text" => $destination,
-				"size" => "xxs",
-				"color" => "#555555",
-				"flex" => 0
-			],
-			[
-				"type" => "text",
-				"text" => $route,
+				"text" => $margeText,
 				"size" => "xxs",
 				"color" => "#555555",
 				"flex" => 0
