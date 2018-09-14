@@ -24,24 +24,20 @@ $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 $post_data = textMessage($reply_token, 'default message');   /*応答フォーマット初期化*/
 
 switch($message){
-case 'ボタン':
-	$post_data = buttonTemplate($reply_token);  /*ボタンテンプレート*/
-	break;
 case '確認':
 	$post_data = confirmTemplate($reply_token); /*確認テンプレート*/
 	break;
-case 'フレックス':
+case '登録':
 	$post_data = FlexTemplate($reply_token);    /*Flexメッセージ*/
 	break;
-case 'マルチ':
-	$post_data = MultiFlexTemplate($reply_token);    /*マルチFlexメッセージ*/
-	break;
-case 'リスト':
+case '申請':
 	$post_data = DataListFlexTemplate($reply_token);    /*リストFlexメッセージ*/
 	break;
 case 'メニュー':
 	$post_data = MenuListFlexTemplate($reply_token);    /*メニューFlexメッセージ*/
 	break;
+case 'キャンセル':
+	return;
 default :
 	$post_data = textMessage($reply_token, $message);     /*テキストメッセージ*/
 	break;

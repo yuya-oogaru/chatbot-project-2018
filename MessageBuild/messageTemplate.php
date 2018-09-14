@@ -57,50 +57,7 @@ function confirmTemplateAction($void){
 		]
 	];
 }
-//**********ボタンテンプレート***********
-function buttonTemplate($reply_token){
 
-$action = buttonTemplateAction(1);
-error_log('action = '.json_encode($action).'');
-
-	return
-	[
-		"replyToken" => $reply_token,
-		"messages" => [
-			[
-				"type" => "template",
-				"altText" => "this is a button template",
-				"template" => [
-					"type" => "buttons",
-					"text" => "test template",
-					"actions" => $action
-				]
-			]
-		]
-	];
-}
-
-function buttonTemplateAction($void){
-
-return
-	[
-		[
-			"type" => "message",
-			"label" => "a",
-			"text" => "a"
-		],
-		[
-			"type" => "message",
-			"label" => "b",
-			"text" => "b"
-		],
-		[
-			"type" => "message",
-			"label" => "c",
-			"text" => "c"
-		]
-	];
-}
 //**********Flexテンプレート*************
 function FlexTemplate($reply_token){
 

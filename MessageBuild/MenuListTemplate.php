@@ -70,7 +70,7 @@ function MenuListFlexTemplateButton($text){
 			"action"=> [
 				"type" => "message",
 				"label" => "一件削除",
-				"text" => "一件削除が押された。"
+				"text" => "一件削除"
 			]
 		],
 		[
@@ -80,7 +80,7 @@ function MenuListFlexTemplateButton($text){
 			"action"=> [
 				"type" => "message",
 				"label" => "申請",
-				"text" => "申請が押された。"
+				"text" => "申請"
 			]
     	],
     	[
@@ -90,7 +90,7 @@ function MenuListFlexTemplateButton($text){
 			"action"=> [
 				"type" => "message",
 				"label" => "キャンセル",
-				"text" => "キャンセルが押された。"
+				"text" => "キャンセル"
 			]
 		]
 	];
