@@ -164,39 +164,39 @@ return
         "spacing" => "sm",
         "contents" => [
         	[
-        		"type": "box",
-				"layout": "horizontal",
-				"contents": FlexTemplateContentsSubBox('乗車日', '9/20')
+        		"type"=> "box",
+				"layout"=> "horizontal",
+				"contents"=> FlexTemplateContentsSubBox('乗車日', '9/20')
         	],
         	[
-        		"type": "box",
-				"layout": "horizontal",
-				"contents": FlexTemplateContentsSubBox('行先', 'OO精工株式会社')
+        		"type"=> "box",
+				"layout"=> "horizontal",
+				"contents"=> FlexTemplateContentsSubBox('行先', 'OO精工株式会社')
         	],
         	[
-        		"type": "box",
-				"layout": "horizontal",
-				"contents": FlexTemplateContentsSubBox('経路', '京橋～天王寺')
+        		"type"=> "box",
+				"layout"=> "horizontal",
+				"contents"=> FlexTemplateContentsSubBox('経路', '京橋～天王寺')
         	],
         	[
-        		"type": "box",
-				"layout": "horizontal",
-				"contents": FlexTemplateContentsSubBox('往復の有無', 'あり')
+        		"type"=> "box",
+				"layout"=> "horizontal",
+				"contents"=> FlexTemplateContentsSubBox('往復の有無', 'あり')
         	],
         	[
-        		"type": "box",
-				"layout": "horizontal",
-				"contents": FlexTemplateContentsSubBox('合計運賃', '180円')
+        		"type"=> "box",
+				"layout"=> "horizontal",
+				"contents"=> FlexTemplateContentsSubBox('合計運賃', '180円')
         	],
         	[
-        		"type": "box",
-				"layout": "horizontal",
-				"contents": FlexTemplateContentsSubBox('ユーザー請求額', '180円')
+        		"type"=> "box",
+				"layout"=> "horizontal",
+				"contents"=> FlexTemplateContentsSubBox('ユーザー請求額', '180円')
         	],
         	[
-        		"type": "box",
-				"layout": "horizontal",
-				"contents": FlexTemplateContentsSubBox('備考', '往復有')
+        		"type"=> "box",
+				"layout"=> "horizontal",
+				"contents"=> FlexTemplateContentsSubBox('備考', '往復有')
         	],
         	[
        			 "type" => "separator",
@@ -218,20 +218,20 @@ return
 				"align" => "center"
         	],
         	[
-            	"type": "button",
-            	"height": "md",
-            	"style": "primary",
-            	"action": [
+            	"type"=> "button",
+            	"height"=> "md",
+            	"style"=> "primary",
+            	"action"=> [
 					"type" => "message",
 					"label" => "はい",
 					"text" => "はいが押された。"
               	]
         	],
         	[
-            	"type": "button",
-            	"height": "md",
-            	"style": "secondary",
-            	"action": [
+            	"type"=> "button",
+            	"height"=> "md",
+            	"style"=> "secondary",
+            	"action"=> [
 					"type" => "message",
 					"label" => "いいえ",
 					"text" => "いいえが押された。"
