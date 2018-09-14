@@ -74,9 +74,8 @@ return
 			"altText" => "this is a button template",
 			"template" => [
 				"type" => "button",
-				"title" => "Menu",
 				"text" => "テストテンプレート",
-				"action" => $action
+				"actions" => $action
 			]
 		]
 	]
