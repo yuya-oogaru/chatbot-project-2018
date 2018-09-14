@@ -156,11 +156,115 @@ return
         "margin" => "xxl",
         "spacing" => "sm",
         "contents" => $subContent
+	],
+	[
+		"type" => "box",
+        "layout" => "vertical",
+        "margin" => "xxl",
+        "spacing" => "sm",
+        "contents" => [
+        	[
+        		"type": "box",
+				"layout": "horizontal",
+				"contents": FlexTemplateContentsSubBox('乗車日', '9/20')
+        	],
+        	[
+        		"type": "box",
+				"layout": "horizontal",
+				"contents": FlexTemplateContentsSubBox('行先', 'OO精工株式会社')
+        	],
+        	[
+        		"type": "box",
+				"layout": "horizontal",
+				"contents": FlexTemplateContentsSubBox('経路', '京橋～天王寺')
+        	],
+        	[
+        		"type": "box",
+				"layout": "horizontal",
+				"contents": FlexTemplateContentsSubBox('往復の有無', 'あり')
+        	],
+        	[
+        		"type": "box",
+				"layout": "horizontal",
+				"contents": FlexTemplateContentsSubBox('合計運賃', '180円')
+        	],
+        	[
+        		"type": "box",
+				"layout": "horizontal",
+				"contents": FlexTemplateContentsSubBox('ユーザー請求額', '180円')
+        	],
+        	[
+        		"type": "box",
+				"layout": "horizontal",
+				"contents": FlexTemplateContentsSubBox('備考', '往復有')
+        	],
+        	[
+       			 "type" => "separator",
+       			 "margin" => "md"
+			]
+        ]
+	],
+	[
+		"type" => "box",
+        "layout" => "vertical",
+        "margin" => "xxl",
+        "spacing" => "sm",
+        "contents" => [
+        	[
+        		"type" => "text",
+				"text" => "以上の内容で登録しますか？",
+				"size" => "xxl",
+				"color" => "#111111",
+				"align" => "center"
+        	],
+        	[
+            	"type": "button",
+            	"height": "md",
+            	"style": "primary",
+            	"action": [
+					"type" => "message",
+					"label" => "はい",
+					"text" => "はいが押された。"
+              	]
+        	],
+        	[
+            	"type": "button",
+            	"height": "md",
+            	"style": "secondary",
+            	"action": [
+					"type" => "message",
+					"label" => "いいえ",
+					"text" => "いいえが押された。"
+              	]
+        	]
+        ]
 	]
 ];
 
 }
-//Flexサブコンテンツ
+//Flexサブコンテンツ（項目）
+function FlexTemplateContentsSubBox($column,$value){
+
+return
+[
+	[
+		"type" => "text",
+		"text" => $column,
+		"size" => "xxs",
+		"color" => "#0000ff",
+		"flex" => 0
+	],
+	[
+		"type" => "text",
+		"text" => $value,
+		"size" => "xs",
+		"color" => "#111111",
+		"align" => "end"
+	]
+];
+
+}
+//Flexサブコンテンツ（タイトル）
 function FlexTemplateContentsSub($void){
 
 return
@@ -171,6 +275,10 @@ return
 		"weight" => "bold",
 		"size" => "xxl",
 		"margin" => "md"
+	],
+	[
+        "type" => "separator",
+        "margin" => "md"
 	]
 ];
 
