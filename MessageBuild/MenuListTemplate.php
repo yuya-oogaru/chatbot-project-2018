@@ -58,7 +58,7 @@ function MenuListFlexTemplateContentsBuilder($loop){
 	
 	/*サブコンテンツ（項目）配列を指定回数分連結*/
 	for($count = 0; $count < $loop; $count++){
-		$contents[] = DataListFlexTemplateContentsSubBox('9/1.', '株式会社OO.','大阪～京橋.','仮復.','9,999円');
+		$contents[] = MenuListFlexTemplateContentsSubBox(($count + 1),'9/1.', '株式会社OO.','大阪～京橋.','仮復.','9,999円');
 	}
 	
 	//合計金額
@@ -114,5 +114,59 @@ function MenuListFlexTemplateButton($text){
 			]
 		]
 	];
+}
+//Flexサブコンテンツ（項目）
+function MenuListFlexTemplateContentsSubBox($no, $date, $destination, $route, $icon ,$price){
+
+	return
+	[
+		"type"=> "box",
+		"layout"=> "horizontal",
+		"contents"=> [
+			[
+				"type" => "text",
+				"text" => $no,
+				"size" => "xxs",
+				"color" => "#555555",
+				"flex" => 0
+			],
+			[
+				"type" => "text",
+				"text" => $date,
+				"size" => "xxs",
+				"color" => "#555555",
+				"flex" => 0
+			],
+			[
+				"type" => "text",
+				"text" => $destination,
+				"size" => "xxs",
+				"color" => "#555555",
+				"flex" => 0
+			],
+			[
+				"type" => "text",
+				"text" => $route,
+				"size" => "xxs",
+				"color" => "#555555",
+				"flex" => 0
+			],
+			[
+				"type" => "text",
+				"text" => $icon,
+				"size" => "xxs",
+				"color" => "#ff0000",
+				"flex" => 0
+			],
+			[
+				"type" => "text",
+				"text" => $price,
+				"size" => "xxs",
+				"color" => "#111111",
+				"align" => "end"
+			]
+		]
+	];
+
 }
 ?>
