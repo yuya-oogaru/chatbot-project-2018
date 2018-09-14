@@ -61,6 +61,10 @@ function MenuListFlexTemplateContentsBuilder($loop){
 		$contents[] = DataListFlexTemplateContentsSubBox('9/1.', '株式会社OO.','大阪～京橋.','仮復.','9,999円');
 	}
 	
+	//合計金額
+	$contents[] = array("type"=>"text","text"=>"----------","size"=>"md","color"=>"#000000","align"=>"end");
+	$contents[] = array("type"=>"text","text"=>"999,999,999円","size"=>"md","color"=>"#0000ff","align"=>"end");
+	
 	//セパレータ
 	$contents[] = array("type" => "separator","margin" => "md");
 	
