@@ -2,7 +2,6 @@
 
 /*メッセージJSONデータ構成ファイル*/
 require (__DIR__ . '/MessageBuild/messageTemplate.php');
-require (__DIR__ . '/MessageBuild/MultimessageTemplate.php');
 require (__DIR__ . '/MessageBuild/DataListTemplate.php');
 require (__DIR__ . '/MessageBuild/MenuListTemplate.php');
 
@@ -25,7 +24,7 @@ $post_data = textMessage($reply_token, 'default message');   /*応答フォー�
 
 switch($message){
 case '確認':
-	$post_data = confirmTemplate($reply_token); /*確認テンプレート*/
+	$post_data = confirmTemplate($reply_token, 'Are you sure?'); /*確認テンプレート*/
 	break;
 case '登録':
 	$post_data = FlexTemplate($reply_token);    /*Flexメッセージ*/

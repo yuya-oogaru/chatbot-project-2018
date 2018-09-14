@@ -19,7 +19,7 @@ function textMessage($reply_token, $text){
 	];
 }
 //***********確認テンプレート*************
-function confirmTemplate($reply_token){
+function confirmTemplate($reply_token, $confirmText){
 
 	$action = confirmTemplateAction(1);
 	error_log('action = '.json_encode($action).'');
@@ -33,7 +33,7 @@ function confirmTemplate($reply_token){
 				"altText" => "this is a confirm template",
 				"template" => [
 					"type" => "confirm",
-					"text" => "Are you sure?",
+					"text" => $confirmText,
 					"actions" => $action
 				]
 			]
