@@ -36,6 +36,9 @@ default :
 	break;
 }
 
+/*Jsonを日本語（２バイト文字）に対応*/
+
+
 /*jsonデータ確認*/
 error_log('post_data = '.json_encode($post_data).'');
 

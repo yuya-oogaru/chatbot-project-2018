@@ -95,7 +95,7 @@ return
 	],
 	[
 		"type" => "message",
-		"label" => b",
+		"label" => "b",
 		"text" => "b"
 	],
 	[
