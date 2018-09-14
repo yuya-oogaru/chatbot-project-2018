@@ -74,20 +74,18 @@ return
 	"layout"=> "horizontal",
 	"contents"=> [
 		[
-			[
-				"type" => "text",
-				"text" => $column,
-				"size" => "xxs",
-				"color" => "#0000ff",
-				"flex" => 0
-			],
-			[
-				"type" => "text",
-				"text" => $value,
-				"size" => "xs",
-				"color" => "#111111",
-				"align" => "end"
-			]
+			"type" => "text",
+			"text" => $column,
+			"size" => "xxs",
+			"color" => "#0000ff",
+			"flex" => 0
+		],
+		[
+			"type" => "text",
+			"text" => $value,
+			"size" => "xs",
+			"color" => "#111111",
+			"align" => "end"
 		]
 	]
 ];
