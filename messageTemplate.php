@@ -1,7 +1,10 @@
 <?php
 
-//確認テンプレート
+//***********確認テンプレート*************
 function confirmTemplate($reply_token){
+
+$action = confirmTemplateAction(1);
+error_log('action = '.json_encode($action).'');
 
 return [
 	"replyToken" => $reply_token,
@@ -12,18 +15,7 @@ return [
   		"template" => [
 			"type" => "confirm",
      	 	"text" => "Are you sure?",
-     	 	"actions" => [
-     	    	[
-            		"type" => "message",
-            		"label" => "Yes",
-            		"text" => "yes"
-          		],
-          		[
-           		 	"type" => "message",
-            		"label" => "No",
-            		"text" => "no"
-          		]
-      		]
+     	 	"actions" => $action
   		]
   	  ]
   	]
@@ -32,7 +24,26 @@ return [
 return $confirm;
 
 }
-//Flexテンプレート
+//確認アクションコンテンツ
+function confirmTemplateAction($void){
+
+return
+[
+	[
+		"type" => "message",
+		"label" => "Yes",
+		"text" => "yes"
+	],
+    [
+		"type" => "message",
+		"label" => "No",
+		"text" => "no"
+	]
+];
+
+}
+
+//**********Flexテンプレート*************
 function FlexTemplate($reply_token){
 
 $bubble = FlexTemplateBubble(1);
