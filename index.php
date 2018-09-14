@@ -23,10 +23,13 @@ $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 switch($message){
 case '確認':
 	$post_data = confirmTemplate($reply_token); /*確認テンプレート*/
+	break;
 case 'フレックス':
 	$post_data = FlexTemplate($reply_token);    /*Flexメッセージ*/
+	break;
 default :
 	$post_data = textMessage($reply_token);     /*テキストメッセージ*/
+	break;
 }
 
 /*jsonデータ確認*/
