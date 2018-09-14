@@ -1,14 +1,19 @@
 <?php
 //**********おうむ返しテキスト************
-function textMessage($reply_token){
+function textMessage($reply_token, $text){
 
-$response_text = responseText(1);
-error_log('response = '.json_encode($response_text).'');
+//$response_text = responseText(1);
+//error_log('response = '.json_encode($response_text).'');
 
 return
 [
 	"replyToken" => $reply_token,
-	"messages" => $response_text
+	"messages" => 	[
+		[
+			"type" => "text",
+			"text" => $text
+		]
+	]
 ];
 
 }

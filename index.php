@@ -17,8 +17,9 @@ $json_obj = json_decode($json_string);
 $message = $json_obj->{"events"}[0]->{"message"}->{"text"};
 $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 
-
 /*****************応答メッセージ作成**********************/
+
+$post_data = textMessage($reply_token, 'default message');   /*応答フォーマット初期化*/
 
 switch($message){
 case '確認':
@@ -28,7 +29,7 @@ case 'フレックス':
 	$post_data = FlexTemplate($reply_token);    /*Flexメッセージ*/
 	break;
 default :
-	$post_data = textMessage($reply_token);     /*テキストメッセージ*/
+	$post_data = textMessage($reply_token, $message);     /*テキストメッセージ*/
 	break;
 }
 
