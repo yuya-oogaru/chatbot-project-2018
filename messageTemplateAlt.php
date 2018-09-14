@@ -58,7 +58,7 @@ function FlexTemplateContentsBuilder($void){
 
 
 for($count = 0; $count < 10; $count++){
-	$contents[] = array(FlexTemplateContentsSubBox('テスト', 'テスト'));
+	$contents[] = FlexTemplateContentsSubBox('テスト', 'テスト');
 }
 
 error_log('contents = '.json_encode($contents).'');
