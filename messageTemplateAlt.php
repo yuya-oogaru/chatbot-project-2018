@@ -41,19 +41,7 @@ return
         "layout" => "vertical",
         "margin" => "xxl",
         "spacing" => "sm",
-        "contents" => [
-			FlexTemplateContentsSubBox('乗車日', '9/20'),
-        	FlexTemplateContentsSubBox('行先', 'OO精工株式会社'),
-        	FlexTemplateContentsSubBox('経路', '京橋～天王寺'),
-        	FlexTemplateContentsSubBox('往復の有無', 'あり'),
-        	FlexTemplateContentsSubBox('合計運賃', '180円'),
-        	FlexTemplateContentsSubBox('ユーザー請求額', '180円'),
-        	FlexTemplateContentsSubBox('備考', '往復有')
-        	[
-       			 "type" => "separator",
-       			 "margin" => "md"
-			]
-        ]
+        "contents" => FlexTemplateContentsBuilder(1)
 	],
 	[
 		"type" => "box",
@@ -63,6 +51,18 @@ return
         "contents" => FlexTemplateContentsSubButton('以上の内容を登録しますか？')
 	]
 ];
+
+}
+//Flexサブコンテンツビルダ
+function FlexTemplateContentsBuilder($void){
+
+
+for($count = 0; $count < 10; $count++){
+	$contents[] = array(FlexTemplateContentsSubBox('テスト', 'テスト'));
+}
+
+error_log('contents = '.json_encode($contents).'');
+return $contents;
 
 }
 //Flexサブコンテンツ（項目）
