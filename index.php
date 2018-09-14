@@ -1,50 +1,33 @@
-
 <?php
- 
+
+/*メッセージJSONデータ構成ファイル*/
 require (__DIR__ . '/messageTemplate.php');
 
- 
+/*LINEBotアクセストークン*/
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
 
+
+/**************ユーザー情報読み取り*******************/
 
 //APIから送信されてきたイベントオブジェクトを取得
 $json_string = file_get_contents('php://input');
 $json_obj = json_decode($json_string);
- 
+
 //イベントオブジェクトから必要な情報を抽出
 $message = $json_obj->{"events"}[0]->{"message"};
 $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
-/*
-$post_data = [
-	"replyToken" => $reply_token,
-	"messages" => [
-	  [
-  		"type" => "template",
-  		"altText" => "this is a confirm template",
-  		"template" => [
-			"type" => "confirm",
-     	 	"text" => "Are you sure?",
-     	 	"actions" => [
-     	    	[
-            		"type" => "message",
-            		"label" => "Yes",
-            		"text" => "yes"
-          		],
-          		[
-           		 	"type" => "message",
-            		"label" => "No",
-            		"text" => "no"
-          		]
-      		]
-  		]
-  	  ]
-  	]
-];*/
-/*************************************************/
-//$post_data = confirmTemplate($reply_token);
-$post_data = FlexTemplate($reply_token);
+
+
+/*****************応答メッセージ作成**********************/
+
+$post_data = confirmTemplate($reply_token); /*確認テンプレート*/
+//$post_data = FlexTemplate($reply_token);      /*Flexメッセージ*/
+
+/*jsonデータ確認*/
 error_log('post_data = '.json_encode($post_data).'');
-/*************************************************/
+
+/****************応答メッセージ送信*******************/
+
 //curlを使用してメッセージを返信する
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
