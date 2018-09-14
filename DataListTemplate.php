@@ -56,7 +56,7 @@ function DataListFlexTemplateContentsBuilder($loop){
 
 	/*サブコンテンツ（項目）配列を指定回数分連結*/
 	for($count = 0; $count < $loop; $count++){
-		$contents[] = DataListFlexTemplateContentsSubBox('9/1 ', '株式会社OO ','大阪～京橋 ','仮復 ','9,999円 ');
+		$contents[] = DataListFlexTemplateContentsSubBox('9/1.', '株式会社OO.','大阪～京橋.','仮復.','9,999円');
 	}
 
 	error_log('contents = '.json_encode($contents).'');
