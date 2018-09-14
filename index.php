@@ -33,7 +33,7 @@ case 'フレックス':
 	$post_data = FlexTemplate($reply_token);    /*Flexメッセージ*/
 	break;
 case 'マルチ':
-	$post_data = FlexTemplate($reply_token);    /*マルチFlexメッセージ*/
+	$post_data = MultiFlexTemplate($reply_token);    /*マルチFlexメッセージ*/
 	break;
 default :
 	$post_data = textMessage($reply_token, $message);     /*テキストメッセージ*/

@@ -57,6 +57,7 @@ return
 function MultiFlexTemplateContentsBuilder($void){
 
 
+/*サブコンテンツ配列を指定回数分連結*/
 for($count = 0; $count < 10; $count++){
 	$contents[] = MultiFlexTemplateContentsSubBox('ループ', $count.'回');
 }
