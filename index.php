@@ -1,9 +1,9 @@
 <?php
 
 /*メッセージJSONデータ構成ファイル*/
-require (__DIR__ . '/messageTemplate.php');
-require (__DIR__ . '/MultimessageTemplate.php');
-require (__DIR__ . '/DataListTemplate.php');
+require (__DIR__ . '/MessageBuild/messageTemplate.php');
+require (__DIR__ . '/MessageBuild/MultimessageTemplate.php');
+require (__DIR__ . '/MessageBuild/DataListTemplate.php');
 
 /*LINEBotアクセストークン*/
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
