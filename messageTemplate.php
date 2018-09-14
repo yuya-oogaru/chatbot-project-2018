@@ -38,7 +38,8 @@ function FlexTemplate($reply_token){
 $bubble = FlexTemplateBubble(1);
 error_log('bubble = '.json_encode($bubble).'');
 
-return [
+return
+[
 	"replyToken" => $reply_token,
 	"messages" => [
 		[
@@ -56,7 +57,8 @@ function FlexTemplateBubble($void){
 $content = FlexTemplateContents(1);
 error_log('contents = '.json_encode($content).'');
 
-return[
+return
+[
 	"type" => "bubble",
 	"styles" => [
     	"footer" => [
@@ -74,7 +76,8 @@ return[
 //FlexƒRƒ“ƒeƒ“ƒc
 function FlexTemplateContents($void){
 
-return[
+return
+[
 	[
 		"type" => "box",
         "layout" => "vertical",
