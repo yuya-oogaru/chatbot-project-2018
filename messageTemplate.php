@@ -77,35 +77,7 @@ return
 		[
 			"type" => "flex",
 			"altText" => "test",
-			"contents" => [
-				"type" => "bubble",
-				"styles" => [
-    				"footer" => [
-    					"separator" => true
-    				]
-  				],
-				"body" => [
-    				"type" => "box",
-    				"layout" => "vertical",
-    				"contents" => [
-						[
-							"type" => "box",
-        					"layout" => "vertical",
-        					"margin" => "xxl",
-        					"spacing" => "sm",
-        					"contents" => [
-        						[
-									"type" => "text",
-									"text" => "内容確認",
-									"weight" => "bold",
-									"size" => "xxl",
-									"margin" => "md"
-								]
-							]
-						]
-					]
-    			]
-			]
+			"contents" => FlexTemplateBubble(1)
 		]
 	]
 ];
@@ -114,21 +86,16 @@ return
 //Flexバブル
 function FlexTemplateBubble($void){
 
-$content = FlexTemplateContents(1);
+//$content = FlexTemplateContents(1);
 //error_log('contents = '.json_encode($content).'');
 
 return
 [
 	"type" => "bubble",
-	"styles" => [
-    	"footer" => [
-    		"separator" => true
-    	]
-  	],
 	"body" => [
     	"type" => "box",
     	"layout" => "vertical",
-    	"contents" => $content
+    	"contents" => FlexTemplateContents(1)
     ]
 ];
 
@@ -136,7 +103,6 @@ return
 //Flexコンテンツ
 function FlexTemplateContents($void){
 
-$subContent = FlexTemplateContentsSub(1);
 //error_log('subContents = '.json_encode($subContent).'');
 
 return
@@ -146,7 +112,7 @@ return
         "layout" => "vertical",
         "margin" => "xxl",
         "spacing" => "sm",
-        "contents" => [$subContent]
+        "contents" => FlexTemplateContentsSub(1)
 	]
 ];
 
@@ -156,11 +122,13 @@ function FlexTemplateContentsSub($void){
 
 return
 [
-	"type" => "text",
-	"text" => "内容確認",
-	"weight" => "bold",
-	"size" => "xxl",
-	"margin" => "md"
+	[
+		"type" => "text",
+		"text" => "内容確認",
+		"weight" => "bold",
+		"size" => "xxl",
+		"margin" => "md"
+	]
 ];
 
 }
