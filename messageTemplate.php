@@ -64,6 +64,7 @@ return
 function buttonTemplate($reply_token){
 
 $action = buttonTemplateAction(1);
+error_log('action = '.json_encode($action).'');
 
 return
 [
@@ -73,7 +74,7 @@ return
 			"type" => "template",
 			"altText" => "this is a button template",
 			"template" => [
-				"type" => "button",
+				"type" => "buttons",
 				"text" => "テストテンプレート",
 				"actions" => $action
 			]
