@@ -1,7 +1,7 @@
 <?php
 
 //確認テンプレート
-function confirmTemplate($reply_token);
+function confirmTemplate($reply_token){
 
 error_log('reply_token = '.$reply_token.'');
 
