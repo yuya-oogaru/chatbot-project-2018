@@ -1,9 +1,10 @@
 <?php
 
-/*メッセージJSONデータ構成ファイル*/
-require (__DIR__ . '/MessageBuild/messageTemplate.php');
-require (__DIR__ . '/MessageBuild/DataListTemplate.php');
-require (__DIR__ . '/MessageBuild/MenuListTemplate.php');
+/*インクルードファイル*/
+require_once (__DIR__ . '/MessageBuild/messageTemplate.php');
+require_once (__DIR__ . '/MessageBuild/DataListTemplate.php');
+require_once (__DIR__ . '/MessageBuild/MenuListTemplate.php');
+require_once (__DIR__ . '/basicfunc.php');
 
 /*LINEBotアクセストークン*/
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
@@ -48,18 +49,6 @@ default :
 error_log('post_data = '.json_encode($post_data).'');
 
 /****************応答メッセージ送信*******************/
-
-//curlを使用してメッセージを返信する
-$ch = curl_init("https://api.line.me/v2/bot/message/reply");
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    'Content-Type: application/json; charser=UTF-8',
-    'Authorization: Bearer ' . $access_token
-));
-$result = curl_exec($ch);
-curl_close($ch);
+sendReplyMessage($post_data, $access_token);
 
 ?>
