@@ -58,7 +58,7 @@ function MenuListFlexTemplateContentsBuilder($loop){
 	
 	/*サブコンテンツ（項目）配列を指定回数分連結*/
 	for($count = 0; $count < $loop; $count++){
-		$contents[] = MenuListFlexTemplateContentsSubBox(($count + 1),'9/1.', '株式会社OO.','大阪～京橋.','仮復.','9,999円');
+		$contents[] = MenuListFlexTemplateContentsSubBox($count,'9/1.', '株式会社OO.','大阪～京橋.','仮復.','9,999円');
 	}
 	
 	//合計金額
