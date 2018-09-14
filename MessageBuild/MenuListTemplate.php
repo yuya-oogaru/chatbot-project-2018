@@ -79,7 +79,7 @@ function MenuListFlexTemplateButton($text){
 		[
 			"type" => "text",
 			"text" => $text,
-			"size" => "md",
+			"size" => "xs",
 			"color" => "#111111",
 			"align" => "center"
 		],
