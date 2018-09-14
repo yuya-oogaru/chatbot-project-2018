@@ -4,10 +4,10 @@
 require (__DIR__ . '/MessageBuild/messageTemplate.php');
 require (__DIR__ . '/MessageBuild/MultimessageTemplate.php');
 require (__DIR__ . '/MessageBuild/DataListTemplate.php');
+require (__DIR__ . '/MessageBuild/MenuListTemplate.php');
 
 /*LINEBotアクセストークン*/
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
-
 
 /**************ユーザー情報読み取り*******************/
 
@@ -37,13 +37,15 @@ case 'マルチ':
 	$post_data = MultiFlexTemplate($reply_token);    /*マルチFlexメッセージ*/
 	break;
 case 'リスト':
-	$post_data = DataListFlexTemplate($reply_token);    /*マルチFlexメッセージ*/
+	$post_data = DataListFlexTemplate($reply_token);    /*リストFlexメッセージ*/
+	break;
+case 'メニュー':
+	$post_data = MenuListFlexTemplate($reply_token);    /*メニューFlexメッセージ*/
 	break;
 default :
 	$post_data = textMessage($reply_token, $message);     /*テキストメッセージ*/
 	break;
 }
-
 /*Jsonを日本語（２バイト文字）に対応 = json扱うファイルは 文字コードをUTF-8にしないといけない！！！*/
 
 
