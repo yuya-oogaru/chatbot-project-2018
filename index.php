@@ -31,7 +31,7 @@ case '登録':
 	$post_data = FlexTemplate($reply_token);    /*Flexメッセージ*/
 	break;
 case '申請':
-	$post_data = DataListFlexTemplate($reply_token);    /*リストFlexメッセージ*/
+	$post_data = ApplyFlexTemplate($reply_token);    /* 申請内容確認メッセージ*/
 	break;
 case 'メニュー':
 	$post_data = MenuListFlexTemplate($reply_token);    /*メニューFlexメッセージ*/

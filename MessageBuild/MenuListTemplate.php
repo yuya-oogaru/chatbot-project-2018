@@ -39,7 +39,7 @@ function MenuListFlexTemplateContents($void){
         	"layout" => "vertical",
         	"margin" => "xxl",
         	"spacing" => "sm",
-        	"contents" => DataListFlexTemplateContentsBuilder(10)
+        	"contents" => DataListContentsBuilder(10)
 		],
 		[
 			"type" => "box",
