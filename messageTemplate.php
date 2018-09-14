@@ -35,26 +35,39 @@ return $confirm;
 //Flexテンプレート
 function FlexTemplate($reply_token){
 
-$flexmsg = [
+$bubble = FlexTemplateBubble(1);
+error_log('bubble = '.json_encode($bubble).'');
+
+return [
 	"replyToken" => $reply_token,
 	"messages" => [
 		[
 			"type" => "flex",
 			"altText" => "test",
-			"contents" => []
+			"contents" => $bubble
 		]
 	]
 ];
-
-error_log('fxTemp = '.json_encode($flexmsg).'');
-
-return $flexmsg;
 
 }
 //Flexバブル
 function FlexTemplateBubble($void){
 
+$content = FlexTemplateContents(1);
+error_log('contents = '.json_encode($content).'');
+
 return[
+	"type" => "bubble",
+	"styles" => [
+    	"footer" => [
+    		"separator" => true
+    	]
+  	],
+	"body" => [
+    	"type" => "box",
+    	"layout" => "vertical",
+    	"contents" => $content
+    ]
 ];
 
 }
@@ -63,9 +76,24 @@ function FlexTemplateContents($void){
 
 return[
 	[
-	],
-	[
-	],
+		"type" => "box",
+        "layout" => "vertical",
+        "margin" => "xxl",
+        "spacing" => "sm",
+        "contents" => [
+        	[
+        		"type" => "text",
+            	"text" => "内容確認",
+            	"weight" => "bold",
+            	"size" => "xxl",
+            	"margin" => "md"
+        	],
+        	[
+        		"type" => "separator",
+            	"margin" => "md"
+        	]
+		]
+	]
 ];
 
 }
