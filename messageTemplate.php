@@ -109,8 +109,6 @@ return
 //**********Flexテンプレート*************
 function FlexTemplate($reply_token){
 
-$bubble = FlexTemplateBubble(1);
-error_log('bubble = '.json_encode($bubble).'');
 
 return
 [
@@ -119,34 +117,22 @@ return
 		[
 			"type" => "flex",
 			"altText" => "test",
-			"contents" => $bubble
+			"contents" => [
+				"type" => "bubble",
+				"body" => [
+    				"type" => "box",
+    				"layout" => "vertical",
+    				"contents" => FlexTemplateContents(1)
+    			]
+			]
 		]
 	]
 ];
 
 }
-//Flexバブル
-function FlexTemplateBubble($void){
 
-$content = FlexTemplateContents(1);
-error_log('contents = '.json_encode($content).'');
-
-return
-[
-	"type" => "bubble",
-	"body" => [
-    	"type" => "box",
-    	"layout" => "vertical",
-    	"contents" => $content
-    ]
-];
-
-}
 //Flexコンテンツ
 function FlexTemplateContents($void){
-
-$subContent = FlexTemplateContentsSub(1);
-error_log('subContents = '.json_encode($subContent).'');
 
 return
 [
@@ -155,7 +141,7 @@ return
         "layout" => "vertical",
         "margin" => "xxl",
         "spacing" => "sm",
-        "contents" => $subContent
+        "contents" => FlexTemplateContentsSub('内容確認')
 	],
 	[
 		"type" => "box",
@@ -209,7 +195,7 @@ return
         "layout" => "vertical",
         "margin" => "xxl",
         "spacing" => "sm",
-        "contents" => FlexTemplateContentsSubButton(1)
+        "contents" => FlexTemplateContentsSubButton('以上の内容を登録しますか？')
 	]
 ];
 
@@ -237,13 +223,13 @@ return
 
 }
 //Flexサブコンテンツ（タイトル）
-function FlexTemplateContentsSub($void){
+function FlexTemplateContentsSub($title){
 
 return
 [
 	[
 		"type" => "text",
-		"text" => "内容確認",
+		"text" => $title,
 		"weight" => "bold",
 		"size" => "xxl",
 		"margin" => "md"
@@ -255,13 +241,13 @@ return
 ];
 }
 //Flexサブコンテンツ（ボタン）
-function FlexTemplateContentsSubButton($void){
+function FlexTemplateContentsSubButton($text){
 
 return
 [
 	[
 		"type" => "text",
-		"text" => "以上の内容で登録しますか？",
+		"text" => $text,
 		"size" => "md",
 		"color" => "#111111",
 		"align" => "center"

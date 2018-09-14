@@ -1,7 +1,7 @@
 <?php
 
 /*メッセージJSONデータ構成ファイル*/
-require (__DIR__ . '/messageTemplate.php');
+require_ones (__DIR__ . '/messageTemplate.php');
 
 /*LINEBotアクセストークン*/
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
