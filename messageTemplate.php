@@ -2,13 +2,10 @@
 //**********おうむ返しテキスト************
 function textMessage($reply_token, $text){
 
-//$response_text = responseText(1);
-//error_log('response = '.json_encode($response_text).'');
-
 return
 [
 	"replyToken" => $reply_token,
-	"messages" => 	[
+	"messages" => [
 		[
 			"type" => "text",
 			"text" => $text
@@ -63,12 +60,57 @@ return
 ];
 
 }
+//**********ボタンテンプレート***********
+function buttonTemplate($reply_token){
 
+$action = buttonTemplateAction(1);
+
+return
+[
+	"replyToken" => $reply_token,
+	"messages" => [
+		[
+			"type" => "template",
+			"altText" => "this is a button template",
+			"template" => [
+				"type" => "button",
+				"title" => "Menu",
+				"text" => "テストテンプレート",
+				"action" => $action
+			]
+		]
+	]
+];
+
+}
+
+function buttonTemplateAction($void){
+
+return
+[
+	[
+		"type" => "message",
+		"label" => "選択肢A",
+		"text" => "a"
+	],
+	[
+		"type" => "message",
+		"label" => "選択肢B",
+		"text" => "b"
+	],
+	[
+		"type" => "message",
+		"label" => "選択肢C",
+		"text" => "c"
+	],
+];
+
+}
 //**********Flexテンプレート*************
 function FlexTemplate($reply_token){
 
-//$bubble = FlexTemplateBubble(1);
-//error_log('bubble = '.json_encode($bubble).'');
+$bubble = FlexTemplateBubble(1);
+error_log('bubble = '.json_encode($bubble).'');
 
 return
 [
@@ -77,7 +119,7 @@ return
 		[
 			"type" => "flex",
 			"altText" => "test",
-			"contents" => FlexTemplateBubble(1)
+			"contents" => $bubble
 		]
 	]
 ];
@@ -86,8 +128,8 @@ return
 //Flexバブル
 function FlexTemplateBubble($void){
 
-//$content = FlexTemplateContents(1);
-//error_log('contents = '.json_encode($content).'');
+$content = FlexTemplateContents(1);
+error_log('contents = '.json_encode($content).'');
 
 return
 [
@@ -95,7 +137,7 @@ return
 	"body" => [
     	"type" => "box",
     	"layout" => "vertical",
-    	"contents" => FlexTemplateContents(1)
+    	"contents" => $content
     ]
 ];
 
@@ -103,7 +145,8 @@ return
 //Flexコンテンツ
 function FlexTemplateContents($void){
 
-//error_log('subContents = '.json_encode($subContent).'');
+$subContent = FlexTemplateContentsSub(1);
+error_log('subContents = '.json_encode($subContent).'');
 
 return
 [
@@ -112,7 +155,7 @@ return
         "layout" => "vertical",
         "margin" => "xxl",
         "spacing" => "sm",
-        "contents" => FlexTemplateContentsSub(1)
+        "contents" => $subContent
 	]
 ];
 

@@ -22,6 +22,9 @@ $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 $post_data = textMessage($reply_token, 'default message');   /*応答フォーマット初期化*/
 
 switch($message){
+case 'ボタン':
+	$post_data = buttonTemplate($reply_token);  /*ボタンテンプレート*/
+	break;
 case '確認':
 	$post_data = confirmTemplate($reply_token); /*確認テンプレート*/
 	break;
