@@ -42,6 +42,7 @@ $post_data = [
 ];*/
 /*************************************************/
 $post_data = confirmTemplate($reply_token);
+//$post_data = FlexTemplate($reply_token);
 error_log('post_data = '.json_encode($post_data).'');
 /*************************************************/
 //curlを使用してメッセージを返信する

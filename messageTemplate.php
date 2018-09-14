@@ -1,7 +1,43 @@
 <?php
 
 //確認テンプレート
-function confirmTemplate($reply_token){
+function confirmTemplate($reply_token);
+
+error_log('reply_token = '.$reply_token.'');
+
+$confirm = [
+	"replyToken" => $reply_token,
+	"messages" => [
+	  [
+  		"type" => "template",
+  		"altText" => "this is a confirm template",
+  		"template" => [
+			"type" => "confirm",
+     	 	"text" => "Are you sure?",
+     	 	"actions" => [
+     	    	[
+            		"type" => "message",
+            		"label" => "Yes",
+            		"text" => "yes"
+          		],
+          		[
+           		 	"type" => "message",
+            		"label" => "No",
+            		"text" => "no"
+          		]
+      		]
+  		]
+  	  ]
+  	]
+];
+
+error_log('cfTemp = '.$confirm.'');
+
+return $confirm;
+
+}
+//Flexテンプレート
+function FlexTemplate($reply_token){
 
 error_log('reply_token = '.$reply_token.'');
 
