@@ -75,7 +75,7 @@ return
 			"altText" => "this is a button template",
 			"template" => [
 				"type" => "buttons",
-				"text" => "テストテンプレート",
+				"text" => "test template",
 				"actions" => $action
 			]
 		]
@@ -90,17 +90,17 @@ return
 [
 	[
 		"type" => "message",
-		"label" => "選択肢A",
+		"label" => "a",
 		"text" => "a"
 	],
 	[
 		"type" => "message",
-		"label" => "選択肢B",
+		"label" => b",
 		"text" => "b"
 	],
 	[
 		"type" => "message",
-		"label" => "選択肢C",
+		"label" => "c",
 		"text" => "c"
 	]
 ];
