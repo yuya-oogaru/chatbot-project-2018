@@ -125,13 +125,6 @@ function MenuListFlexTemplateContentsSubBox($no, $date, $destination, $route, $i
 		"contents"=> [
 			[
 				"type" => "text",
-				"text" => $no,
-				"size" => "xxs",
-				"color" => "#555555",
-				"flex" => 0
-			],
-			[
-				"type" => "text",
 				"text" => $date,
 				"size" => "xxs",
 				"color" => "#555555",
