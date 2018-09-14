@@ -3,6 +3,7 @@
 /*メッセージJSONデータ構成ファイル*/
 require (__DIR__ . '/messageTemplate.php');
 require (__DIR__ . '/MultimessageTemplate.php');
+require (__DIR__ . '/DataListTemplate.php');
 
 /*LINEBotアクセストークン*/
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
@@ -34,6 +35,9 @@ case 'フレックス':
 	break;
 case 'マルチ':
 	$post_data = MultiFlexTemplate($reply_token);    /*マルチFlexメッセージ*/
+	break;
+case 'リスト':
+	$post_data = DataListFlexTemplate($reply_token);    /*マルチFlexメッセージ*/
 	break;
 default :
 	$post_data = textMessage($reply_token, $message);     /*テキストメッセージ*/
