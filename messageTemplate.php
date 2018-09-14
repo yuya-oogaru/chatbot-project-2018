@@ -209,35 +209,7 @@ return
         "layout" => "vertical",
         "margin" => "xxl",
         "spacing" => "sm",
-        "contents" => [
-        	[
-        		"type" => "text",
-				"text" => "以上の内容で登録しますか？",
-				"size" => "xxl",
-				"color" => "#111111",
-				"align" => "center"
-        	],
-        	[
-            	"type"=> "button",
-            	"height"=> "md",
-            	"style"=> "primary",
-            	"action"=> [
-					"type" => "message",
-					"label" => "はい",
-					"text" => "はいが押された。"
-              	]
-        	],
-        	[
-            	"type"=> "button",
-            	"height"=> "md",
-            	"style"=> "secondary",
-            	"action"=> [
-					"type" => "message",
-					"label" => "いいえ",
-					"text" => "いいえが押された。"
-              	]
-        	]
-        ]
+        "contents" => FlexTemplateContentsSubButton(1)
 	]
 ];
 
@@ -279,6 +251,40 @@ return
 	[
         "type" => "separator",
         "margin" => "md"
+	]
+];
+}
+//Flexサブコンテンツ（ボタン）
+function FlexTemplateContentsSubButton($void){
+
+return
+[
+	[
+		"type" => "text",
+		"text" => "以上の内容で登録しますか？",
+		"size" => "md",
+		"color" => "#111111",
+		"align" => "center"
+	],
+	[
+		"type"=> "button",
+		"height"=> "md",
+		"style"=> "primary",
+		"action"=> [
+			"type" => "message",
+			"label" => "はい",
+			"text" => "はいが押された。"
+		]
+    ],
+    [
+		"type"=> "button",
+		"height"=> "md",
+		"style"=> "secondary",
+		"action"=> [
+			"type" => "message",
+			"label" => "いいえ",
+			"text" => "いいえが押された。"
+		]
 	]
 ];
 
