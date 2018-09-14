@@ -12,19 +12,12 @@ return
 		[
 			"type" => "text",
 			"text" => $text
+		],
+		[
+			"type" => "sticker",
+			"packageId" => 1,
+			"stickerId" => 1
 		]
-	]
-];
-
-}
-//応答テキスト
-function responseText($void){
-
-return
-[
-	[
-		"type" => "text",
-		"text" => "普通のテキスト"
 	]
 ];
 
@@ -94,7 +87,7 @@ return
 function FlexTemplateBubble($void){
 
 $content = FlexTemplateContents(1);
-error_log('contents = '.json_encode($content).'');
+//error_log('contents = '.json_encode($content).'');
 
 return
 [
@@ -116,7 +109,7 @@ return
 function FlexTemplateContents($void){
 
 $subContent = FlexTemplateContentsSub(1);
-error_log('subContents = '.json_encode($subContent).'');
+//error_log('subContents = '.json_encode($subContent).'');
 
 return
 [
