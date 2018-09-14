@@ -59,6 +59,8 @@ function DataListFlexTemplateContentsBuilder($loop){
 		$contents[] = DataListFlexTemplateContentsSubBox('9/1.', '株式会社OO.','大阪～京橋.','仮復.','9,999円');
 	}
 
+	
+	
 	error_log('contents = '.json_encode($contents).'');
 	return $contents;
 }

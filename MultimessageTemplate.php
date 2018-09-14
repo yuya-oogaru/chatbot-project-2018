@@ -59,6 +59,9 @@ function MultiFlexTemplateContentsBuilder($loop){
 		$contents[] = MultiFlexTemplateContentsSubBox('ループ', $count.'回');
 	}
 
+	//セパレータ
+	$contents[] = array("type" => "separator","margin" => "md");
+	
 	error_log('contents = '.json_encode($contents).'');
 	return $contents;
 }
