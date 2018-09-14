@@ -7,8 +7,8 @@ error_log('response = '.json_encode($response_text).'');
 
 return
 [
-	"replyToken" => $replyToken,
-	"messages" => [$response_text]
+	"replyToken" => $reply_token,
+	"messages" => $response_text
 ];
 
 }
@@ -17,8 +17,10 @@ function responseText($void){
 
 return
 [
-	"type" => "text",
-	"text" => "普通のテキスト"
+	[
+		"type" => "text",
+		"text" => "普通のテキスト"
+	]
 ];
 
 }
