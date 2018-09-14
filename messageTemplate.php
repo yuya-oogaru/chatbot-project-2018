@@ -31,7 +31,7 @@ $confirm = [
   	]
 ];
 
-error_log('cfTemp = '.$confirm.'');
+error_log('cfTemp = '.json_encode($confirm).'');
 
 return $confirm;
 
@@ -41,7 +41,7 @@ function FlexTemplate($reply_token){
 
 error_log('reply_token = '.$reply_token.'');
 
-$flex = [
+$flexmsg = [
 	"replyToken" => $reply_token,
 	"messages" => [
 	[
@@ -231,9 +231,9 @@ $flex = [
 	]
 ];
 
-error_log('fxTemp = '.json_encode($flex).'');
+error_log('fxTemp = '.json_encode($flexmsg).'');
 
-return $flex;
+return $flexmsg;
 
 }
 ?>
