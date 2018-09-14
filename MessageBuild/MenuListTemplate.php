@@ -118,6 +118,9 @@ function MenuListFlexTemplateButton($text){
 //Flexサブコンテンツ（項目）
 function MenuListFlexTemplateContentsSubBox($no, $date, $destination, $route, $icon ,$price){
 
+
+	$margeText = '['.$no.']'.$date.'　'.$destination.'　'.$route.'　';
+
 	return
 	[
 		"type"=> "box",
@@ -125,21 +128,7 @@ function MenuListFlexTemplateContentsSubBox($no, $date, $destination, $route, $i
 		"contents"=> [
 			[
 				"type" => "text",
-				"text" => $date,
-				"size" => "xxs",
-				"color" => "#555555",
-				"flex" => 0
-			],
-			[
-				"type" => "text",
-				"text" => $destination,
-				"size" => "xxs",
-				"color" => "#555555",
-				"flex" => 0
-			],
-			[
-				"type" => "text",
-				"text" => $route,
+				"text" => $margeText,
 				"size" => "xxs",
 				"color" => "#555555",
 				"flex" => 0
