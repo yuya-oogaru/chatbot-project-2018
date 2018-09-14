@@ -41,7 +41,7 @@ function FlexTemplate($reply_token){
 
 error_log('reply_token = '.$reply_token.'');
 
-return [
+$flex = [
 	"replyToken" => $reply_token,
 	"messages" => [
 	[
@@ -230,6 +230,10 @@ return [
 	]
 	]
 ];
+
+error_log('cfTemp = '.$flex.'');
+
+return $flex;
 
 }
 ?>
