@@ -1,5 +1,27 @@
 <?php
+//**********おうむ返しテキスト************
+function textMessage($reply_token){
 
+$response_text = responseText(1);
+error_log('response = '.json_encode($response_text).'');
+
+return
+[
+	"replyToken" => $replyToken,
+	"messages" => [$response_text]
+];
+
+}
+//応答テキスト
+function responseText($void){
+
+return
+[
+	"type" => "text",
+	"text" => "普通のテキスト"
+];
+
+}
 //***********確認テンプレート*************
 function confirmTemplate($reply_token){
 

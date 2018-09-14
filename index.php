@@ -20,8 +20,14 @@ $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 
 /*****************応答メッセージ作成**********************/
 
-//$post_data = confirmTemplate($reply_token); /*確認テンプレート*/
-$post_data = FlexTemplate($reply_token);      /*Flexメッセージ*/
+switch($message){
+case '確認':
+	$post_data = confirmTemplate($reply_token); /*確認テンプレート*/
+case 'フレックス':
+	$post_data = FlexTemplate($reply_token);    /*Flexメッセージ*/
+default :
+	$post_data = textMessage($reply_token);     /*テキストメッセージ*/
+}
 
 /*jsonデータ確認*/
 error_log('post_data = '.json_encode($post_data).'');
