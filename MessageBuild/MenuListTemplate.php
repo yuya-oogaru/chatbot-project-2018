@@ -118,8 +118,9 @@ function MenuListFlexTemplateButton($text){
 //Flexサブコンテンツ（項目）
 function MenuListFlexTemplateContentsSubBox($no, $date, $destination, $route, $icon ,$price){
 
-
-	$margeText = '['.$no.']'.$date.'　'.$destination.'　'.$route.'　';
+	
+	//登録Noから経路までを結合
+	$margeText = '['.($no + 1).']'.$date.''.$destination.''.$route.'';
 
 	return
 	[
