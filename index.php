@@ -1,8 +1,8 @@
 <?php
 
 /*メッセージJSONデータ構成ファイル*/
-//require (__DIR__ . '/messageTemplate.php');
-require (__DIR__ . '/messageTemplateAlt.php');
+require (__DIR__ . '/messageTemplate.php');
+require (__DIR__ . '/MultimessageTemplate.php');
 
 /*LINEBotアクセストークン*/
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
@@ -20,7 +20,7 @@ $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 
 /*****************応答メッセージ作成**********************/
 
-//$post_data = textMessage($reply_token, 'default message');   /*応答フォーマット初期化*/
+$post_data = textMessage($reply_token, 'default message');   /*応答フォーマット初期化*/
 
 switch($message){
 case 'ボタン':
@@ -31,6 +31,9 @@ case '確認':
 	break;
 case 'フレックス':
 	$post_data = FlexTemplate($reply_token);    /*Flexメッセージ*/
+	break;
+case 'マルチ':
+	$post_data = FlexTemplate($reply_token);    /*マルチFlexメッセージ*/
 	break;
 default :
 	$post_data = textMessage($reply_token, $message);     /*テキストメッセージ*/

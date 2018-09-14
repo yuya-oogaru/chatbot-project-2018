@@ -1,6 +1,6 @@
 <?php
 //**********Flexテンプレート*************
-function FlexTemplate($reply_token){
+function MultiFlexTemplate($reply_token){
 
 
 return
@@ -15,7 +15,7 @@ return
 				"body" => [
     				"type" => "box",
     				"layout" => "vertical",
-    				"contents" => FlexTemplateContents(1)
+    				"contents" => MultiFlexTemplateContents(1)
     			]
 			]
 		]
@@ -25,7 +25,7 @@ return
 }
 
 //Flexコンテンツ
-function FlexTemplateContents($void){
+function MultiFlexTemplateContents($void){
 
 return
 [
@@ -41,7 +41,7 @@ return
         "layout" => "vertical",
         "margin" => "xxl",
         "spacing" => "sm",
-        "contents" => FlexTemplateContentsBuilder(1)
+        "contents" => MultiFlexTemplateContentsBuilder(1)
 	],
 	[
 		"type" => "box",
@@ -54,11 +54,11 @@ return
 
 }
 //Flexサブコンテンツビルダ
-function FlexTemplateContentsBuilder($void){
+function MultiFlexTemplateContentsBuilder($void){
 
 
 for($count = 0; $count < 10; $count++){
-	$contents[] = FlexTemplateContentsSubBox('テスト', 'テスト');
+	$contents[] = MultiFlexTemplateContentsSubBox('ループ', $count.'回');
 }
 
 error_log('contents = '.json_encode($contents).'');
@@ -66,7 +66,7 @@ return $contents;
 
 }
 //Flexサブコンテンツ（項目）
-function FlexTemplateContentsSubBox($column,$value){
+function MultiFlexTemplateContentsSubBox($column,$value){
 
 return
 [
@@ -86,59 +86,6 @@ return
 			"size" => "xs",
 			"color" => "#111111",
 			"align" => "end"
-		]
-	]
-];
-
-}
-//Flexサブコンテンツ（タイトル）
-function FlexTemplateContentsSub($title){
-
-return
-[
-	[
-		"type" => "text",
-		"text" => $title,
-		"weight" => "bold",
-		"size" => "xxl",
-		"margin" => "md"
-	],
-	[
-        "type" => "separator",
-        "margin" => "md"
-	]
-];
-}
-//Flexサブコンテンツ（ボタン）
-function FlexTemplateContentsSubButton($text){
-
-return
-[
-	[
-		"type" => "text",
-		"text" => $text,
-		"size" => "md",
-		"color" => "#111111",
-		"align" => "center"
-	],
-	[
-		"type"=> "button",
-		"height"=> "md",
-		"style"=> "primary",
-		"action"=> [
-			"type" => "message",
-			"label" => "はい",
-			"text" => "はいが押された。"
-		]
-    ],
-    [
-		"type"=> "button",
-		"height"=> "md",
-		"style"=> "secondary",
-		"action"=> [
-			"type" => "message",
-			"label" => "いいえ",
-			"text" => "いいえが押された。"
 		]
 	]
 ];
