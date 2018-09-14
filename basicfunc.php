@@ -1,52 +1,20 @@
 <?php
-/******ƒƒbƒZ[ƒWƒ‰ƒ“ƒ`ƒƒ******/
-function replyMultiMessage($bot, $replyToken, ...$msgs) {
-	// MultiMessageBuilder‚ðƒCƒ“ƒXƒ^ƒ“ƒX‰»
-	$builder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
-	// ƒrƒ‹ƒ_[‚ÉƒƒbƒZ[ƒW‚ð‘S‚Ä’Ç‰Á
-	foreach($msgs as $value) {
-		$builder->add($value);
-	}
-	$response = $bot->replyMessage($replyToken, $builder);
-	
-	if (!$response->isSucceeded()) {
-		error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
-	}
-}
 
-// Confirmƒeƒ“ƒvƒŒ[ƒg‚ð•ÔMBˆø”‚ÍLINEBotA•ÔMæA‘ã‘ÖƒeƒLƒXƒgA
-// –{•¶AƒAƒNƒVƒ‡ƒ“(‰Â•Ï’·ˆø”)
-function replyConfirmTemplate($bot, $replyToken, $alternativeText, $text, ...$actions) {
-  $actionArray = array();
-  foreach($actions as $value) {
-    array_push($actionArray, $value);
-  }
-  $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
-    $alternativeText,
-    // Confirmƒeƒ“ƒvƒŒ[ƒg‚Ìˆø”‚ÍƒeƒLƒXƒgAƒAƒNƒVƒ‡ƒ“‚Ì”z—ñ
-    new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder ($text, $actionArray)
-  );
-  $response = $bot->replyMessage($replyToken, $builder);
-  if (!$response->isSucceeded()) {
-    error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
-  }
-}
-
-/*ƒf[ƒ^ƒx[ƒXÚ‘±ƒNƒ‰ƒX*/
+/*ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹æŽ¥ç¶šã‚¯ãƒ©ã‚¹*/
 
 class dbConnection{
-	// ƒCƒ“ƒXƒ^ƒ“ƒX
+	// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	protected static $db;
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	private function __construct() {
 		try {
-			// ŠÂ‹«•Ï”‚©‚çƒf[ƒ^ƒx[ƒX‚Ö‚ÌÚ‘±î•ñ‚ðŽæ“¾‚µ
+			// ç’°å¢ƒå¤‰æ•°ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã¸ã®æŽ¥ç¶šæƒ…å ±ã‚’å–å¾—ã—
 			$url = parse_url(getenv('DATABASE_URL'));
-			// ƒf[ƒ^ƒ\[ƒX
+			// ãƒ‡ãƒ¼ã‚¿ã‚½ãƒ¼ã‚¹
 			$dsn = sprintf('pgsql:host=%s;dbname=%s', $url['host'], substr($url['path'], 1));
-			// Ú‘±‚ðŠm—§
+			// æŽ¥ç¶šã‚’ç¢ºç«‹
 			self::$db = new PDO($dsn, $url['user'], $url['pass']);
-			// ƒGƒ‰[Žž—áŠO‚ð“Š‚°‚é‚æ‚¤‚ÉÝ’è
+			// ã‚¨ãƒ©ãƒ¼æ™‚ä¾‹å¤–ã‚’æŠ•ã’ã‚‹ã‚ˆã†ã«è¨­å®š
 			self::$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 		}
 		catch (PDOException $e) {
@@ -54,7 +22,7 @@ class dbConnection{
 		}
 	}
 
-	// ƒVƒ“ƒOƒ‹ƒgƒ“B‘¶Ý‚µ‚È‚¢ê‡‚Ì‚ÝƒCƒ“ƒXƒ^ƒ“ƒX‰»
+	// ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã€‚å­˜åœ¨ã—ãªã„å ´åˆã®ã¿ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
 	public static function getConnection() {
 		if (!self::$db) {
 			new dbConnection();
@@ -62,7 +30,5 @@ class dbConnection{
 		return self::$db;
 	}
 }
-
-
 
 ?>

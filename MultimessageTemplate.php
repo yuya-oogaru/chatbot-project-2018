@@ -2,7 +2,6 @@
 //**********Flexテンプレート*************
 function MultiFlexTemplate($reply_token){
 
-
 return
 [
 	"replyToken" => $reply_token,
@@ -41,7 +40,7 @@ return
         "layout" => "vertical",
         "margin" => "xxl",
         "spacing" => "sm",
-        "contents" => MultiFlexTemplateContentsBuilder(1)
+        "contents" => MultiFlexTemplateContentsBuilder(10)
 	],
 	[
 		"type" => "box",
@@ -53,12 +52,12 @@ return
 ];
 
 }
-//Flexサブコンテンツビルダ
-function MultiFlexTemplateContentsBuilder($void){
+//Flexサブコンテンツ（項目）ビルダ
+function MultiFlexTemplateContentsBuilder($loop){
 
 
-/*サブコンテンツ配列を指定回数分連結*/
-for($count = 0; $count < 10; $count++){
+/*サブコンテンツ（項目）配列を指定回数分連結*/
+for($count = 0; $count < $loop; $count++){
 	$contents[] = MultiFlexTemplateContentsSubBox('ループ', $count.'回');
 }
 
