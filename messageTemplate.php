@@ -102,7 +102,7 @@ return
 		"type" => "message",
 		"label" => "‘I‘ðŽˆC",
 		"text" => "c"
-	],
+	]
 ];
 
 }
