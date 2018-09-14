@@ -96,22 +96,21 @@ return
         "layout" => "vertical",
         "margin" => "xxl",
         "spacing" => "sm",
-        "contents" => $subContent
+        "contents" => [$subContent]
 	]
 ];
 
 }
+//Flexサブコンテンツ
 function FlexTemplateContentsSub($void){
 
 return
 [
-	[
 	"type" => "text",
 	"text" => "内容確認",
 	"weight" => "bold",
 	"size" => "xxl",
 	"margin" => "md"
-	]
 ];
 
 }
