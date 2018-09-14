@@ -156,7 +156,7 @@ $flex = [
               						],
               						[
                 						"type"=> "text",
-                						"text"=> "\140",
+                						"text"=> "140‰~",
                 						"size"=> "xs",
                 						"color"=> "#111111",
                 						"align"=> "end"
@@ -231,7 +231,7 @@ $flex = [
 	]
 ];
 
-error_log('cfTemp = '.$flex.'');
+error_log('fxTemp = '.json_encode($flex).'');
 
 return $flex;
 
