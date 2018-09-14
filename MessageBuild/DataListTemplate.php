@@ -32,7 +32,7 @@ function DataListFlexTemplateContents($void){
         	"layout" => "vertical",
         	"margin" => "xxl",
         	"spacing" => "sm",
-        	"contents" => FlexTemplateContentsSub('申請内容確認')
+        	"contents" => FlexTemplateContentsTitle('申請内容確認')
 		],
 		[
 			"type" => "box",

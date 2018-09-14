@@ -135,7 +135,7 @@ function FlexTemplateContents($void){
 	        "layout" => "vertical",
 	        "margin" => "xxl",
 	        "spacing" => "sm",
-	        "contents" => FlexTemplateContentsSub('内容確認')
+	        "contents" => FlexTemplateContentsTitle('内容確認')
 		],
 		[
 			"type" => "box",
@@ -215,7 +215,7 @@ function FlexTemplateContentsSubBox($column,$value){
 	];
 }
 //Flexサブコンテンツ（タイトル）
-function FlexTemplateContentsSub($title){
+function FlexTemplateContentsTitle($title){
 
 	return
 	[

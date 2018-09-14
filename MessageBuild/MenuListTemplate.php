@@ -32,7 +32,7 @@ function MenuListFlexTemplateContents($void){
         	"layout" => "vertical",
         	"margin" => "xxl",
         	"spacing" => "sm",
-        	"contents" => FlexTemplateContentsSub('機能メニュー')
+        	"contents" => FlexTemplateContentsTitle('機能メニュー')
 		],
 		[
 			"type" => "box",
