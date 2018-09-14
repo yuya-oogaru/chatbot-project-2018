@@ -67,8 +67,8 @@ return
 //**********Flexテンプレート*************
 function FlexTemplate($reply_token){
 
-$bubble = FlexTemplateBubble(1);
-error_log('bubble = '.json_encode($bubble).'');
+//$bubble = FlexTemplateBubble(1);
+//error_log('bubble = '.json_encode($bubble).'');
 
 return
 [
@@ -77,7 +77,35 @@ return
 		[
 			"type" => "flex",
 			"altText" => "test",
-			"contents" => $bubble
+			"contents" => [
+				"type" => "bubble",
+				"styles" => [
+    				"footer" => [
+    					"separator" => true
+    				]
+  				],
+				"body" => [
+    				"type" => "box",
+    				"layout" => "vertical",
+    				"contents" => [
+						[
+							"type" => "box",
+        					"layout" => "vertical",
+        					"margin" => "xxl",
+        					"spacing" => "sm",
+        					"contents" => [
+        						[
+									"type" => "text",
+									"text" => "内容確認",
+									"weight" => "bold",
+									"size" => "xxl",
+									"margin" => "md"
+								]
+							]
+						]
+					]
+    			]
+			]
 		]
 	]
 ];
