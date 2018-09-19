@@ -82,8 +82,15 @@ del_confirm     :ユーザーが削除内容の確認を行っている状態。
 switch($status){
 	case 'pre_proc':
 		
-		updateStatus($userID, 'ins_inp_office');
-		$post_data = textMessage($reply_token, 'ステータスをins_inp_officeへ移行');
+		if($message == '登録'){
+			updateStatus($userID, 'ins_inp_office');
+			$post_data = textMessage($reply_token, 'ステータスをins_inp_officeへ移行');
+		}else if($message == 'メニュー'){
+			updateStatus($userID, 'menu');
+			$post_data = textMessage($reply_token, 'ステータスをmenuへ移行');
+		}else{
+			$post_data = textMessage($reply_token, '無効なコマンド');
+		}
 		
 		break;
 	case 'ins_inp_office':
@@ -118,22 +125,41 @@ switch($status){
 		break;
 		
 	case 'menu':
+	
+		if($message == '申請'){
+			updateStatus($userID, 'aplly_confirm');
+			$post_data = textMessage($reply_token, 'ステータスをaplly_confirmへ移行');
+			
+		}else if($message == '削除'){
+			updateStatus($userID, 'del_inp_num');
+			$post_data = textMessage($reply_token, 'ステータスをdel_inp_numへ移行');
+			
+		}else if($message == 'キャンセル'){
+			updateStatus($userID, 'pre_proc');
+			$post_data = textMessage($reply_token, 'ステータスをpre_procへリセット');
+			
+		}else{
+			$post_data = textMessage($reply_token, '無効なコマンド');
+		}
 		
 		break;
 		
 	case 'aplly_confirm':
 		
-		$post_data = textMessage($reply_token, 'ステータスエラー 管理者に報告してください');
+		updateStatus($userID, 'pre_proc');
+		$post_data = textMessage($reply_token, 'ステータスをpre_procへ移行');
 		
 		break;
 	case 'del_inp_num':
 		
-		$post_data = textMessage($reply_token, 'ステータスエラー 管理者に報告してください');
+		updateStatus($userID, 'del_confirm');
+		$post_data = textMessage($reply_token, 'ステータスをdel_confirmへ移行');
 		
 		break;
 	case 'del_confirm':
 		
-		$post_data = textMessage($reply_token, 'ステータスエラー 管理者に報告してください');
+		updateStatus($userID, 'pre_proc');
+		$post_data = textMessage($reply_token, 'ステータスをpre_procへ移行');
 		
 		break;
 	default:
