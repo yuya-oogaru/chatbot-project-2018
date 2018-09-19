@@ -1,5 +1,5 @@
 <?php
-function testSelection($void){
+function testSelection($post_data){
 	switch($message){
 	case '請求':
 		$post_data = confirmTemplate($reply_token, '申請運賃をユーザー請求で登録しますか？', '請求あり', '請求なし'); /*確認テンプレート*/
@@ -16,12 +16,12 @@ function testSelection($void){
 	case 'メニュー':
 		$post_data = MenuListFlexTemplate($reply_token);    /*メニューFlexメッセージ*/
 		break;
-	case 'キャンセル':
-		return;
 	default :
 		$post_data = textMessage($reply_token, $message);     /*テキストメッセージ*/
 		break;
 	}
+	
+	return $post_data;
 }
 
 
