@@ -24,8 +24,11 @@ $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 $post_data = textMessage($reply_token, 'default message');   /*応答フォーマット初期化*/
 
 switch($message){
-case '確認':
-	$post_data = confirmTemplate($reply_token, 'Are you sure?'); /*確認テンプレート*/
+case '請求':
+	$post_data = confirmTemplate($reply_token, '申請運賃をユーザー請求で登録しますか？','請求あり','請求なし'); /*確認テンプレート*/
+	break;
+case '往復':
+	$post_data = confirmTemplate($reply_token, '申請運賃を往復で登録しますか？','往復','片道'); /*確認テンプレート*/
 	break;
 case '登録':
 	$post_data = FlexTemplate($reply_token);    /*Flexメッセージ*/

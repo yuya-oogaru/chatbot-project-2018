@@ -19,9 +19,11 @@ function textMessage($reply_token, $text){
 	];
 }
 //***********確認テンプレート*************
-function confirmTemplate($reply_token, $confirmText){
+//引数 = リプライトークン、確認メッセージの本文、選択肢文（肯定）、選択肢文（否定）＊ToDo後でちゃんと清書すること。
 
-	$action = confirmTemplateAction(1);
+function confirmTemplate($reply_token, $confirmText, $yes, $no){
+
+	$action = confirmTemplateAction($yes, $no);
 	error_log('action = '.json_encode($action).'');
 
 	return
@@ -41,19 +43,19 @@ function confirmTemplate($reply_token, $confirmText){
 	];
 }
 //確認アクションコンテンツ
-function confirmTemplateAction($void){
+function confirmTemplateAction($yes, $no){
 
 	return
 	[
 		[
 			"type" => "message",
-			"label" => "Yes",
-			"text" => "yes"
+			"label" => $yes,
+			"text" => $yes
 		],
 	    [
 			"type" => "message",
-			"label" => "No",
-			"text" => "no"
+			"label" => $no,
+			"text" => $no
 		]
 	];
 }
