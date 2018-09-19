@@ -7,7 +7,7 @@ require_once (__DIR__ . '/MessageBuild/MenuListTemplate.php');
 require_once (__DIR__ . '/basicfunc.php');
 require_once (__DIR__ . '/test_function.php');
 require_once (__DIR__ . '/sql.php');
-require_once (__DIR__ . '/proc_launcher.php');
+require_once (__DIR__ . '/insert_proc_launcher.php');
 
 /*LINEBotアクセストークン*/
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
@@ -70,16 +70,18 @@ ins_sel_confirm :ユーザーが、登録内容の確認を行っている状態
 ****************************************************************/
 
 switch($status){
-	case 'pre_proc':/*incomp*/
+	case 'pre_proc':/*********************************************/
 		
 		if($messageType != FALSE){
 			/*経路データ登録へ*/
-			updateStatus($userID, 'ins_inp_office');
-			$post_data = textMessage($reply_token, '行先（会社名）を入力してください。');
+			pre_proc_func($userID, $message, $reply_token);
 			
 		}else if($message == 'メニュー'){
-			/*メニュー画面呼び出しへ*/
-			$post_data = menu_proc_launcher($userID, $message, $reply_token, $post_data);
+
+			/*機能メニュー画面呼び出し*/
+			$post_data = MenuListFlexTemplate($reply_token);
+			/*ステータスをmenuへ移行*/
+			updateStatus($userID, 'menu');
 			
 		}else{
 			/*無効なコマンド*/
@@ -87,43 +89,29 @@ switch($status){
 		}
 		
 		break;
-	case 'ins_inp_office':/*incomp*/
+	case 'ins_inp_office':/*********************************************/
 		
-		updateStatus($userID, 'ins_sel_claim');
-		$post_data = confirmTemplate($reply_token, '申請運賃をユーザー請求で登録しますか？', 'ユーザー請求', '自社請求');
+		ins_inp_office_func($userID, $message, $reply_token);
+		break;
+		
+	case 'ins_sel_claim':/*********************************************/
+		
+		ins_sel_claim_func($userID, $message, $reply_token);
+		break;
+		
+	case 'ins_sel_rounds':/*********************************************/
+		
+		ins_sel_rounds_func($userID, $message, $reply_token);
 		
 		break;
-	case 'ins_sel_claim':/*incomp*/
+	case 'ins_inp_others':/*********************************************/
 		
-		updateStatus($userID, 'ins_sel_rounds');
-		$post_data = confirmTemplate($reply_token, '申請運賃を往復で登録しますか？', '往復', '片道');
-		
+		ins_inp_others_func($userID, $message, $reply_token, $post_data)
 		break;
-	case 'ins_sel_rounds':/*incomp*/
 		
-		updateStatus($userID, 'ins_inp_others');
-		$post_data = textMessage($reply_token, '備考があれば入力してください。');
+	case 'ins_sel_confirm':/*********************************************/
 		
-		break;
-	case 'ins_inp_others':/*incomp*/
-		
-		updateStatus($userID, 'ins_sel_confirm');
-		$post_data = FlexTemplate($reply_token, '以上の内容で登録しますか？', '内容確認');
-		
-		break;
-	case 'ins_sel_confirm':/*incomp*/
-		
-		updateStatus($userID, 'pre_proc');
-		
-		if($message == 'はい'){
-			$post_data = textMessage($reply_token, '経路データを登録しました。');
-		}else if($message == 'いいえ'){
-			$post_data = textMessage($reply_token, '登録をキャンセルしました。');
-		}else{
-			$post_data = textMessage($reply_token, 'メッセージ内の選択肢ボタンから選んでください。');
-			updateStatus($userID, 'ins_sel_confirm');
-		}
-		
+		ins_sel_confirm_func($userID, $message, $reply_token);
 		break;
 		
 	/*************************************************************
@@ -135,7 +123,11 @@ switch($status){
 	case 'menu':
 	
 		if($message == '申請'){
-			$post_data = apply_proc_launcher($userID, $message, $reply_token, $post_data);
+		
+			/*申請確認画面呼び出し*/
+			$post_data = ApplyFlexTemplate($reply_token);
+			/*ステータスをaplly_confirmへ移行*/
+			updateStatus($userID, 'aplly_confirm');
 			
 		}else if($message == '一件削除'){
 			updateStatus($userID, 'del_inp_num');

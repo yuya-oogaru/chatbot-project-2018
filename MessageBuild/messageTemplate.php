@@ -194,7 +194,7 @@ function FlexTemplateContentsSubButton($text){
 		[
 			"type" => "text",
 			"text" => $text,
-			"size" => "md",
+			"size" => "sm",
 			"color" => "#111111",
 			"align" => "center"
 		],
