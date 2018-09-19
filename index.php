@@ -73,11 +73,16 @@ switch($status){
 	case 'pre_proc':/*incomp*/
 		
 		if($messageType != FALSE){
+			/*経路データ登録へ*/
 			updateStatus($userID, 'ins_inp_office');
-			$post_data = textMessage($reply_token, 'ステータスをins_inp_officeへ移行');
+			$post_data = textMessage($reply_token, '行先（会社名）を入力してください。');
+			
 		}else if($message == 'メニュー'){
+			/*メニュー画面呼び出しへ*/
 			$post_data = menu_proc_launcher($userID, $message, $reply_token, $post_data);
+			
 		}else{
+			/*無効なコマンド*/
 			$post_data = textMessage($reply_token, '無効なコマンド');
 		}
 		
@@ -85,31 +90,39 @@ switch($status){
 	case 'ins_inp_office':/*incomp*/
 		
 		updateStatus($userID, 'ins_sel_claim');
-		$post_data = textMessage($reply_token, 'ステータスをins_sel_claimへ移行');
+		$post_data = confirmTemplate($reply_token, '申請運賃をユーザー請求で登録しますか？', 'ユーザー請求', '自社請求');
 		
 		break;
 	case 'ins_sel_claim':/*incomp*/
 		
 		updateStatus($userID, 'ins_sel_rounds');
-		$post_data = textMessage($reply_token, 'ステータスをins_sel_roundsへ移行');
+		$post_data = confirmTemplate($reply_token, '申請運賃を往復で登録しますか？', '往復', '片道');
 		
 		break;
 	case 'ins_sel_rounds':/*incomp*/
 		
 		updateStatus($userID, 'ins_inp_others');
-		$post_data = textMessage($reply_token, 'ステータスをins_inp_othersへ移行');
+		$post_data = textMessage($reply_token, '備考があれば入力してください。');
 		
 		break;
 	case 'ins_inp_others':/*incomp*/
 		
 		updateStatus($userID, 'ins_sel_confirm');
-		$post_data = textMessage($reply_token, 'ステータスをins_sel_confirmへ移行');
+		$post_data = FlexTemplate($reply_token, '以上の内容で登録しますか？', '内容確認');
 		
 		break;
 	case 'ins_sel_confirm':/*incomp*/
 		
 		updateStatus($userID, 'pre_proc');
-		$post_data = textMessage($reply_token, 'ステータスをpre_procへ移行');
+		
+		if($message == 'はい'){
+			$post_data = textMessage($reply_token, '経路データを登録しました。');
+		}else if($message == 'いいえ'){
+			$post_data = textMessage($reply_token, '登録をキャンセルしました。');
+		}else{
+			$post_data = textMessage($reply_token, 'メッセージ内の選択肢ボタンから選んでください。');
+			updateStatus($userID, 'ins_sel_confirm');
+		}
 		
 		break;
 		
