@@ -9,11 +9,6 @@ function textMessage($reply_token, $text){
 			[
 				"type" => "text",
 				"text" => $text
-			],
-			[
-				"type" => "sticker",
-				"packageId" => 1,
-				"stickerId" => 1
 			]
 		]
 	];
