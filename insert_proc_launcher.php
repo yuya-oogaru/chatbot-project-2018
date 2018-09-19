@@ -33,7 +33,7 @@ function ins_sel_claim_func($userID, $message, $reply_token){
 	/*往復の有無選択を要求*/
 	$post_data = confirmTemplate($reply_token, '申請運賃を往復で登録しますか？', '往復', '片道');	
 	
-	return;
+	return $post_data;
 
 }
 /*******************************/
@@ -44,7 +44,7 @@ function ins_sel_rounds_func($userID, $message, $reply_token){
 	/*備考の入力選択を要求*/
 	$post_data = textMessage($reply_token, '備考があれば入力してください。');
 	
-	return;
+	return $post_data;
 
 }
 /*******************************/
@@ -56,7 +56,7 @@ function ins_inp_others_func($userID, $message, $reply_token, $post_data){
 	$post_data = FlexTemplate($reply_token, '以上の内容で登録しますか？', '内容確認');
 			
 	
-	return;
+	return $post_data;
 
 }
 function ins_sel_confirm_func($userID, $message, $reply_token){
@@ -72,7 +72,7 @@ function ins_sel_confirm_func($userID, $message, $reply_token){
 		updateStatus($userID, 'ins_sel_confirm');
 	}
 	
-	return;
+	return $post_data;
 
 }
 /********************************/
