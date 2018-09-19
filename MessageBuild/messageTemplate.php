@@ -205,7 +205,7 @@ function FlexTemplateContentsSubButton($text){
 			"action"=> [
 				"type" => "message",
 				"label" => "はい",
-				"text" => "はいが押された。"
+				"text" => "はい"
 			]
     	],
     	[
@@ -215,7 +215,7 @@ function FlexTemplateContentsSubButton($text){
 			"action"=> [
 				"type" => "message",
 				"label" => "いいえ",
-				"text" => "いいえが押された。"
+				"text" => "いいえ"
 			]
 		]
 	];

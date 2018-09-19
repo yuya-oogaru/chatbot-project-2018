@@ -29,7 +29,12 @@ function delete_proc_launcher($userID, $message, $reply_token, $post_data){
 
 function apply_proc_launcher($userID, $message, $reply_token, $post_data){
 
-
+	/*申請確認画面呼び出し*/
+	$post_data = ApplyFlexTemplate($reply_token);
+	
+	/*ステータスをaplly_confirmへ移行*/
+	updateStatus($userID, 'aplly_confirm');
+	
 	return;
 }
 

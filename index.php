@@ -81,7 +81,7 @@ del_confirm     :ユーザーが削除内容の確認を行っている状態。
 ****************************************************************/
 
 switch($status){
-	case 'pre_proc':
+	case 'pre_proc':/*incomp*/
 		
 		if($message == '登録'){
 			updateStatus($userID, 'ins_inp_office');
@@ -93,31 +93,31 @@ switch($status){
 		}
 		
 		break;
-	case 'ins_inp_office':
+	case 'ins_inp_office':/*incomp*/
 		
 		updateStatus($userID, 'ins_sel_claim');
 		$post_data = textMessage($reply_token, 'ステータスをins_sel_claimへ移行');
 		
 		break;
-	case 'ins_sel_claim':
+	case 'ins_sel_claim':/*incomp*/
 		
 		updateStatus($userID, 'ins_sel_rounds');
 		$post_data = textMessage($reply_token, 'ステータスをins_sel_roundsへ移行');
 		
 		break;
-	case 'ins_sel_rounds':
+	case 'ins_sel_rounds':/*incomp*/
 		
 		updateStatus($userID, 'ins_inp_others');
 		$post_data = textMessage($reply_token, 'ステータスをins_inp_othersへ移行');
 		
 		break;
-	case 'ins_inp_others':
+	case 'ins_inp_others':/*incomp*/
 		
 		updateStatus($userID, 'ins_sel_confirm');
 		$post_data = textMessage($reply_token, 'ステータスをins_sel_confirmへ移行');
 		
 		break;
-	case 'ins_sel_confirm':
+	case 'ins_sel_confirm':/*incomp*/
 		
 		updateStatus($userID, 'pre_proc');
 		$post_data = textMessage($reply_token, 'ステータスをpre_procへ移行');
@@ -127,8 +127,7 @@ switch($status){
 	case 'menu':
 	
 		if($message == '申請'){
-			updateStatus($userID, 'aplly_confirm');
-			$post_data = textMessage($reply_token, 'ステータスをaplly_confirmへ移行');
+			$post_data = apply_proc_launcher($userID, $message, $reply_token, $post_data);
 			
 		}else if($message == '削除'){
 			updateStatus($userID, 'del_inp_num');
@@ -136,7 +135,7 @@ switch($status){
 			
 		}else if($message == 'キャンセル'){
 			updateStatus($userID, 'pre_proc');
-			$post_data = textMessage($reply_token, 'ステータスをpre_procへリセット');
+			$post_data = textMessage($reply_token, 'キャンセルしました。');
 			
 		}else{
 			$post_data = textMessage($reply_token, '無効なコマンド');
@@ -146,17 +145,27 @@ switch($status){
 		
 	case 'aplly_confirm':
 		
+		/*ステータスをpre_procへ移行*/
 		updateStatus($userID, 'pre_proc');
-		$post_data = textMessage($reply_token, 'ステータスをpre_procへ移行');
+		
+		if($message == 'はい'){
+			$post_data = textMessage($reply_token, '経路データを申請しました。');
+		}else if($message == 'いいえ'){
+			$post_data = textMessage($reply_token, '申請をキャンセルしました。');
+		}else{
+			$post_data = textMessage($reply_token, 'メッセージ内の選択肢ボタンから選んでください。');
+			updateStatus($userID, 'aplly_confirm');
+		}
 		
 		break;
-	case 'del_inp_num':
+		
+	case 'del_inp_num':/*incomp*/
 		
 		updateStatus($userID, 'del_confirm');
 		$post_data = textMessage($reply_token, 'ステータスをdel_confirmへ移行');
 		
 		break;
-	case 'del_confirm':
+	case 'del_confirm':/*incomp*/
 		
 		updateStatus($userID, 'pre_proc');
 		$post_data = textMessage($reply_token, 'ステータスをpre_procへ移行');
