@@ -76,9 +76,6 @@ switch($status){
 		$post_data = textMessage($reply_token, 'ステータスをins_inp_officeへ移行');
 		
 		break;
-	case 'menu':
-		
-		break;
 	case 'ins_inp_office':
 		
 		updateStatus($userID, 'ins_sel_claim');
@@ -109,6 +106,11 @@ switch($status){
 		$post_data = textMessage($reply_token, 'ステータスをpre_procへ移行');
 		
 		break;
+		
+	case 'menu':
+		
+		break;
+		
 	case 'aplly_confirm':
 		
 		$post_data = textMessage($reply_token, 'ステータスエラー 管理者に報告してください');
@@ -128,6 +130,15 @@ switch($status){
 		$post_data = textMessage($reply_token, 'ステータスエラー 管理者に報告してください');
 		break;
 }
+
+/**********デバッグオプション・ステータスリセット**********/
+
+/*リセットは、メッセージに「リセット」と送ることで行う。*/
+if($message == 'リセット'){
+	updateStatus($userID, 'pre_proc');
+	$post_data = textMessage($reply_token, 'ステータスをpre_procへリセット');
+}
+
 /*****************応答メッセージ作成**********************/
 
 //$post_data = textMessage($reply_token, $status);
