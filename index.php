@@ -34,6 +34,16 @@ if(searchUserID($userID) == NULL){
 /*ステータス確認*/
 $status = searchStatus($userID);
 
+/**********デバッグオプション・ステータス確認**********/
+
+/*ステータス確認は、メッセージに「ステータス」と送ることで行う。*/
+if($message == 'ステータス'){
+	$post_data = textMessage($reply_token, 'ステータスは'.$status);
+	sendReplyMessage($post_data, $access_token);
+	return;
+}
+
+
 /****************ステータスに応じた処理呼び出し******************
 
 確認したステータスをもとに、当該の処理を呼び出し。
