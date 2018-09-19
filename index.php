@@ -123,7 +123,7 @@ switch($status){
 	**************************************************************/
 	case 'menu':
 	
-		$post_data = menu_func($userID, $message, $reply_token)
+		$post_data = menu_func($userID, $message, $reply_token);
 		break;
 		
 	/****************************************************************
