@@ -1,10 +1,12 @@
 <?php
+//define('LINE_STATUS');
+
 
 /******ステータス更新*******/
 function updateStatus($userID, $status){
 
 	$dbh = dbConnection::getConnection();
-	$sql = 'UPDATE status SET status = :status WHERE userID = :userID';
+	$sql = 'UPDATE LINE_STATUS SET status = :status WHERE userID = :userID';
 	$sth = $dbh->prepare($sql);
 
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
@@ -16,7 +18,7 @@ function updateStatus($userID, $status){
 function updateTemp($userID, $temp){
 
 	$dbh = dbConnection::getConnection();
-	$sql = 'UPDATE status SET tempData = :temp WHERE userID = :userID';
+	$sql = 'UPDATE LINE_STATUS SET tempData = :temp WHERE userID = :userID';
 	$sth = $dbh->prepare($sql);
 
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
@@ -28,7 +30,7 @@ function updateTemp($userID, $temp){
 function searchStatus($userID){
 
 	$dbh = dbConnection::getConnection();
-	$sql = 'SELECT status FROM status WHERE userID = :userID';
+	$sql = 'SELECT status FROM LINE_STATUS WHERE userID = :userID';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
@@ -42,7 +44,7 @@ function searchStatus($userID){
 function searchTemp($userID){
 
 	$dbh = dbConnection::getConnection();
-	$sql = 'SELECT tempdata FROM status WHERE userID = :userID';
+	$sql = 'SELECT tempdata FROM LINE_STATUS WHERE userID = :userID';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
@@ -56,7 +58,7 @@ function searchTemp($userID){
 function searchUserID($userID){
 
 	$dbh = dbConnection::getConnection();
-	$sql = 'SELECT userID FROM status WHERE userID = :userID';
+	$sql = 'SELECT userID FROM LINE_STATUS WHERE userID = :userID';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
@@ -70,12 +72,12 @@ function searchUserID($userID){
 
 function registerUser($userID, $status, $tempData){
 	$dbh = dbConnection::getConnection();
-	$sql = 'insert into status (userID, status, tempData) values (:userID, :status, :tempData)';
+	$sql = 'insert into LINE_STATUS (userID, status) values (:userID, :status)';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);            /*登録者ID（ラインアカウントID）*/
 	$sth->bindValue(':status', $status, PDO::PARAM_STR);            /*状態*/
-	$sth->bindValue(':tempData', $tempData, PDO::PARAM_STR);        /*一時データ*/
+	//$sth->bindValue(':tempData', $tempData, PDO::PARAM_STR);        /*一時データ*/
 	
 	$sth->execute();
 }
