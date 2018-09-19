@@ -35,7 +35,7 @@ function apply_proc_launcher($userID, $message, $reply_token, $post_data){
 	/*ステータスをaplly_confirmへ移行*/
 	updateStatus($userID, 'aplly_confirm');
 	
-	return;
+	return $post_data;
 }
 
 ?>
