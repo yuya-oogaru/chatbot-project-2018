@@ -24,7 +24,7 @@ $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 
 $post_data = textMessage($reply_token, 'default message');   /*応答フォーマット初期化*/
 
-function testSelection(1);
+testSelection(1);
 
 /*Jsonを日本語（２バイト文字）に対応 = json扱うファイルは 文字コードをUTF-8にしないといけない！！！*/
 
