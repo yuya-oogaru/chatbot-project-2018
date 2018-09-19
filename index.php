@@ -35,6 +35,11 @@ if(searchUserID($userID) == NULL){
 /*ステータス確認*/
 $status = searchStatus($userID);
 
+/************メッセージの種類判断***********************/
+
+/*メッセージが、ジョルダン検索結果かどうか判断（違う場合は'FALSE'が返る）*/
+$messageType = mb_strpos($message, 'ジョルダン乗換案内', 4, "UTF-8");
+
 /**********デバッグオプション・ステータス確認**********/
 
 /*ステータス確認は、メッセージに「ステータス」と送ることで行う。*/
@@ -44,18 +49,15 @@ if($message == 'ステータス'){
 	return;
 }
 
-
 /****************ステータスに応じた処理呼び出し******************
 
 確認したステータスをもとに、当該の処理を呼び出し。
-
 
 ***各状態名***
 
 [共通]
 
 pre_proc        :ユーザーが何も操作を行っていない状態（初期）
-
 
 [経路データ登録処理中]
 
@@ -70,7 +72,7 @@ ins_sel_confirm :ユーザーが、登録内容の確認を行っている状態
 switch($status){
 	case 'pre_proc':/*incomp*/
 		
-		if($message == '登録'){
+		if($messageType != FALSE){
 			updateStatus($userID, 'ins_inp_office');
 			$post_data = textMessage($reply_token, 'ステータスをins_inp_officeへ移行');
 		}else if($message == 'メニュー'){
