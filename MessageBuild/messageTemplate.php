@@ -56,7 +56,7 @@ function confirmTemplateAction($yes, $no){
 }
 
 //**********Flexテンプレート*************
-function FlexTemplate($reply_token){
+function FlexTemplate($reply_token, $message_text, $title){
 
 
 	return
@@ -71,7 +71,7 @@ function FlexTemplate($reply_token){
 					"body" => [
     					"type" => "box",
     					"layout" => "vertical",
-    					"contents" => FlexTemplateContents(1)
+    					"contents" => FlexTemplateContents($message_text, $title)
     				]
 				]
 			]
@@ -80,7 +80,7 @@ function FlexTemplate($reply_token){
 }
 
 //Flexコンテンツ
-function FlexTemplateContents($void){
+function FlexTemplateContents($message_text, $title){
 
 	return
 	[
@@ -89,7 +89,7 @@ function FlexTemplateContents($void){
 	        "layout" => "vertical",
 	        "margin" => "xxl",
 	        "spacing" => "sm",
-	        "contents" => FlexTemplateContentsTitle('内容確認')
+	        "contents" => FlexTemplateContentsTitle($title)
 		],
 		[
 			"type" => "box",
@@ -143,7 +143,7 @@ function FlexTemplateContents($void){
     	    "layout" => "vertical",
     	    "margin" => "xxl",
     	    "spacing" => "sm",
-    	    "contents" => FlexTemplateContentsSubButton('以上の内容を登録しますか？')
+    	    "contents" => FlexTemplateContentsSubButton($message_text)
 		]
 	];
 }

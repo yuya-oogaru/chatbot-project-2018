@@ -131,7 +131,7 @@ switch($status){
 			
 		}else if($message == '削除'){
 			updateStatus($userID, 'del_inp_num');
-			$post_data = textMessage($reply_token, 'ステータスをdel_inp_numへ移行');
+			$post_data = textMessage($reply_token, '削除する経路データの番号を入力してください。');
 			
 		}else if($message == 'キャンセル'){
 			updateStatus($userID, 'pre_proc');
@@ -162,13 +162,21 @@ switch($status){
 	case 'del_inp_num':/*incomp*/
 		
 		updateStatus($userID, 'del_confirm');
-		$post_data = textMessage($reply_token, 'ステータスをdel_confirmへ移行');
+		$post_data = FlexTemplate($reply_token, '以上のデータを削除しますか？', '削除データ確認');
 		
 		break;
 	case 'del_confirm':/*incomp*/
 		
 		updateStatus($userID, 'pre_proc');
-		$post_data = textMessage($reply_token, 'ステータスをpre_procへ移行');
+		
+		if($message == 'はい'){
+			$post_data = textMessage($reply_token, '経路データを削除しました。');
+		}else if($message == 'いいえ'){
+			$post_data = textMessage($reply_token, '削除をキャンセルしました。');
+		}else{
+			$post_data = textMessage($reply_token, 'メッセージ内の選択肢ボタンから選んでください。');
+			updateStatus($userID, 'del_confirm');
+		}
 		
 		break;
 	default:
