@@ -106,7 +106,7 @@ switch($status){
 		break;
 	case 'ins_inp_others':/*********************************************/
 		
-		ins_inp_others_func($userID, $message, $reply_token, $post_data)
+		ins_inp_others_func($userID, $message, $reply_token, $post_data);
 		break;
 		
 	case 'ins_sel_confirm':/*********************************************/
