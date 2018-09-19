@@ -1,7 +1,6 @@
 <?php
 //define('LINE_STATUS');
 
-
 /******ステータス更新*******/
 function updateStatus($userID, $status){
 

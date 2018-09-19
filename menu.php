@@ -1,0 +1,34 @@
+<?php
+
+/*機能メニュー画面の選択によって、所定の処理を行う。*/
+function menu_func($userID, $message, $reply_token){
+
+	/*機能メニュー画面にて’申請’を選択*/
+	if($message == '申請'){
+	
+		/*申請確認画面呼び出し*/
+		$post_data = ApplyFlexTemplate($reply_token);
+		/*ステータスをaplly_confirmへ移行*/
+		updateStatus($userID, 'aplly_confirm');
+		
+	/*機能メニュー画面にて’一件削除’を選択*/
+	}else if($message == '一件削除'){
+	
+		updateStatus($userID, 'del_inp_num');
+		$post_data = textMessage($reply_token, '削除する経路データの番号を入力してください。');
+	
+	/*機能メニュー画面にて’キャンセル’を選択*/
+	}else if($message == 'キャンセル'){
+	
+		updateStatus($userID, 'pre_proc');
+		$post_data = textMessage($reply_token, 'キャンセルしました。');
+			
+	/*そのほかの想定外入力*/
+	}else{
+	
+		$post_data = textMessage($reply_token, '無効なコマンド');
+		
+	}
+	return $post_data;
+}
+?>

@@ -1,18 +1,34 @@
 <?php
+/*              insert_proc_launcher.php
+*
+*       
+*
+*
+*
+*
+*
+*
+*   *それぞれの処理内容については、基本設計書を参照
+**********************************************************/
 
+
+/****************ジョルダンデータ読み取り*****************/
 function pre_proc_func($userID, $message, $reply_token){
 
-	/*経路データ登録へ*/
+	/*ジョルダンから経路データ読み取り*/
+	
+	
+	
 	updateStatus($userID, 'ins_inp_office');
 	$post_data = textMessage($reply_token, '行先（会社名）を入力してください。');
 	
 	return $post_data;
 
 }
-/********************************/
+/***************行先（社名）入力*****************/
 function ins_inp_office_func($userID, $message, $reply_token){
 
-	/*行先入力を受け付ける*/
+
 	
 	
 	updateStatus($userID, 'ins_sel_claim');
@@ -23,10 +39,10 @@ function ins_inp_office_func($userID, $message, $reply_token){
 	return $post_data;
 
 }
-/*******************************/
+/**************ユーザー請求可否選択*****************/
 function ins_sel_claim_func($userID, $message, $reply_token){
 
-	/*ユーザー請求可否選択を受け付ける*/
+
 	
 	updateStatus($userID, 'ins_sel_rounds');
 	
@@ -36,7 +52,7 @@ function ins_sel_claim_func($userID, $message, $reply_token){
 	return $post_data;
 
 }
-/*******************************/
+/***************往復の有無選択****************/
 function ins_sel_rounds_func($userID, $message, $reply_token){
 
 	updateStatus($userID, 'ins_inp_others');
@@ -47,7 +63,7 @@ function ins_sel_rounds_func($userID, $message, $reply_token){
 	return $post_data;
 
 }
-/*******************************/
+/***************備考入力****************/
 function ins_inp_others_func($userID, $message, $reply_token, $post_data){
 
 	updateStatus($userID, 'ins_sel_confirm');
@@ -59,15 +75,20 @@ function ins_inp_others_func($userID, $message, $reply_token, $post_data){
 	return $post_data;
 
 }
-/*******************************/
+/***************全入力情報表示・入力情報確定選択****************/
 function ins_sel_confirm_func($userID, $message, $reply_token){
 
 	updateStatus($userID, 'pre_proc');
 	
+	/*登録を許可する（確認画面にて'はい'押下）*/
 	if($message == 'はい'){
 		$post_data = textMessage($reply_token, '経路データを登録しました。');
+		
+	/*登録を許可しない（確認画面にて'いいえ'押下）*/
 	}else if($message == 'いいえ'){
 		$post_data = textMessage($reply_token, '登録をキャンセルしました。');
+		
+	/*そのほかの想定外入力*/
 	}else{
 		$post_data = textMessage($reply_token, 'メッセージ内の選択肢ボタンから選んでください。');
 		updateStatus($userID, 'ins_sel_confirm');

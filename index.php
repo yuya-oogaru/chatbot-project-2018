@@ -1,18 +1,36 @@
 <?php
+/*
+*                 交通費申請Bot ver 1.0
+*                 メインソースファイル
+*
+*    2018 ソースコードに会社名入れてもいいんでしょうか？
+*
+*
+*********************************************************/
 
 /*ToDo 定数定義！*/
 
-/*インクルードファイル*/
-require_once (__DIR__ . '/MessageBuild/messageTemplate.php');
-require_once (__DIR__ . '/MessageBuild/DataListTemplate.php');
-require_once (__DIR__ . '/MessageBuild/MenuListTemplate.php');
-require_once (__DIR__ . '/basicfunc.php');
-require_once (__DIR__ . '/sql.php');
-require_once (__DIR__ . '/insert_proc_launcher.php');
-require_once (__DIR__ . '/apply_delete_proc_launcher.php');
+/*バージョン*/
+define('VERSION'.'1.0');
 
-/*LINEBotアクセストークン*/
+/*****インクルードファイル*****/
+require_once (__DIR__ . '/MessageBuild/messageTemplate.php');  /*LINEメッセージ送信用JSONデータ構築処理メインファイル*/
+require_once (__DIR__ . '/MessageBuild/DataListTemplate.php'); /*LINEメッセージ送信用JSONデータ構築処理 申請メッセージ用*/
+require_once (__DIR__ . '/MessageBuild/MenuListTemplate.php'); /*LINEメッセージ送信用JSONデータ構築処理 機能メニュー用*/
+require_once (__DIR__ . '/basicfunc.php');                     /*メッセージ送信・データベース接続などの、基本的な処理*/
+require_once (__DIR__ . '/sql.php');                           /*データベース操作（I/O）処理*/
+require_once (__DIR__ . '/menu.php');                          /*Botの各機能呼び出し処理*/
+require_once (__DIR__ . '/insert_proc_launcher.php');          /*経路データ登録機能メインファイル*/
+require_once (__DIR__ . '/apply_delete_proc_launcher.php');    /*経路データ申請・削除メインファイル*/
+
+/*LINEBotアクセストークン(heroku側で定義)*/
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
+
+
+/****************************************************
+         ここから、Botのメイン処理に移ります。
+*****************************************************/
+
 
 /**************ユーザー情報読み取り*******************/
 
@@ -42,6 +60,14 @@ $status = searchStatus($userID);
 /*メッセージが、ジョルダン検索結果かどうか判断（違う場合は'FALSE'が返る）*/
 $messageType = mb_strpos($message, 'ジョルダン乗換案内', 4, "UTF-8");
 
+/**********デバッグオプション・ステータスリセット**********/
+
+/*リセットは、メッセージに「リセット」と送ることで行う。*/
+if($message == 'リセット'){
+	updateStatus($userID, 'pre_proc');
+	sendReplyMessage($reply_token, 'ステータスをpre_procへリセット');
+	return;
+}
 /**********デバッグオプション・ステータス確認**********/
 
 /*ステータス確認は、メッセージに「ステータス」と送ることで行う。*/
@@ -82,7 +108,7 @@ aplly_confirm   :ユーザーが申請内容の確認を行っている状態
 del_inp_num :ユーザーが削除するデータを選択している状態。
 del_confirm :ユーザーが削除内容の確認を行っている状態。
 
------------------------------------------------------------------
+---------------------------------------------------------------
 
 正規処理順序（本来呼び出される）
 
@@ -175,13 +201,6 @@ switch($status){
 		break;
 }
 
-/**********デバッグオプション・ステータスリセット**********/
-
-/*リセットは、メッセージに「リセット」と送ることで行う。*/
-if($message == 'リセット'){
-	updateStatus($userID, 'pre_proc');
-	$post_data = textMessage($reply_token, 'ステータスをpre_procへリセット');
-}
 /**********************************************************/
 
 /*Jsonを日本語（２バイト文字）に対応 = json扱うファイルは 文字コードをUTF-8にしないといけない！！！*/
@@ -189,38 +208,7 @@ if($message == 'リセット'){
 /*メッセージjsonデータ確認*/
 error_log('post_data = '.json_encode($post_data).'');
 
-/****************応答メッセージ送信*******************/
+/*応答メッセージ送信*/
 sendReplyMessage($post_data, $access_token);
 
-
-function menu_func($userID, $message, $reply_token){
-
-	/*機能メニュー画面にて’申請’を選択*/
-	if($message == '申請'){
-	
-		/*申請確認画面呼び出し*/
-		$post_data = ApplyFlexTemplate($reply_token);
-		/*ステータスをaplly_confirmへ移行*/
-		updateStatus($userID, 'aplly_confirm');
-		
-	/*機能メニュー画面にて’一件削除’を選択*/
-	}else if($message == '一件削除'){
-	
-		updateStatus($userID, 'del_inp_num');
-		$post_data = textMessage($reply_token, '削除する経路データの番号を入力してください。');
-	
-	/*機能メニュー画面にて’キャンセル’を選択*/
-	}else if($message == 'キャンセル'){
-	
-		updateStatus($userID, 'pre_proc');
-		$post_data = textMessage($reply_token, 'キャンセルしました。');
-			
-	/*そのほかの想定外入力*/
-	}else{
-	
-		$post_data = textMessage($reply_token, '無効なコマンド');
-		
-	}
-	return $post_data;
-}
 ?>
