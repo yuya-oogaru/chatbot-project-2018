@@ -21,7 +21,7 @@ function testSelection($reply_msg, $message_tempemp, $reply_token_temp){
 		break;
 	}
 	
-	return $replyMsg;
+	return $reply_msg;
 }
 
 
