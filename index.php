@@ -91,27 +91,27 @@ switch($status){
 		break;
 	case 'ins_inp_office':/*********************************************/
 		
-		ins_inp_office_func($userID, $message, $reply_token);
+		$post_data = ins_inp_office_func($userID, $message, $reply_token);
 		break;
 		
 	case 'ins_sel_claim':/*********************************************/
 		
-		ins_sel_claim_func($userID, $message, $reply_token);
+		$post_data = ins_sel_claim_func($userID, $message, $reply_token);
 		break;
 		
 	case 'ins_sel_rounds':/*********************************************/
 		
-		ins_sel_rounds_func($userID, $message, $reply_token);
-		
+		$post_data = ins_sel_rounds_func($userID, $message, $reply_token);
 		break;
+		
 	case 'ins_inp_others':/*********************************************/
 		
-		ins_inp_others_func($userID, $message, $reply_token, $post_data);
+		$post_data = ins_inp_others_func($userID, $message, $reply_token, $post_data);
 		break;
 		
 	case 'ins_sel_confirm':/*********************************************/
 		
-		ins_sel_confirm_func($userID, $message, $reply_token);
+		$post_data = ins_sel_confirm_func($userID, $message, $reply_token);
 		break;
 		
 	/*************************************************************
