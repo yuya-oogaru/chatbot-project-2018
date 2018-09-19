@@ -130,7 +130,7 @@ switch($status){
 }
 /*****************応答メッセージ作成**********************/
 
-$post_data = textMessage($reply_token, $status);
+//$post_data = textMessage($reply_token, $status);
 //$post_data = testSelection($post_data, $message, $reply_token);
 
 /*Jsonを日本語（２バイト文字）に対応 = json扱うファイルは 文字コードをUTF-8にしないといけない！！！*/
