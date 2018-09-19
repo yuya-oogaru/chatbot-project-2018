@@ -42,7 +42,7 @@ function ins_sel_rounds_func($userID, $message, $reply_token){
 	updateStatus($userID, 'ins_inp_others');
 	
 	/*備考の入力選択を要求*/
-	$post_data = textMessage($reply_token, '備考があれば入力してください。');
+	$post_data = textMessage($reply_token, '備考があれば入力してください。（なければ’なし’と入力します。）');
 	
 	return $post_data;
 

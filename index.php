@@ -8,6 +8,7 @@ require_once (__DIR__ . '/basicfunc.php');
 require_once (__DIR__ . '/test_function.php');
 require_once (__DIR__ . '/sql.php');
 require_once (__DIR__ . '/insert_proc_launcher.php');
+require_once (__DIR__ . '/apply_delete_proc_launcher.php');
 
 /*LINEBotアクセストークン*/
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
@@ -70,7 +71,7 @@ ins_sel_confirm :ユーザーが、登録内容の確認を行っている状態
 ****************************************************************/
 
 switch($status){
-	case 'pre_proc':/*********************************************/
+	case 'pre_proc':
 		
 		if($messageType != FALSE){
 			/*経路データ登録へ*/
@@ -89,27 +90,27 @@ switch($status){
 		}
 		
 		break;
-	case 'ins_inp_office':/*********************************************/
+	case 'ins_inp_office':
 		
 		$post_data = ins_inp_office_func($userID, $message, $reply_token);
 		break;
 		
-	case 'ins_sel_claim':/*********************************************/
+	case 'ins_sel_claim':
 		
 		$post_data = ins_sel_claim_func($userID, $message, $reply_token);
 		break;
 		
-	case 'ins_sel_rounds':/*********************************************/
+	case 'ins_sel_rounds':
 		
 		$post_data = ins_sel_rounds_func($userID, $message, $reply_token);
 		break;
 		
-	case 'ins_inp_others':/*********************************************/
+	case 'ins_inp_others':
 		
 		$post_data = ins_inp_others_func($userID, $message, $reply_token, $post_data);
 		break;
 		
-	case 'ins_sel_confirm':/*********************************************/
+	case 'ins_sel_confirm':
 		
 		$post_data = ins_sel_confirm_func($userID, $message, $reply_token);
 		break;
@@ -122,25 +123,7 @@ switch($status){
 	**************************************************************/
 	case 'menu':
 	
-		if($message == '申請'){
-		
-			/*申請確認画面呼び出し*/
-			$post_data = ApplyFlexTemplate($reply_token);
-			/*ステータスをaplly_confirmへ移行*/
-			updateStatus($userID, 'aplly_confirm');
-			
-		}else if($message == '一件削除'){
-			updateStatus($userID, 'del_inp_num');
-			$post_data = textMessage($reply_token, '削除する経路データの番号を入力してください。');
-			
-		}else if($message == 'キャンセル'){
-			updateStatus($userID, 'pre_proc');
-			$post_data = textMessage($reply_token, 'キャンセルしました。');
-			
-		}else{
-			$post_data = textMessage($reply_token, '無効なコマンド');
-		}
-		
+		$post_data = menu_func($userID, $message, $reply_token)
 		break;
 		
 	/****************************************************************
@@ -151,18 +134,7 @@ switch($status){
 	****************************************************************/
 	case 'aplly_confirm':
 		
-		/*ステータスをpre_procへ移行*/
-		updateStatus($userID, 'pre_proc');
-		
-		if($message == 'はい'){
-			$post_data = textMessage($reply_token, '経路データを申請しました。');
-		}else if($message == 'いいえ'){
-			$post_data = textMessage($reply_token, '申請をキャンセルしました。');
-		}else{
-			$post_data = textMessage($reply_token, 'メッセージ内の選択肢ボタンから選んでください。');
-			updateStatus($userID, 'aplly_confirm');
-		}
-		
+		$post_data = aplly_confirm_func($userID, $message, $reply_token);
 		break;
 		
 	/****************************************************************
@@ -174,26 +146,17 @@ switch($status){
 	****************************************************************/
 	
 	case 'del_inp_num':/*incomp*/
-		
-		updateStatus($userID, 'del_confirm');
-		$post_data = FlexTemplate($reply_token, '以上のデータを削除しますか？', '削除データ確認');
-		
+	
+		$post_data = del_inp_num_func($userID, $message, $reply_token);
 		break;
+		
 	case 'del_confirm':/*incomp*/
-		
-		updateStatus($userID, 'pre_proc');
-		
-		if($message == 'はい'){
-			$post_data = textMessage($reply_token, '経路データを削除しました。');
-		}else if($message == 'いいえ'){
-			$post_data = textMessage($reply_token, '削除をキャンセルしました。');
-		}else{
-			$post_data = textMessage($reply_token, 'メッセージ内の選択肢ボタンから選んでください。');
-			updateStatus($userID, 'del_confirm');
-		}
-		
+	
+		$post_data = del_confirm_func($userID, $message, $reply_token);
 		break;
+		
 	default:
+	
 		$post_data = textMessage($reply_token, 'ステータスエラー 管理者に報告してください');
 		break;
 }
@@ -215,4 +178,27 @@ error_log('post_data = '.json_encode($post_data).'');
 /****************応答メッセージ送信*******************/
 sendReplyMessage($post_data, $access_token);
 
+
+function menu_func($userID, $message, $reply_token){
+
+	if($message == '申請'){
+	
+		/*申請確認画面呼び出し*/
+		$post_data = ApplyFlexTemplate($reply_token);
+		/*ステータスをaplly_confirmへ移行*/
+		updateStatus($userID, 'aplly_confirm');
+		
+	}else if($message == '一件削除'){
+		updateStatus($userID, 'del_inp_num');
+		$post_data = textMessage($reply_token, '削除する経路データの番号を入力してください。');
+		
+	}else if($message == 'キャンセル'){
+		updateStatus($userID, 'pre_proc');
+		$post_data = textMessage($reply_token, 'キャンセルしました。');
+			
+	}else{
+		$post_data = textMessage($reply_token, '無効なコマンド');
+	}
+	return $post_data;
+}
 ?>
