@@ -74,7 +74,7 @@ switch($status){
 		
 		if($messageType != FALSE){
 			/*経路データ登録へ*/
-			pre_proc_func($userID, $message, $reply_token);
+			$post_data = pre_proc_func($userID, $message, $reply_token);
 			
 		}else if($message == 'メニュー'){
 

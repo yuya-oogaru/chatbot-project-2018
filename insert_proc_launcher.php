@@ -59,6 +59,7 @@ function ins_inp_others_func($userID, $message, $reply_token, $post_data){
 	return $post_data;
 
 }
+/*******************************/
 function ins_sel_confirm_func($userID, $message, $reply_token){
 
 	updateStatus($userID, 'pre_proc');
