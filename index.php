@@ -1,11 +1,12 @@
 <?php
 
+/*ToDo 定数定義！*/
+
 /*インクルードファイル*/
 require_once (__DIR__ . '/MessageBuild/messageTemplate.php');
 require_once (__DIR__ . '/MessageBuild/DataListTemplate.php');
 require_once (__DIR__ . '/MessageBuild/MenuListTemplate.php');
 require_once (__DIR__ . '/basicfunc.php');
-require_once (__DIR__ . '/test_function.php');
 require_once (__DIR__ . '/sql.php');
 require_once (__DIR__ . '/insert_proc_launcher.php');
 require_once (__DIR__ . '/apply_delete_proc_launcher.php');
@@ -54,7 +55,7 @@ if($message == 'ステータス'){
 
 確認したステータスをもとに、当該の処理を呼び出し。
 
-***各状態名***
+***各状態名($status)***
 
 [共通]
 
@@ -68,19 +69,43 @@ ins_sel_rounds  :ユーザーが、往復の有無を選択している状態
 ins_inp_others  :ユーザーが、備考の入力を行っている状態
 ins_sel_confirm :ユーザーが、登録内容の確認を行っている状態
 
+[メニュー選択中]
+
+menu  :ユーザーがメニューを表示し、機能の選択を行っている状態
+
+[経路データ申請処理中]
+
+aplly_confirm   :ユーザーが申請内容の確認を行っている状態
+
+[経路データ削除処理中]
+	
+del_inp_num :ユーザーが削除するデータを選択している状態。
+del_confirm :ユーザーが削除内容の確認を行っている状態。
+
+-----------------------------------------------------------------
+
+正規処理順序（本来呼び出される）
+
+経路登録：I1～I6
+
+経路申請：M1～M2->A1
+
+経路削除：M1～M2->D1～D2
+
 ****************************************************************/
 
 switch($status){
 	case 'pre_proc':
 		
 		if($messageType != FALSE){
-			/*経路データ登録へ*/
+			/*I１．経路データ読み取り＝＞行先入力要求*/
 			$post_data = pre_proc_func($userID, $message, $reply_token);
 			
 		}else if($message == 'メニュー'){
 
-			/*機能メニュー画面呼び出し*/
+			/*M1.メニュー選択要求*/
 			$post_data = MenuListFlexTemplate($reply_token);
+			
 			/*ステータスをmenuへ移行*/
 			updateStatus($userID, 'menu');
 			
@@ -91,67 +116,56 @@ switch($status){
 		
 		break;
 	case 'ins_inp_office':
-		
+
+		/*I２．行先読み取り＝＞ユーザー請求可否選択要求*/
 		$post_data = ins_inp_office_func($userID, $message, $reply_token);
 		break;
 		
 	case 'ins_sel_claim':
 		
+		/*I３．ユーザー請求可否選択読み取り＝＞往復の有無選択要求*/
 		$post_data = ins_sel_claim_func($userID, $message, $reply_token);
 		break;
 		
 	case 'ins_sel_rounds':
 		
+		/*I４．往復の有無選択読み取り＝＞備考入力要求*/
 		$post_data = ins_sel_rounds_func($userID, $message, $reply_token);
 		break;
 		
 	case 'ins_inp_others':
 		
+		/*I５．備考入力読み取り＝＞入力内容確認要求*/
 		$post_data = ins_inp_others_func($userID, $message, $reply_token, $post_data);
 		break;
 		
 	case 'ins_sel_confirm':
 		
+		/*I６．入力内容確認y/n読み取り＝＞入力内容DB登録*/
 		$post_data = ins_sel_confirm_func($userID, $message, $reply_token);
 		break;
 		
-	/*************************************************************
-	[メニュー選択中]
-
-	menu  :ユーザーがメニューを表示し、機能の選択を行っている状態
-	
-	**************************************************************/
 	case 'menu':
 	
+		/*M２.メニュー選択読み取り＝＞削除・申請処理開始*/
 		$post_data = menu_func($userID, $message, $reply_token);
 		break;
 		
-	/****************************************************************
-	[経路データ申請処理中]
-
-	aplly_confirm   :ユーザーが申請内容の確認を行っている状態
-
-	****************************************************************/
 	case 'aplly_confirm':
 		
+		/*A１．申請可否選択読み取り＝＞申請処理*/
 		$post_data = aplly_confirm_func($userID, $message, $reply_token);
 		break;
-		
-	/****************************************************************
-	[経路データ削除処理中]
 	
-	del_inp_num :ユーザーが削除するデータを選択している状態。
-	del_confirm :ユーザーが削除内容の確認を行っている状態。
+	case 'del_inp_num':
 	
-	****************************************************************/
-	
-	case 'del_inp_num':/*incomp*/
-	
+		/*D１．削除データの登録No読み取り＝＞削除データ確認要求*/
 		$post_data = del_inp_num_func($userID, $message, $reply_token);
 		break;
 		
-	case 'del_confirm':/*incomp*/
+	case 'del_confirm':
 	
+		/*D２．削除データ確認y/n読み取り＝＞削除処理*/
 		$post_data = del_confirm_func($userID, $message, $reply_token);
 		break;
 		
@@ -181,6 +195,7 @@ sendReplyMessage($post_data, $access_token);
 
 function menu_func($userID, $message, $reply_token){
 
+	/*機能メニュー画面にて’申請’を選択*/
 	if($message == '申請'){
 	
 		/*申請確認画面呼び出し*/
@@ -188,16 +203,23 @@ function menu_func($userID, $message, $reply_token){
 		/*ステータスをaplly_confirmへ移行*/
 		updateStatus($userID, 'aplly_confirm');
 		
+	/*機能メニュー画面にて’一件削除’を選択*/
 	}else if($message == '一件削除'){
+	
 		updateStatus($userID, 'del_inp_num');
 		$post_data = textMessage($reply_token, '削除する経路データの番号を入力してください。');
-		
+	
+	/*機能メニュー画面にて’キャンセル’を選択*/
 	}else if($message == 'キャンセル'){
+	
 		updateStatus($userID, 'pre_proc');
 		$post_data = textMessage($reply_token, 'キャンセルしました。');
 			
+	/*そのほかの想定外入力*/
 	}else{
+	
 		$post_data = textMessage($reply_token, '無効なコマンド');
+		
 	}
 	return $post_data;
 }
