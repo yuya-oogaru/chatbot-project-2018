@@ -7,6 +7,7 @@ require_once (__DIR__ . '/MessageBuild/MenuListTemplate.php');
 require_once (__DIR__ . '/basicfunc.php');
 require_once (__DIR__ . '/test_function.php');
 require_once (__DIR__ . '/sql.php');
+require_once (__DIR__ . '/proc_launcher.php');
 
 /*LINEBotアクセストークン*/
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
@@ -86,8 +87,7 @@ switch($status){
 			updateStatus($userID, 'ins_inp_office');
 			$post_data = textMessage($reply_token, 'ステータスをins_inp_officeへ移行');
 		}else if($message == 'メニュー'){
-			updateStatus($userID, 'menu');
-			$post_data = textMessage($reply_token, 'ステータスをmenuへ移行');
+			$post_data = menu_proc_launcher($userID, $message, $reply_token, $post_data);
 		}else{
 			$post_data = textMessage($reply_token, '無効なコマンド');
 		}
@@ -174,14 +174,9 @@ if($message == 'リセット'){
 	updateStatus($userID, 'pre_proc');
 	$post_data = textMessage($reply_token, 'ステータスをpre_procへリセット');
 }
-
-/*****************応答メッセージ作成**********************/
-
-//$post_data = textMessage($reply_token, $status);
-//$post_data = testSelection($post_data, $message, $reply_token);
+/**********************************************************/
 
 /*Jsonを日本語（２バイト文字）に対応 = json扱うファイルは 文字コードをUTF-8にしないといけない！！！*/
-
 
 /*メッセージjsonデータ確認*/
 error_log('post_data = '.json_encode($post_data).'');
