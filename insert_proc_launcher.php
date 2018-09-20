@@ -98,7 +98,7 @@ function ins_sel_rounds_func($userID, $message, $reply_token){
 
 }
 /***************備考入力****************/
-function ins_inp_others_func($userID, $message, $reply_token, $post_data){
+function ins_inp_others_func($userID, $message, $reply_token){
 
 	updateStatus($userID, 'ins_sel_confirm');
 	
@@ -107,7 +107,6 @@ function ins_inp_others_func($userID, $message, $reply_token, $post_data){
 	
 	/*内容確認を要求*/
 	$post_data = FlexTemplate($reply_token, '以上の内容で登録しますか？', '内容確認');
-			
 	
 	return $post_data;
 
