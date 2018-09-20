@@ -103,7 +103,7 @@ function ins_inp_others_func($userID, $message, $reply_token){
 	updateStatus($userID, 'ins_sel_confirm');
 	
 	/*一時記憶DBにデータを登録*/
-	updateCommentsTemp($userID, $message)
+	updateCommentsTemp($userID, $message);
 	
 	/*内容確認を要求*/
 	$post_data = FlexTemplate($reply_token, '以上の内容で登録しますか？', '内容確認');
