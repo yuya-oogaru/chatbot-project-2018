@@ -86,7 +86,7 @@ function ins_sel_rounds_func($userID, $message, $reply_token){
 		updatePriceTemp($userID, (getPriceTemp($userID) *2));
 		
 	}else if($message == '片道')｛
-		updateRoundsTemp($userID, 0);
+		updateRoundsTemp($userID, 000);
 	}else{
 		updateRoundsTemp($userID, 666);
 	}
