@@ -18,9 +18,10 @@ require_once (__DIR__ . '/MessageBuild/messageTemplate.php');  /*LINEメッセ�
 require_once (__DIR__ . '/MessageBuild/DataListTemplate.php'); /*LINEメッセージ送信用JSONデータ構築処理 申請メッセージ用*/
 require_once (__DIR__ . '/MessageBuild/MenuListTemplate.php'); /*LINEメッセージ送信用JSONデータ構築処理 機能メニュー用*/
 require_once (__DIR__ . '/basicfunc.php');                     /*メッセージ送信・データベース接続などの、基本的な処理*/
-require_once (__DIR__ . '/sql.php');                           /*データベース操作（I/O）処理*/
+require_once (__DIR__ . '/status_sql.php');                    /*ユーザーのステータス用データベース操作（I/O）処理*/
 require_once (__DIR__ . '/menu.php');                          /*Botの各機能呼び出し処理*/
 require_once (__DIR__ . '/insert_proc_launcher.php');          /*経路データ登録機能メインファイル*/
+require_once (__DIR__ . '/insert_proc_sub_func.php');          /*経路データ登録機能サブファイル*/
 require_once (__DIR__ . '/apply_delete_proc_launcher.php');    /*経路データ申請・削除メインファイル*/
 
 /*LINEBotアクセストークン(heroku側で定義)*/
@@ -49,7 +50,7 @@ $userID = $json_obj->{"events"}[0]->{"source"}->{"userId"};
 
 /*既存のユーザー情報がない場合の初期化*/
 if(searchUserID($userID) == NULL){
-	registerUser($userID, 'pre_proc', 1);
+	registerUser($userID, 'pre_proc');
 }
 
 /*ステータス確認*/
@@ -141,6 +142,7 @@ switch($status){
 		}
 		
 		break;
+		
 	case 'ins_inp_office':
 
 		/*I２．行先読み取り＝＞ユーザー請求可否選択要求*/
