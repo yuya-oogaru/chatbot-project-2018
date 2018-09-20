@@ -56,7 +56,7 @@ function ins_sel_claim_func($userID, $message, $reply_token){
 	
 	$price = getPriceTemp($userID);
 	
-	/*一時記憶DBにデータを登録*/
+	/*一時記憶DBにデータを登録
 	if($message == 'ユーザー請求'){
 		updateUserPriceTemp($userID, $price);
 	}else if($message == '自社請求')｛
@@ -65,7 +65,7 @@ function ins_sel_claim_func($userID, $message, $reply_token){
 	}else{
 		//$price = 0;
 		updateUserPriceTemp($userID, $price);
-	}
+	}*/
 	
 	/*往復の有無選択を要求*/
 	$post_data = confirmTemplate($reply_token, '申請運賃を往復で登録しますか？', '往復', '片道');	
