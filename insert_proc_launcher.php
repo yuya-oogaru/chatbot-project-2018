@@ -105,7 +105,8 @@ function ins_inp_others_func($userID, $message, $reply_token){
 	updateCommentsTemp($userID, $message);
 	
 	/*内容確認を要求*/
-	$post_data = FlexTemplate($reply_token, '以上の内容で登録しますか？', '内容確認');
+	//$post_data = FlexTemplate($reply_token, '以上の内容で登録しますか？', '内容確認');
+	$post_data = insertConfirmFlexTemplate($reply_token, '以上の内容で登録しますか？', '内容確認', $userID);
 	
 	return $post_data;
 
@@ -117,6 +118,9 @@ function ins_sel_confirm_func($userID, $message, $reply_token){
 	
 	/*登録を許可する（確認画面にて'はい'押下）*/
 	if($message == 'はい'){
+	
+		/*データベース登録・一時データ削除処理を追加*/
+	
 		$post_data = textMessage($reply_token, '経路データを登録しました。');
 		
 	/*登録を許可しない（確認画面にて'いいえ'押下）*/

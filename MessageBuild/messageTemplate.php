@@ -220,4 +220,111 @@ function FlexTemplateContentsSubButton($text){
 		]
 	];
 }
+
+//**********Flexテンプレート(登録確認専用)*************
+function insertConfirmFlexTemplate($reply_token, $message_text, $title, $userID){
+
+	return
+	[
+		"replyToken" => $reply_token,
+		"messages" => [
+			[
+				"type" => "flex",
+				"altText" => "test",
+				"contents" => [
+					"type" => "bubble",
+					"body" => [
+    					"type" => "box",
+    					"layout" => "vertical",
+    					"contents" => insertConfirmFlexTemplateContents($message_text, $title, $userID)
+    				]
+				]
+			]
+		]
+	];
+}
+
+//Flexコンテンツ(登録確認専用)
+function insertConfirmFlexTemplateContents($message_text, $title, $userID){
+	
+	/*一時記憶データベースから、データ取得*/
+	
+	$date = getDateTemp($userID);              /*乗車日*/
+	$routes = getRouteTemp($userID);           /*経路*/
+	$price = getPriceTemp($userID);            /*合計運賃*/
+	$destination = getDestinationTemp($userID);/*行先*/
+	$rounds = getRoundsTemp($userID);          /*往復の有無*/
+	$userPrice = getUserPriceTemp($userID);    /*ユーザー請求*/
+	$comments = getCommentsTemp($userID);      /*備考*/
+	
+	if($rounds == 1){
+		$rounds = 'あり';
+	}else{
+		$rounds = 'なし';
+	}
+	return
+	[
+		[
+			"type" => "box",
+	        "layout" => "vertical",
+	        "margin" => "xxl",
+	        "spacing" => "sm",
+	        "contents" => FlexTemplateContentsTitle($title)
+		],
+		[
+			"type" => "box",
+	        "layout" => "vertical",
+	        "margin" => "xxl",
+	        "spacing" => "sm",
+	        "contents" => [
+	        	[
+	        		"type"=> "box",
+					"layout"=> "horizontal",
+					"contents"=> FlexTemplateContentsSubBox('乗車日', $date)
+	        	],
+   		     	[
+   		     		"type"=> "box",
+					"layout"=> "horizontal",
+					"contents"=> FlexTemplateContentsSubBox('行先', $destination)
+    	    	],
+    	    	[
+    	    		"type"=> "box",
+					"layout"=> "horizontal",
+					"contents"=> FlexTemplateContentsSubBox('経路', $routes)
+       	 		],
+        		[
+        			"type"=> "box",
+					"layout"=> "horizontal",
+					"contents"=> FlexTemplateContentsSubBox('往復の有無', $rounds)
+        		],
+        		[
+        			"type"=> "box",
+					"layout"=> "horizontal",
+					"contents"=> FlexTemplateContentsSubBox('合計運賃', $price)
+        		],
+        		[
+        			"type"=> "box",
+					"layout"=> "horizontal",
+					"contents"=> FlexTemplateContentsSubBox('ユーザー請求額', $userPrice)
+        		],
+        		[
+        			"type"=> "box",
+					"layout"=> "horizontal",
+					"contents"=> FlexTemplateContentsSubBox('備考', $comments)
+        		],
+        		[
+       				 "type" => "separator",
+       			 	"margin" => "md"
+				]
+        	]
+		],
+		[
+			"type" => "box",
+    	    "layout" => "vertical",
+    	    "margin" => "xxl",
+    	    "spacing" => "sm",
+    	    "contents" => FlexTemplateContentsSubButton($message_text)
+		]
+	];
+}
 ?>
