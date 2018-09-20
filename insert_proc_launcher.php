@@ -54,13 +54,17 @@ function ins_sel_claim_func($userID, $message, $reply_token){
 	
 	updateStatus($userID, 'ins_sel_rounds');
 	
+	$price = getPriceTemp($userID);
+	
 	/*一時記憶DBにデータを登録*/
 	if($message == 'ユーザー請求'){
-		updateUserPriceTemp($userID, getPriceTemp($userID));
+		updateUserPriceTemp($userID, $price);
 	}else if($message == '自社請求')｛
-		updateUserPriceTemp($userID, '0');
+		$price= 0;
+		updateUserPriceTemp($userID, $price);
 	}else{
-		updateUserPriceTemp($userID, '0');
+		$price= 0;
+		updateUserPriceTemp($userID, $price);
 	}
 	
 	/*往復の有無選択を要求*/
