@@ -54,7 +54,8 @@ function ins_sel_claim_func($userID, $message, $reply_token){
 	
 	updateStatus($userID, 'ins_sel_rounds');
 	
-	$price = getPriceTemp($userID);
+	//$price = getPriceTemp($userID);
+	$price = '0';
 	
 	/*一時記憶DBにデータを登録*/
 	if($message == 'ユーザー請求'){
