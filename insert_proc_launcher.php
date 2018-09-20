@@ -79,17 +79,17 @@ function ins_sel_rounds_func($userID, $message, $reply_token){
 	updateStatus($userID, 'ins_inp_others');
 	
 	/*一時記憶DBにデータを登録*/
-	if($message == '往復'){
-		updateRoundsTemp($userID, 1);
-		
-		/*合計運賃を倍に*/
-		updatePriceTemp($userID, (getPriceTemp($userID) *2));
-		
-	}else if($message == '片道')｛
-		updateRoundsTemp($userID, 1);
-	}else{
-		updateRoundsTemp($userID, 1);
-	}
+	//if($message == '往復'){
+	//	updateRoundsTemp($userID, 0);
+	//	
+	//	/*合計運賃を倍に*/
+	//	updatePriceTemp($userID, (getPriceTemp($userID) *2));
+	//	
+	//}else if($message == '片道')｛
+	//	updateRoundsTemp($userID, 1);
+	//}else{
+	//	updateRoundsTemp($userID, 0);
+	//}
 	
 	/*備考の入力選択を要求*/
 	$post_data = textMessage($reply_token, '備考があれば入力してください。（なければ’なし’と入力します。）');
