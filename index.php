@@ -66,7 +66,7 @@ $messageType = mb_strpos($message, 'ジョルダン乗換案内', 4, "UTF-8");
 /*リセットは、メッセージに「リセット」と送ることで行う。*/
 if($message == 'リセット'){
 	updateStatus($userID, 'pre_proc');
-	$post_data = textMessage($reply_token, 'ステータスを'.$status.'にリセット');
+	$post_data = textMessage($reply_token, 'ステータスをpre_procにリセット');
 	sendReplyMessage($post_data, $access_token);
 	return;
 }
