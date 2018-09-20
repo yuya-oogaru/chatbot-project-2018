@@ -104,4 +104,19 @@ function updateDeleteNoTemp($userID, $tempValue){
 	$sth->execute();
 }
 /**************************************************/
+
+/*****一時記憶中の合計運賃を確認*****/
+function getPriceTemp($userID){
+
+	$dbh = dbConnection::getConnection();
+	$sql = 'SELECT PRICE_TEMP FROM LINE_STATUS WHERE userID = :userID';
+	$sth = $dbh->prepare($sql);
+	
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
+	
+	$sth->execute();
+	$result = $sth->fetch(PDO::FETCH_NUM);
+	
+	return $result[0];
+}
 ?>

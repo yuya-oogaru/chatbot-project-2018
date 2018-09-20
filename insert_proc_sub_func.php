@@ -22,7 +22,7 @@ function GetRouteData($message, &$routes, &$Date, &$price){
 	$routes = mb_substr($message, 0, $routeEndPos, "UTF-8");
 
 	/*乗車日取得*/
-	$Date = mb_substr($message, ($routeEndPos + 1), (($dateEndPos - $routeEndPos)), "UTF-8");
+	$Date = mb_substr($message, ($routeEndPos + 1), (($dateEndPos - $routeEndPos) - 1), "UTF-8");
 
 	/*合計運賃取得*/
 	$price = mb_substr($message, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8");

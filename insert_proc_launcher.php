@@ -30,8 +30,7 @@ function pre_proc_func($userID, $message, $reply_token){
 	updateRouteTemp($userID, $date);
 	updatePriceTemp($userID, $price);
 	
-	//$post_data = textMessage($reply_token, '行先（会社名）を入力してください。');
-	$post_data = textMessage($reply_token, '経路'.$routes.'乗車日'.$date.'合計運賃'.$price.'');
+	$post_data = textMessage($reply_token, '行先（会社名）を入力してください。');
 	
 	return $post_data;
 
@@ -39,10 +38,10 @@ function pre_proc_func($userID, $message, $reply_token){
 /***************行先（社名）入力*****************/
 function ins_inp_office_func($userID, $message, $reply_token){
 
-
-	
-	
 	updateStatus($userID, 'ins_sel_claim');
+	
+	/*一時記憶DBにデータを登録*/
+	updateDestinationTemp($userID, $message);
 	
 	/*ユーザー請求可否選択を要求*/
 	$post_data = confirmTemplate($reply_token, '申請運賃をユーザー請求で登録しますか？', 'ユーザー請求', '自社請求');
@@ -52,10 +51,17 @@ function ins_inp_office_func($userID, $message, $reply_token){
 }
 /**************ユーザー請求可否選択*****************/
 function ins_sel_claim_func($userID, $message, $reply_token){
-
-
 	
 	updateStatus($userID, 'ins_sel_rounds');
+	
+	/*一時記憶DBにデータを登録*/
+	if($message == 'ユーザー請求'){
+		updateUserPriceTemp($userID, getPriceTemp($userID));
+	}else if($message == '自社請求')｛
+		updateUserPriceTemp($userID, 0);
+	}else{
+		updateUserPriceTemp($userID, 0);
+	}
 	
 	/*往復の有無選択を要求*/
 	$post_data = confirmTemplate($reply_token, '申請運賃を往復で登録しますか？', '往復', '片道');	
@@ -68,6 +74,19 @@ function ins_sel_rounds_func($userID, $message, $reply_token){
 
 	updateStatus($userID, 'ins_inp_others');
 	
+	/*一時記憶DBにデータを登録*/
+	if($message == '往復'){
+		updateRoundsTemp($userID, 1);
+		
+		/*合計運賃を倍に*/
+		updatePriceTemp($userID, (getPriceTemp($userID) *2));
+		
+	}else if($message == '片道')｛
+		updateRoundsTemp($userID, 0);
+	}else{
+		updateRoundsTemp($userID, 666);
+	}
+	
 	/*備考の入力選択を要求*/
 	$post_data = textMessage($reply_token, '備考があれば入力してください。（なければ’なし’と入力します。）');
 	
@@ -78,6 +97,9 @@ function ins_sel_rounds_func($userID, $message, $reply_token){
 function ins_inp_others_func($userID, $message, $reply_token, $post_data){
 
 	updateStatus($userID, 'ins_sel_confirm');
+	
+	/*一時記憶DBにデータを登録*/
+	updateCommentsTemp($userID, $message)
 	
 	/*内容確認を要求*/
 	$post_data = FlexTemplate($reply_token, '以上の内容で登録しますか？', '内容確認');
