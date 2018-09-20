@@ -1,6 +1,25 @@
 <?php
 //define('LINE_STATUS');
 
+
+/******カラムの値を更新（全行一括更新）**********/
+/*                                              */
+/*引数 : 更新対象者名 , 更新カラム名 ,更新値    */
+/*                                              */
+/************************************************/
+function updateColumnAllRows($userID, $columnName, $value){
+
+	$dbh = dbConnection::getConnection();
+	$sql = 'UPDATE LINE_STATUS SET :columnName = :value WHERE userID = :userID';
+	$sth = $dbh->prepare($sql);
+
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
+	$sth->bindValue(':columnName', $columnName, PDO::PARAM_STR);
+	$sth->bindValue(':value', $value, PDO::PARAM_STR);
+	
+	$sth->execute();
+}
+
 /******ステータス更新*******/
 function updateStatus($userID, $status){
 
