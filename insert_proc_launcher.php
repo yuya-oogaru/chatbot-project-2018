@@ -60,10 +60,10 @@ function ins_sel_claim_func($userID, $message, $reply_token){
 	if($message == 'ユーザー請求'){
 		updateUserPriceTemp($userID, $price);
 	}else if($message == '自社請求')｛
-		$price= 0;
+		//$price = 0;
 		updateUserPriceTemp($userID, $price);
 	}else{
-		$price= 0;
+		//$price = 0;
 		updateUserPriceTemp($userID, $price);
 	}
 	
@@ -80,15 +80,15 @@ function ins_sel_rounds_func($userID, $message, $reply_token){
 	
 	/*一時記憶DBにデータを登録*/
 	if($message == '往復'){
-		updateRoundsTemp($userID, '1');
+		updateRoundsTemp($userID, 1);
 		
 		/*合計運賃を倍に*/
 		updatePriceTemp($userID, (getPriceTemp($userID) *2));
 		
 	}else if($message == '片道')｛
-		updateRoundsTemp($userID, '0');
+		updateRoundsTemp($userID, 0);
 	}else{
-		updateRoundsTemp($userID, '666');
+		updateRoundsTemp($userID, 666);
 	}
 	
 	/*備考の入力選択を要求*/
