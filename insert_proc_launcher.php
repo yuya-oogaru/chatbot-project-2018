@@ -80,8 +80,9 @@ function ins_sel_rounds_func($userID, $message, $reply_token){
 	if($message == '往復'){
 		updateRoundsTemp($userID, 1);
 		
-		/*合計運賃を倍に*/
+		/*合計運賃・ユーザー請求運賃を倍に*/
 		updatePriceTemp($userID, (getPriceTemp($userID) *2));
+		updateUserPriceTemp($userID, (getPriceTemp($userID) *2));
 		
 	}else if($message == '片道'){
 		updateRoundsTemp($userID, 0);
