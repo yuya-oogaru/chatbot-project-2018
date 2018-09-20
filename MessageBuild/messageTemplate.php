@@ -300,12 +300,12 @@ function insertConfirmFlexTemplateContents($message_text, $title, $userID){
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('合計運賃', strval($price))
+					"contents"=> FlexTemplateContentsSubBox('合計運賃', strval($price).'円')
         		],
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('ユーザー請求額', strval($userPrice))
+					"contents"=> FlexTemplateContentsSubBox('ユーザー請求額', strval($userPrice).'円')
         		],
         		[
         			"type"=> "box",
