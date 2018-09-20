@@ -19,7 +19,7 @@ function pre_proc_func($userID, $message, $reply_token){
 	
 	
 	
-	updateColumnAllRows($userID, 'status', 'ins_inp_office');
+	updateStatus($userID, 'ins_inp_office');
 	$post_data = textMessage($reply_token, '行先（会社名）を入力してください。');
 	
 	return $post_data;
