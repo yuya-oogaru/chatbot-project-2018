@@ -280,37 +280,37 @@ function insertConfirmFlexTemplateContents($message_text, $title, $userID){
 	        	[
 	        		"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('乗車日', $date)
+					"contents"=> FlexTemplateContentsSubBox('乗車日', strval($date))
 	        	],
    		     	[
    		     		"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('行先', $destination)
+					"contents"=> FlexTemplateContentsSubBox('行先', strval($destination))
     	    	],
     	    	[
     	    		"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('経路', $routes)
+					"contents"=> FlexTemplateContentsSubBox('経路', strval($routes))
        	 		],
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('往復の有無', $rounds)
+					"contents"=> FlexTemplateContentsSubBox('往復の有無', strval($rounds))
         		],
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('合計運賃', $price)
+					"contents"=> FlexTemplateContentsSubBox('合計運賃', strval($price))
         		],
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('ユーザー請求額', $userPrice)
+					"contents"=> FlexTemplateContentsSubBox('ユーザー請求額', strval($userPrice))
         		],
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('備考', $comments)
+					"contents"=> FlexTemplateContentsSubBox('備考', strval($comments))
         		],
         		[
        				 "type" => "separator",
