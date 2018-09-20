@@ -44,6 +44,7 @@ function searchUserID($userID){
 /*******ＤＢにユーザーステータスを追加する関数*******/
 
 function registerUser($userID, $status){
+
 	$dbh = dbConnection::getConnection();
 	$sql = 'insert into LINE_STATUS (userID, status) values (:userID, :status)';
 	$sth = $dbh->prepare($sql);
