@@ -12,7 +12,7 @@ function GetRouteData($message, &$routes, &$Date, &$price){
 	********************************/
 	
 	$routeEndPos = mb_strpos($message, ' ',1 , "UTF-8");
-	$dateEndPos = mb_strpos($message, '(',$routeNamePos , "UTF-8");
+	$dateEndPos = mb_strpos($message, '(',$routeEndPos , "UTF-8");
 	$transitTimePos = mb_strpos($message, '乗換', 1, "UTF-8");
 	$totalPricePos = mb_strpos($message, '　', $transitTimePos, "UTF-8");
 	$totalPricePos += 1;/*ぱでぃんぐ*/

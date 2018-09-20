@@ -23,8 +23,13 @@ function pre_proc_func($userID, $message, $reply_token){
 	/*ジョルダンから経路データ読み取り*/
 	GetRouteData($message, $routes, $date, $price);
 	
-	
 	updateStatus($userID, 'ins_inp_office');
+	
+	/*一時記憶DBにデータを登録*/
+	updateDateTemp($userID, $routes);
+	updateRouteTemp($userID, $date);
+	updatePriceTemp($userID, $price);
+	
 	//$post_data = textMessage($reply_token, '行先（会社名）を入力してください。');
 	$post_data = textMessage($reply_token, '経路'.$routes.'乗車日'.$date.'合計運賃'.$price.'');
 	
