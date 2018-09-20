@@ -21,7 +21,7 @@ function pre_proc_func($userID, $message, $reply_token){
 	$price = '0';        /*合計運賃（整数）*/
 
 	/*ジョルダンから経路データ読み取り*/
-	GetRouteData($message, &$routes, &$Date, &$price);
+	GetRouteData($message, $routes, $Date, $price);
 	
 	
 	updateStatus($userID, 'ins_inp_office');

@@ -11,7 +11,7 @@
 /*ToDo 定数定義！*/
 
 /*バージョン*/
-define('VERSION'.'1.0');
+//define('VERSION'.'1.0');
 
 /*****インクルードファイル*****/
 require_once (__DIR__ . '/MessageBuild/messageTemplate.php');  /*LINEメッセージ送信用JSONデータ構築処理メインファイル*/
