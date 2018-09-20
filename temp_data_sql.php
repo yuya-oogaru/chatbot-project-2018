@@ -2,10 +2,10 @@
 //define('LINE_STATUS');
 
 /***************************************************/
-/*                  ˆêƒf[ƒ^XV                 */
+/*                  ä¸€æ™‚ãƒ‡ãƒ¼ã‚¿æ›´æ–°                 */
 /***************************************************/
 
-/************************æÔ“ú*********************/
+/************************ä¹—è»Šæ—¥*********************/
 function updateDateTemp($userID, $tempValue){
 
 	$dbh = dbConnection::getConnection();
@@ -17,7 +17,7 @@ function updateDateTemp($userID, $tempValue){
 	
 	$sth->execute();
 }
-/************************Œo˜H**********************/
+/************************çµŒè·¯**********************/
 function updateRouteTemp($userID, $tempValue){
 
 	$dbh = dbConnection::getConnection();
@@ -30,7 +30,7 @@ function updateRouteTemp($userID, $tempValue){
 	$sth->execute();
 	
 }
-/*********************‡Œv‰^’À*********************/
+/*********************åˆè¨ˆé‹è³ƒ*********************/
 function updatePriceTemp($userID, $tempValue){
 
 	$dbh = dbConnection::getConnection();
@@ -43,7 +43,7 @@ function updatePriceTemp($userID, $tempValue){
 	$sth->execute();
 	
 }
-/************************sæ**********************/
+/************************è¡Œå…ˆ**********************/
 function updateDestinationTemp($userID, $tempValue){
 
 	$dbh = dbConnection::getConnection();
@@ -55,7 +55,7 @@ function updateDestinationTemp($userID, $tempValue){
 	
 	$sth->execute();
 }
-/********************‰•œ‚Ì—L–³********************/
+/********************å¾€å¾©ã®æœ‰ç„¡********************/
 function updateRoundsTemp($userID, $tempValue){
 
 	$dbh = dbConnection::getConnection();
@@ -67,7 +67,7 @@ function updateRoundsTemp($userID, $tempValue){
 	
 	$sth->execute();
 }
-/****************ƒ†[ƒU[¿‹‰Â”Û******************/
+/****************ãƒ¦ãƒ¼ã‚¶ãƒ¼è«‹æ±‚å¯å¦******************/
 function updateUserPriceTemp($userID, $tempValue){
 
 	$dbh = dbConnection::getConnection();
@@ -79,7 +79,7 @@ function updateUserPriceTemp($userID, $tempValue){
 	
 	$sth->execute();
 }
-/************************”õl**********************/
+/************************å‚™è€ƒ**********************/
 function updateCommentsTemp($userID, $tempValue){
 
 	$dbh = dbConnection::getConnection();
@@ -91,7 +91,7 @@ function updateCommentsTemp($userID, $tempValue){
 	
 	$sth->execute();
 }
-/************************íœNo**********************/
+/************************å‰Šé™¤No**********************/
 function updateDeleteNoTemp($userID, $tempValue){
 
 	$dbh = dbConnection::getConnection();

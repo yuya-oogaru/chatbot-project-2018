@@ -17,7 +17,7 @@ function pre_proc_func($userID, $message, $reply_token){
 
 	/*データ格納変数*/
 	$routes = 'default'; /*経路（文字列）*/
-	$Date = 'default';   /*乗車日（文字列）*/
+	$date = 'default';   /*乗車日（文字列）*/
 	$price = '0';        /*合計運賃（整数）*/
 
 	/*ジョルダンから経路データ読み取り*/
@@ -25,7 +25,8 @@ function pre_proc_func($userID, $message, $reply_token){
 	
 	
 	updateStatus($userID, 'ins_inp_office');
-	$post_data = textMessage($reply_token, '行先（会社名）を入力してください。'.$routes.$date.$price.'');
+	//$post_data = textMessage($reply_token, '行先（会社名）を入力してください。');
+	$post_data = textMessage($reply_token, '経路'.$routes.'乗車日'.$date.'合計運賃'.$price.'');
 	
 	return $post_data;
 

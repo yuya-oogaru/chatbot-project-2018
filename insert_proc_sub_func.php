@@ -1,32 +1,31 @@
 <?php
 
-/*ƒWƒ‡ƒ‹ƒ_ƒ“ƒtƒH[ƒ}ƒbƒg‚ÌŒo˜Hƒf[ƒ^‚ðŽæ“¾*/
+/*ã‚¸ãƒ§ãƒ«ãƒ€ãƒ³ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆã®çµŒè·¯ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—*/
 function GetRouteData($message, &$routes, &$Date, &$price){
 
 	/*******************************
-	$routeEndPos      :Œo˜H‚Ì‹Lq‰ÓŠi––”öj
-	$dateEndPos        :æŽÔ“ú‚Ì‹Lq‰ÓŠi––”öj
-	$transitTimePos    :æŠ·‰ñ”‚Ì‹Lq‰ÓŠiæ“ªj*$totalPricePosŒŸõˆÊ’uŽæ“¾‚Ì‚½‚ß‚Ì‚ÝŽg—p
-	$totalPricePos     :‰^’À‡Œv‚Ì‹Lq‰ÓŠiæ“ªj
-	$totalPriceEndPos  :‰^’À‡Œv‚Ì‹Lq‰ÓŠi––”öj
+	$routeEndPos      :çµŒè·¯ã®è¨˜è¿°ç®‡æ‰€ï¼ˆæœ«å°¾ï¼‰
+	$dateEndPos        :ä¹—è»Šæ—¥ã®è¨˜è¿°ç®‡æ‰€ï¼ˆæœ«å°¾ï¼‰
+	$transitTimePos    :ä¹—æ›å›žæ•°ã®è¨˜è¿°ç®‡æ‰€ï¼ˆå…ˆé ­ï¼‰*$totalPricePosæ¤œç´¢ä½ç½®å–å¾—ã®ãŸã‚ã®ã¿ä½¿ç”¨
+	$totalPricePos     :é‹è³ƒåˆè¨ˆã®è¨˜è¿°ç®‡æ‰€ï¼ˆå…ˆé ­ï¼‰
+	$totalPriceEndPos  :é‹è³ƒåˆè¨ˆã®è¨˜è¿°ç®‡æ‰€ï¼ˆæœ«å°¾ï¼‰
 	********************************/
 	
 	$routeEndPos = mb_strpos($message, ' ',1 , "UTF-8");
 	$dateEndPos = mb_strpos($message, ')',$routeNamePos , "UTF-8");
-	$transitTimePos = mb_strpos($message, 'æŠ·', 1, "UTF-8");
-	$totalPricePos = mb_strpos($message, '@', $transitTimePos, "UTF-8");
-	$totalPricePos += 1;/*‚Ï‚Å‚¡‚ñ‚®*/
-	$totalPriceEndPos = mb_strpos($message, '‰~', $totalPricePos, "UTF-8");
+	$transitTimePos = mb_strpos($message, 'ä¹—æ›', 1, "UTF-8");
+	$totalPricePos = mb_strpos($message, 'ã€€', $transitTimePos, "UTF-8");
+	$totalPricePos += 1;/*ã±ã§ãƒã‚“ã*/
+	$totalPriceEndPos = mb_strpos($message, 'å††', $totalPricePos, "UTF-8");
 
-	/*Œo˜HŽæ“¾*/
+	/*çµŒè·¯å–å¾—*/
 	$routes = mb_substr($message, 0, $routeEndPos, "UTF-8");
 
-	/*æŽÔ“úŽæ“¾*/
+	/*ä¹—è»Šæ—¥å–å¾—*/
 	$Date = mb_substr($message, ($routeEndPos + 1), (($dateEndPos - $routeEndPos) + 1), "UTF-8");
 
-	/*‡Œv‰^’ÀŽæ“¾*/
+	/*åˆè¨ˆé‹è³ƒå–å¾—*/
 	$price = mb_substr($message, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8");
-
 }
 
 
