@@ -18,8 +18,9 @@ require_once (__DIR__ . '/MessageBuild/messageTemplate.php');  /*LINEメッセ�
 require_once (__DIR__ . '/MessageBuild/DataListTemplate.php'); /*LINEメッセージ送信用JSONデータ構築処理 申請メッセージ用*/
 require_once (__DIR__ . '/MessageBuild/MenuListTemplate.php'); /*LINEメッセージ送信用JSONデータ構築処理 機能メニュー用*/
 require_once (__DIR__ . '/basicfunc.php');                     /*メッセージ送信・データベース接続などの、基本的な処理*/
-require_once (__DIR__ . '/status_sql.php');                    /*ユーザーのステータス用データベース操作（I/O）処理*/
-require_once (__DIR__ . '/temp_data_sql.php');                    /*一時記憶データベース操作処理*/
+require_once (__DIR__ . '/SqlExecuter/main_sql.php');          /*データベース操作（I/O）処理(メイン)*/
+require_once (__DIR__ . '/SqlExecuter/status_sql.php');        /*ユーザーのステータス用データベース操作（I/O）処理*/
+require_once (__DIR__ . '/SqlExecuter/temp_data_sql.php');     /*一時記憶データベース操作処理*/
 require_once (__DIR__ . '/menu.php');                          /*Botの各機能呼び出し処理*/
 require_once (__DIR__ . '/insert_proc_launcher.php');          /*経路データ登録機能メインファイル*/
 require_once (__DIR__ . '/insert_proc_sub_func.php');          /*経路データ登録機能サブファイル*/
