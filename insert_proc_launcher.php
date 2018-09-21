@@ -26,8 +26,8 @@ function pre_proc_func($userID, $message, $reply_token){
 	updateStatus($userID, 'ins_inp_office');
 	
 	/*一時記憶DBにデータを登録*/
-	updateDateTemp($userID, $routes);
-	updateRouteTemp($userID, $date);
+	updateDateTemp($userID, $date);
+	updateRouteTemp($userID, $routes);
 	updatePriceTemp($userID, $price);
 	
 	$post_data = textMessage($reply_token, '行先（会社名）を入力してください。');

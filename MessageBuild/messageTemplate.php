@@ -262,6 +262,7 @@ function insertConfirmFlexTemplateContents($message_text, $title, $userID){
 	}else{
 		$rounds = 'なし';
 	}
+	
 	return
 	[
 		[
@@ -300,12 +301,12 @@ function insertConfirmFlexTemplateContents($message_text, $title, $userID){
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('合計運賃', strval($price).'円')
+					"contents"=> FlexTemplateContentsSubBox('合計運賃', number_format(strval($price)).'円')
         		],
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('ユーザー請求額', strval($userPrice).'円')
+					"contents"=> FlexTemplateContentsSubBox('ユーザー請求額', number_format(strval($userPrice)).'円')
         		],
         		[
         			"type"=> "box",
