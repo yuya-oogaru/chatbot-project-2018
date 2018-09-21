@@ -55,7 +55,7 @@ function confirmTemplateAction($yes, $no){
 	];
 }
 
-//**********Flexテンプレート*************
+//**********Flexテンプレート(経路データ削除)*************
 function FlexTemplate($reply_token, $message_text, $title){
 
 

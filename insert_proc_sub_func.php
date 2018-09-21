@@ -28,5 +28,12 @@ function GetRouteData($message, &$routes, &$Date, &$price){
 	$price = mb_substr($message, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8");
 }
 
+/*入力されたデータをデータベースに登録*/
+function insertRouteData($json_obj){
+
+
+	return true;
+
+}
 
 ?>
