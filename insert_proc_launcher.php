@@ -113,8 +113,6 @@ function ins_inp_others_func($userID, $message, $reply_token){
 }
 /***************全入力情報表示・入力情報確定選択****************/
 function ins_sel_confirm_func($userID, $message, $reply_token){
-
-	updateStatus($userID, 'pre_proc');
 	
 	/*登録を許可する（確認画面にて'はい'押下）*/
 	if($message == 'はい'){
@@ -122,10 +120,12 @@ function ins_sel_confirm_func($userID, $message, $reply_token){
 		/*データベース登録・一時データ削除処理を追加*/
 	
 		$post_data = textMessage($reply_token, '経路データを登録しました。');
+		deleteTempData($userID);
 		
 	/*登録を許可しない（確認画面にて'いいえ'押下）*/
 	}else if($message == 'いいえ'){
 		$post_data = textMessage($reply_token, '登録をキャンセルしました。');
+		deleteTempData($userID);
 		
 	/*そのほかの想定外入力*/
 	}else{

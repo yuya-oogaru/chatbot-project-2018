@@ -233,4 +233,20 @@ function getDeleteNoTemp($userID){
 	
 }
 /**************************************************/
+
+/***************************************************/
+/*                  一時データ全削除               */
+/***************************************************/
+
+function deleteTempData($userID){
+
+	$dbh = dbConnection::getConnection();
+	$sql = 'DELETE FROM LINE_STATUS WHERE userID = :userID';
+	$sth = $dbh->prepare($sql);
+
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
+	
+	$sth->execute();
+}
+
 ?>
