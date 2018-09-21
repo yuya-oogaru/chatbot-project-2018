@@ -41,7 +41,7 @@ $json_string = file_get_contents('php://input');
 $json_obj = json_decode($json_string);
 
 /*受信jsonデータ確認*/
-error_log('receive_data = '.json_encode($json_string).'');
+error_log('receive_data = '.$json_string.'');
 
 //イベントオブジェクトから必要な情報を抽出
 $message = $json_obj->{"events"}[0]->{"message"}->{"text"};
