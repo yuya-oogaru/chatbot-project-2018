@@ -38,7 +38,7 @@ function updatePriceTemp($userID, $tempValue){
 	$sth = $dbh->prepare($sql);
 
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
-	$sth->bindValue(':tempValue', $tempValue, PDO::PARAM_INT);
+	$sth->bindValue(':tempValue', (intval(str_replace(',', '', $tempValue))), PDO::PARAM_INT);
 	
 	$sth->execute();
 	
