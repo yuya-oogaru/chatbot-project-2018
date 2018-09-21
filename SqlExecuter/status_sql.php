@@ -1,7 +1,7 @@
 <?php
 //define('LINE_STATUS');
 
-/******ƒXƒe[ƒ^ƒXXV*******/
+/******ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æ›´æ–°*******/
 function updateStatus($userID, $status){
 
 	$dbh = dbConnection::getConnection();
@@ -13,7 +13,7 @@ function updateStatus($userID, $status){
 	
 	$sth->execute();
 }
-/*****Œ»Ý‚ÌƒXƒe[ƒ^ƒXŠm”F*****/
+/*****ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ç¢ºèª*****/
 function searchStatus($userID){
 
 	$dbh = dbConnection::getConnection();
@@ -27,7 +27,7 @@ function searchStatus($userID){
 	
 	return $result[0];
 }
-/*****DB‚ÉŠù‘¶ƒf[ƒ^‚ª‚ ‚é‚©‚Ç‚¤‚©*****/
+/*****DBã«æ—¢å­˜ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚‹ã‹ã©ã†ã‹*****/
 function searchUserID($userID){
 
 	$dbh = dbConnection::getConnection();
@@ -41,7 +41,7 @@ function searchUserID($userID){
 	
 	return $result[0];
 }
-/*******‚c‚a‚Éƒ†[ƒU[ƒXƒe[ƒ^ƒX‚ð’Ç‰Á‚·‚éŠÖ”*******/
+/*******ï¼¤ï¼¢ã«ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’è¿½åŠ ã™ã‚‹é–¢æ•°*******/
 
 function registerUser($userID, $status){
 
@@ -49,8 +49,8 @@ function registerUser($userID, $status){
 	$sql = 'insert into LINE_STATUS (userID, status) values (:userID, :status)';
 	$sth = $dbh->prepare($sql);
 	
-	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);            /*“o˜^ŽÒIDiƒ‰ƒCƒ“ƒAƒJƒEƒ“ƒgIDj*/
-	$sth->bindValue(':status', $status, PDO::PARAM_STR);            /*ó‘Ô*/
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);            /*ç™»éŒ²è€…IDï¼ˆãƒ©ã‚¤ãƒ³ã‚¢ã‚«ã‚¦ãƒ³ãƒˆIDï¼‰*/
+	$sth->bindValue(':status', $status, PDO::PARAM_STR);            /*çŠ¶æ…‹*/
 	
 	$sth->execute();
 }

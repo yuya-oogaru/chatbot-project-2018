@@ -118,7 +118,8 @@ function ins_sel_confirm_func($userID, $message, $reply_token){
 	if($message == 'はい'){
 	
 		/*データベース登録・一時データ削除処理を追加*/
-	
+		insertRouteData($userID);
+		
 		$post_data = textMessage($reply_token, '経路データを登録しました。');
 		
 		/*一時記憶DBの個人行削除*/
