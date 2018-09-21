@@ -120,11 +120,15 @@ function ins_sel_confirm_func($userID, $message, $reply_token){
 		/*データベース登録・一時データ削除処理を追加*/
 	
 		$post_data = textMessage($reply_token, '経路データを登録しました。');
+		
+		/*一時記憶DBの個人行削除*/
 		deleteTempData($userID);
 		
 	/*登録を許可しない（確認画面にて'いいえ'押下）*/
 	}else if($message == 'いいえ'){
 		$post_data = textMessage($reply_token, '登録をキャンセルしました。');
+		
+		/*一時記憶DBの個人行削除*/
 		deleteTempData($userID);
 		
 	/*そのほかの想定外入力*/

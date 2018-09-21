@@ -20,8 +20,11 @@ function menu_func($userID, $message, $reply_token){
 	/*機能メニュー画面にて’キャンセル’を選択*/
 	}else if($message == 'キャンセル'){
 	
-		updateStatus($userID, 'pre_proc');
 		$post_data = textMessage($reply_token, 'キャンセルしました。');
+				
+		/*一時記憶DBの個人行削除*/
+		deleteTempData($userID);
+		
 			
 	/*そのほかの想定外入力*/
 	}else{

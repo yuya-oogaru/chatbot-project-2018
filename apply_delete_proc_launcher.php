@@ -10,13 +10,19 @@ function del_inp_num_func($userID, $message, $reply_token){
 }
 /********************************/
 function del_confirm_func($userID, $message, $reply_token){
-
-	updateStatus($userID, 'pre_proc');
 		
 	if($message == 'はい'){
 		$post_data = textMessage($reply_token, '経路データを削除しました。');
+				
+		/*一時記憶DBの個人行削除*/
+		deleteTempData($userID);
+		
 	}else if($message == 'いいえ'){
 		$post_data = textMessage($reply_token, '削除をキャンセルしました。');
+				
+		/*一時記憶DBの個人行削除*/
+		deleteTempData($userID);
+		
 	}else{
 		$post_data = textMessage($reply_token, 'メッセージ内の選択肢ボタンから選んでください。');
 		updateStatus($userID, 'del_confirm');
@@ -28,13 +34,19 @@ function del_confirm_func($userID, $message, $reply_token){
 /********************************/
 function aplly_confirm_func($userID, $message, $reply_token){
 
-	/*ステータスをpre_procへ移行*/
-	updateStatus($userID, 'pre_proc');
 	
 	if($message == 'はい'){
 		$post_data = textMessage($reply_token, '経路データを申請しました。');
+				
+		/*一時記憶DBの個人行削除*/
+		deleteTempData($userID);
+		
 	}else if($message == 'いいえ'){
 		$post_data = textMessage($reply_token, '申請をキャンセルしました。');
+				
+		/*一時記憶DBの個人行削除*/
+		deleteTempData($userID);
+		
 	}else{
 		$post_data = textMessage($reply_token, 'メッセージ内の選択肢ボタンから選んでください。');
 		updateStatus($userID, 'aplly_confirm');
