@@ -42,7 +42,7 @@ function insertDataToRoutesTr($userID,
 ){
 
 	$dbh = dbConnection::getConnection();
-	$sql = 'insert into LINE_STATUS (userID, routeno, routedate, destination, route, rounds, price, userprice, comments, apply)'.
+	$sql = 'insert into LINE_ROUTES_TR (userID, routeno, routedate, destination, route, rounds, price, userprice, comments, apply)'.
 	'values ( :userID, :routeno, :routedate, :destination, :route, :rounds, :price, :userprice, :comments, :apply)';
 	$sth = $dbh->prepare($sql);
 	
