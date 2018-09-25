@@ -118,6 +118,21 @@ function getDocsMsData($userID){
 	return $result[0];
 
 }
+/********登録済みデータの総数を取得********/
+function getRouteDataCount($userID){
+
+	$dbh = dbConnection::getConnection();
+	$sql = 'SELECT COUNT(*) FROM LINE_ROUTES_TR WHERE userID = :userID';
+	$sth = $dbh->prepare($sql);
+	
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
+	
+	$sth->execute();
+	$result = $sth->fetch(PDO::FETCH_NUM);
+	
+	return $result[0];
+
+}
 /***************個人合計算出**************/
 function calcTotalPrice($userID){
 
