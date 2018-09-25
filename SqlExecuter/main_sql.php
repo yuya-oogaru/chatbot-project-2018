@@ -118,5 +118,16 @@ function getDocsMsData($userID){
 	return $result[0];
 
 }
+/***************個人合計算出**************/
+function calcTotalPrice($userID){
+
+	$dbh = dbConnection::getConnection();
+	$sth = $dbh -> prepare("SELECT SUM(price) from LINE_ROUTES_TR WHERE userid = :searchId");
+	$sth->bindValue(':searchId', $userID, PDO::PARAM_INT);   
+	$sth->execute();
+	$result = $sth->fetch(PDO::FETCH_NUM);
+
+	return $result[0];
+}
 
 ?>
