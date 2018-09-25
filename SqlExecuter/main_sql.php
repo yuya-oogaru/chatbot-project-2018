@@ -93,7 +93,7 @@ function getUserInfoMsData($userID){
 function getUnusedRouteNo($userID, $RouteNo){
 
 	$dbh = dbConnection::getConnection();
-	$sql = 'SELECT  USERID FROM INE_ROUTES_TR WHERE userID = :userID AND routeno = :routeno';
+	$sql = 'SELECT  ROUTENO FROM LINE_ROUTES_TR WHERE userID = :userID AND routeno = :routeno';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
