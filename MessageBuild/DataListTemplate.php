@@ -111,7 +111,7 @@ function DataListContentsBuilder($userID){
 	while(getRouteNo($userID, $routeno) != NULL){
 	
 		/*データベースから値を取得*/
-		$date = getDate($userID, $routeno);              /*乗車日*/
+		$date = getRouteDate($userID, $routeno);         /*乗車日*/
 		$routes = getRoute($userID, $routeno);           /*経路*/
 		$price = getPrice($userID, $routeno);            /*合計運賃*/
 		$destination = getDestination($userID, $routeno);/*行先*/

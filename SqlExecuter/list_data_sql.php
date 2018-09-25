@@ -23,7 +23,7 @@ function getRouteNo($userID, $RouteNo){
 	return $result[0];
 }
 /************************乗車日*********************/
-function getDate($userID, $RouteNo){
+function getRouteDate($userID, $RouteNo){
 
 	$dbh = dbConnection::getConnection();
 	$sql = 'SELECT  ROUTEDATE FROM LINE_ROUTES_TR WHERE userID = :userID AND routeno = :routeno';
