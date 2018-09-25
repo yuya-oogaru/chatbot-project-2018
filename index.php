@@ -89,7 +89,7 @@ if($messageType != FALSE){
 
 /**********デバッグオプション・登録データ全消去**********/
 if($message == '全削除'){
-	deleteRouteData($userID);
+	deleteAllData_DebugOpt($userID);
 	updateStatus($userID, 'pre_proc');
 	$post_data = textMessage($reply_token, 'データを全削除しました。');
 	sendReplyMessage($post_data, $access_token);

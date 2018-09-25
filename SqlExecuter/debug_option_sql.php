@@ -1,7 +1,7 @@
 <?php
 
 /******選択されたデータを削除する******/
-function deleteRouteData($userID){
+function deleteAllData_DebugOpt($userID){
 
 	$dbh = dbConnection::getConnection();
 	$sql = 'DELETE FROM LINE_ROUTES_TR WHERE userID = :userID';
