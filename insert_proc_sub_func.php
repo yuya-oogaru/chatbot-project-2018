@@ -47,6 +47,9 @@ function insertRouteData($userID){
 	$userPrice = getUserPriceTemp($userID);    /*ユーザー請求*/
 	$comments = getCommentsTemp($userID);      /*備考*/
 	
+	/*中継地点を省く*/
+	$routes = removeTransitPoint($routes);
+	
 	/*経路データの登録Noを取得*/
 	$routeno = getUnusedRouteNo($userID);
 	
@@ -71,5 +74,24 @@ function getUnusedRouteNo($userID){
 
 	/*取得した登録Noを返す*/
 	return $getNo;
+}
+
+/*ジョルダンから取得した経路から中継地点を省く*/
+function removeTransitPoint($routes){
+
+	/*～は経路文字列中に必ず一つ残す*/
+	$noRemoveIcon = mb_strpos($routes, '～', 1, "UTF-8");
+	
+	while(1){
+		
+		$removePos = mb_strpos($routes, '～', ($noRemoveIcon + 1), "UTF-8");
+		
+		if($removePos != FALSE){
+			$routes = substr_replace($routes, "",($noRemoveIcon + 1), ($removePos - $noRemoveIcon));
+			continue;
+		}
+		break;
+	}
+	return $routes;
 }
 ?>
