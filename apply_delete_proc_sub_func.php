@@ -12,12 +12,12 @@ function resetRouteNo($userID){
 	while($count <= $dataCount){
 		
 		/*登録Noのヌケがあった場合*/
-		if(getRouteNo($userID, $count, $preCount) == NULL){
+		if(getRouteNo($userID, $count) == NULL){
 			continue;
 		}
 		
 		/*登録Noが順になっていなかった場合*/
-		if(getRouteNo($userID, $count, $preCount) != $preCount){
+		if(getRouteNo($userID, $count) != $preCount){
 			updateRouteNo($userID, $count, $preCount);
 		}
 		
