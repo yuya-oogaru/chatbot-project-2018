@@ -13,6 +13,7 @@ function resetRouteNo($userID){
 		
 		/*登録Noのヌケがあった場合*/
 		if(getRouteNo($userID, $count) == NULL){
+			$count++;
 			continue;
 		}
 		
