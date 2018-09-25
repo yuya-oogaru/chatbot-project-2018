@@ -1,6 +1,9 @@
 <?php
 function getLineUserName($void){
 
+	// Composerでインストールしたライブラリを一括読み込み
+	require_once __DIR__ . '/vendor/autoload.php';
+
 	// 送られて来たJSONデータを取得
 	$json_string = file_get_contents('php://input');
 	$json = json_decode($json_string);
