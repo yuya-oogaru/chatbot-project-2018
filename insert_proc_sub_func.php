@@ -88,7 +88,7 @@ function removeTransitPoint($routes){
 		$removePos = mb_strpos($routes, '～', ($noRemoveIcon + 1), "UTF-8");
 		
 		if($removePos != FALSE){
-			$routes = substr_replace($routes, ' ',($noRemoveIcon + 1), ($removePos - $noRemoveIcon));
+			$routes = substr_replace($routes, '',($noRemoveIcon + 1), ($removePos - $noRemoveIcon));
 			continue;
 		}
 		break;
