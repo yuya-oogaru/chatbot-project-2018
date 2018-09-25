@@ -48,22 +48,44 @@ function insertDataToRoutesTr($userID,
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);            /*登録者ID（ラインアカウントID）*/
 	$sth->bindValue(':routeno', $routeno, PDO::PARAM_INT);
-	$sth->bindValue(':routedate', $date, PDO::PARAM_STR);  
-	$sth->bindValue(':destination', $destination, PDO::PARAM_STR);  
-	$sth->bindValue(':route', $routes, PDO::PARAM_STR);  
-	$sth->bindValue(':rounds', $rounds, PDO::PARAM_INT);  
-	$sth->bindValue(':price', $price, PDO::PARAM_INT);  
-	$sth->bindValue(':userprice', $userPrice, PDO::PARAM_INT);  
-	$sth->bindValue(':comments', $comments, PDO::PARAM_STR);  
-	$sth->bindValue(':apply', 0, PDO::PARAM_INT);  
+	$sth->bindValue(':routedate', $date, PDO::PARAM_STR);
+	$sth->bindValue(':destination', $destination, PDO::PARAM_STR);
+	$sth->bindValue(':route', $routes, PDO::PARAM_STR);
+	$sth->bindValue(':rounds', $rounds, PDO::PARAM_INT);
+	$sth->bindValue(':price', $price, PDO::PARAM_INT);
+	$sth->bindValue(':userprice', $userPrice, PDO::PARAM_INT);
+	$sth->bindValue(':comments', $comments, PDO::PARAM_STR);
+	$sth->bindValue(':apply', 0, PDO::PARAM_INT);
 	
-	$sth->execute();	
+	$sth->execute();
 
 }
 /*LINE_USERINFO_MSへインサート（同ユーザーの既存データがある場合は、インサートしない）*/
 function insertDataToUserInfoMs($userID, $username){
 
+	$dbh = dbConnection::getConnection();
+	$sql = 'insert into LINE_ROUTES_TR (userID, username) values ( :userID, :username)';
+	$sth = $dbh->prepare($sql);
+	
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);            /*登録者ID（ラインアカウントID）*/
+	$sth->bindValue(':username', $username, PDO::PARAM_STR);
 
+	$sth->execute();
+	
+}
+/*LINE_USERINFO_MSにユーザーの既存データがあるかどうか確認*/
+function getUserInfoMsData($userID){
+
+	$dbh = dbConnection::getConnection();
+	$sql = 'SELECT  USERNAME FROM LINE_USERINFO_MS WHERE userID = :userID';
+	$sth = $dbh->prepare($sql);
+	
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
+	
+	$sth->execute();
+	$result = $sth->fetch(PDO::FETCH_NUM);
+	
+	return $result[0];
 
 }
 /*LINE_DOCS_MSへインサート（同ユーザーの既存データがある場合は、インサートしない）*/

@@ -35,7 +35,7 @@ function insertRouteData($userID){
 	$username = 'default name';
 	/*ラインのユーザー名取得(するつもり)*/
 	//$profile = $bot->getProfile($userID)->getJSONDecodedBody();
-	//$username = $profile['displayName']
+	//$username = $profile['displayName'];
 	
 	/*一時記憶データベースから、データ取得*/
 	
@@ -46,8 +46,12 @@ function insertRouteData($userID){
 	$rounds = getRoundsTemp($userID);          /*往復の有無*/
 	$userPrice = getUserPriceTemp($userID);    /*ユーザー請求*/
 	$comments = getCommentsTemp($userID);      /*備考*/
-
-	//insertDataToUserInfoMs($userID, $username);
+	
+	/*UserInfoへの登録がない場合（初回登録時のみの操作）*/
+	if(getUserInfoMsData($userID) == NULL){
+		insertDataToUserInfoMs($userID, $username);
+	}
+	
 	insertDataToRoutesTr($userID, $routeno, $date, $routes, $price, $destination, $rounds, $userPrice, $comments);
 	//insertDataToDocsMs($userID);
 
