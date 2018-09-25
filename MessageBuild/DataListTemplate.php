@@ -128,12 +128,15 @@ function DataListContentsBuilder($userID){
 		}
 		
 		/*申請済みデータは赤く塗る*/
-		if(getApplyFlag($userID, $RouteNo) == 1){
+		if(getApplyFlag($userID, $routeno) == 1){
 			$textColor = "#ff0000";
 		}
 		
 		$contents[] = DataLisSubContents($routeno, $date.'.', $destination.'.', $routes.'.', $icon, $price, $textColor);
+		
+		/*次のループに備えて変数調整*/
 		$routeno++;
+		$icon = '';
 		$textColor = "#555555";
 	}
 	

@@ -146,7 +146,7 @@ function applyRouteData($userID){
 	$sth = $dbh->prepare($sql);
 
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
-	$sth->bindValue(':Value', data('Y/m/d'), PDO::PARAM_INT);
+	$sth->bindValue(':Value', data('Y/m/d',), PDO::PARAM_STR);
 	
 	$sth->execute();
 
