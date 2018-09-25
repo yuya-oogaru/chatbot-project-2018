@@ -4,7 +4,12 @@ function del_inp_num_func($userID, $message, $reply_token){
 
 	updateStatus($userID, 'del_confirm');
 	updateDeleteNoTemp($userID, $message);
-	$post_data = DeleteRouteFlexTemplate($reply_token, '以上のデータを削除しますか？', '削除データ確認', $userID, $message);
+	
+	if(getRoute($userID, $message) != NULL){
+		$post_data = DeleteRouteFlexTemplate($reply_token, '以上のデータを削除しますか？', '削除データ確認', $userID, $message);
+	}else{
+		$post_data = textMessage($reply_token, '入力された番号に該当するデータは、存在しません。');
+	}
 	
 	return $post_data;
 
