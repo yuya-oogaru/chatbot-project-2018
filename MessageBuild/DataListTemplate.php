@@ -136,7 +136,7 @@ function DataListContentsBuilder($userID){
 		
 		/*次のループに備えて変数調整*/
 		$routeno++;
-		$icon = '';
+		$icon = '　';
 		$textColor = "#555555";
 	}
 	
