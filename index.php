@@ -26,6 +26,7 @@ require_once (__DIR__ . '/menu.php');                          /*Botの各機能
 require_once (__DIR__ . '/insert_proc_launcher.php');          /*経路データ登録機能メインファイル*/
 require_once (__DIR__ . '/insert_proc_sub_func.php');          /*経路データ登録機能サブファイル*/
 require_once (__DIR__ . '/apply_delete_proc_launcher.php');    /*経路データ申請・削除メインファイル*/
+require_once (__DIR__ . '/apply_delete_proc_sub_func.php');    /*経路データ申請・削除サブファイル*/
 
 /*LINEBotアクセストークン(heroku側で定義)*/
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
@@ -51,6 +52,9 @@ $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 
 //ユーザーID取得
 $userID = $json_obj->{"events"}[0]->{"source"}->{"userId"};
+/*ユーザー名の取得*/
+
+
 
 /*************ユーザーのステータス確認******************/
 

@@ -5,11 +5,16 @@ function menu_func($userID, $message, $reply_token){
 
 	/*機能メニュー画面にて’申請’を選択*/
 	if($message == '申請'){
-	
-		/*申請確認画面呼び出し*/
-		$post_data = ApplyFlexTemplate($reply_token, $userID);
-		/*ステータスをaplly_confirmへ移行*/
-		updateStatus($userID, 'aplly_confirm');
+		
+		if(getRoute($userID, 1) != NULL){
+			/*申請確認画面呼び出し*/
+			$post_data = ApplyFlexTemplate($reply_token, $userID);
+			/*ステータスをaplly_confirmへ移行*/
+			updateStatus($userID, 'aplly_confirm');
+		}else{
+			$post_data = textMessage($reply_token, '申請できる経路データがありません。');
+			updateStatus($userID, 'pre_proc');
+		}
 		
 	/*機能メニュー画面にて’一件削除’を選択*/
 	}else if($message == '一件削除'){
