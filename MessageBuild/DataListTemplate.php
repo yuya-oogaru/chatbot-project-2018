@@ -161,7 +161,7 @@ function DataLisSubContents($no, $date, $destination, $route, $icon ,$price, $te
 
 	/*表示文字数を制限*/
 	$destination = mb_strimwidth($destination, 0, 25, '...', "UTF-8");
-	$route = mb_strimwidth($route, 0, 33, '...', "UTF-8");
+	$route = mb_strimwidth($route, 0, 25, '...', "UTF-8");
 	
 	//登録Noから経路までを結合
 	$margeText = '['.($no).']'.$date.''.$destination.''.$route.'';
