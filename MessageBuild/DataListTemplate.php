@@ -127,10 +127,15 @@ function DataListContentsBuilder($userID){
 		$contents[] = DataLisSubContents($routeno, $date.'.', $destination.'.', $routes.'.', $icon, $price);
 		$routeno++;
 	}
+	
+	//合計金額算出
+	$totalPrice = calcTotalPrice($userID);
+	//文字列に変換
+	$totalPrice = '￥'.number_format(strval($totalPrice));
 
 	//合計金額
 	$contents[] = array("type"=>"text","text"=>"----------","size"=>"md","color"=>"#000000","align"=>"end");
-	$contents[] = array("type"=>"text","text"=>"999,999,999円","size"=>"md","color"=>"#0000ff","align"=>"end");
+	$contents[] = array("type"=>"text","text"=>$totalPrice,"size"=>"md","color"=>"#0000ff","align"=>"end");
 	
 	//セパレータ
 	$contents[] = array("type" => "separator","margin" => "md");
