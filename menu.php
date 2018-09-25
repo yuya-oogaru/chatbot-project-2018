@@ -19,13 +19,8 @@ function menu_func($userID, $message, $reply_token){
 	/*機能メニュー画面にて’一件削除’を選択*/
 	}else if($message == '一件削除'){
 	
-		$post_data = textMessage($reply_token, '未実装です。しばらくお待ちください。');
-		updateStatus($userID, 'pre_proc');
-	
-	/*
 		updateStatus($userID, 'del_inp_num');
 		$post_data = textMessage($reply_token, '削除する経路データの番号を入力してください。');
-	*/
 	
 	/*機能メニュー画面にて’キャンセル’を選択*/
 	}else if($message == 'キャンセル'){
