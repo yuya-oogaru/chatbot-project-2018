@@ -104,7 +104,7 @@ function DataListContentsBuilder($userID){
 	
 	/*カウンタ変数・略号変数初期化*/
 	$routeno = 1;
-	$icon = '';
+	$icon = '　';
 	$textColor = "#555555";
 
 
