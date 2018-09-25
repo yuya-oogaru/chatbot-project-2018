@@ -18,8 +18,9 @@ require_once (__DIR__ . '/MessageBuild/messageTemplate.php');  /*LINEメッセ�
 require_once (__DIR__ . '/MessageBuild/DataListTemplate.php'); /*LINEメッセージ送信用JSONデータ構築処理 申請メッセージ用*/
 require_once (__DIR__ . '/MessageBuild/MenuListTemplate.php'); /*LINEメッセージ送信用JSONデータ構築処理 機能メニュー用*/
 require_once (__DIR__ . '/basicfunc.php');                     /*メッセージ送信・データベース接続などの、基本的な処理*/
-require_once (__DIR__ . '/get_profile.php');                     /*ユーザー名取得用*/
+require_once (__DIR__ . '/get_profile.php');                   /*ユーザー名取得用*/
 require_once (__DIR__ . '/SqlExecuter/main_sql.php');          /*データベース操作（I/O）処理(メイン)*/
+require_once (__DIR__ . '/SqlExecuter/debug_option_sql.php');  /*デバッグオプション用SQL*/
 require_once (__DIR__ . '/SqlExecuter/status_sql.php');        /*ユーザーのステータス用データベース操作（I/O）処理*/
 require_once (__DIR__ . '/SqlExecuter/temp_data_sql.php');     /*登録データ取得用データベース操作処理*/
 require_once (__DIR__ . '/SqlExecuter/list_data_sql.php');     /*一時記憶データベース操作処理*/
@@ -85,6 +86,15 @@ if($messageType != FALSE){
 }
 
 /***********************************************/
+
+/**********デバッグオプション・登録データ全消去**********/
+if($message == '全削除'){
+	deleteRouteData($userID);
+	updateStatus($userID, 'pre_proc');
+	$post_data = textMessage($reply_token, 'データを全削除しました。');
+	sendReplyMessage($post_data, $access_token);
+	return;
+}
 /**********デバッグオプション・ステータスリセット**********/
 
 /*リセットは、メッセージに「リセット」と送ることで行う。*/
