@@ -134,6 +134,22 @@ function getComments($userID, $RouteNo){
 	return $result[0];
 	
 }
+/************************申請フラグ**********************/
+function getApplyFlag($userID, $RouteNo){
+
+	$dbh = dbConnection::getConnection();
+	$sql = 'SELECT APPLY FROM LINE_ROUTES_TR WHERE userID = :userID AND routeno = :routeno';
+	$sth = $dbh->prepare($sql);
+	
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
+	$sth->bindValue(':routeno', $RouteNo, PDO::PARAM_INT);
+	
+	$sth->execute();
+	$result = $sth->fetch(PDO::FETCH_NUM);
+	
+	return $result[0];
+	
+}
 /************************削除No**********************/
 function getDeleteNo($userID, $RouteNo){
 

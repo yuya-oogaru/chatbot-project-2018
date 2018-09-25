@@ -104,7 +104,8 @@ function DataListContentsBuilder($userID){
 	
 	/*カウンタ変数・略号変数初期化*/
 	$routeno = 1;
-	$icon = '　　';
+	$icon = '';
+	$textColor = "#555555";
 
 
 	/*登録済みのデータをすべて取得*/
@@ -119,13 +120,21 @@ function DataListContentsBuilder($userID){
 		$userPrice = getUserPrice($userID, $routeno);    /*ユーザー請求*/
 		
 		/*ユーザー請求・往復の有無を略号に変換（メニュー選択機能の設計書を参照）*/
+		if($userPrice > 0){
+			$icon = $icon.'仮';
+		}
+		if($rounds == 1){
+			$icon = $icon.'復';
+		}
 		
+		/*申請済みデータは赤く塗る*/
+		if(getApplyFlag($userID, $RouteNo) == 1){
+			$textColor = "#ff0000";
+		}
 		
-		
-		
-		
-		$contents[] = DataLisSubContents($routeno, $date.'.', $destination.'.', $routes.'.', $icon, $price);
+		$contents[] = DataLisSubContents($routeno, $date.'.', $destination.'.', $routes.'.', $icon, $price, $textColor);
 		$routeno++;
+		$textColor = "#555555";
 	}
 	
 	//合計金額算出
@@ -145,7 +154,7 @@ function DataListContentsBuilder($userID){
 }
 
 //Flexサブコンテンツ（項目）
-function DataLisSubContents($no, $date, $destination, $route, $icon ,$price){
+function DataLisSubContents($no, $date, $destination, $route, $icon ,$price, $textColor){
 
 	//登録Noから経路までを結合
 	$margeText = '['.($no).']'.$date.''.$destination.''.$route.'';
@@ -159,7 +168,7 @@ function DataLisSubContents($no, $date, $destination, $route, $icon ,$price){
 				"type" => "text",
 				"text" => $margeText,
 				"size" => "xxs",
-				"color" => "#555555",
+				"color" => $textColor,
 				"flex" => 0
 			],
 			[
@@ -173,7 +182,7 @@ function DataLisSubContents($no, $date, $destination, $route, $icon ,$price){
 				"type" => "text",
 				"text" => ('￥'.number_format(strval($price))),
 				"size" => "xxs",
-				"color" => "#111111",
+				"color" => $textColor,
 				"align" => "end"
 			]
 		]

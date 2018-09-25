@@ -129,5 +129,27 @@ function calcTotalPrice($userID){
 
 	return $result[0];
 }
+/********申請フラグを立てる（清算書に発行可能となる）**********/
+function applyRouteData($userID){
+
+	$dbh = dbConnection::getConnection();
+	$sql = 'UPDATE LINE_ROUTES_TR SET APPLY = :Value WHERE userID = :userID';
+	$sth = $dbh->prepare($sql);
+
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
+	$sth->bindValue(':Value', 1, PDO::PARAM_INT);
+	
+	$sth->execute();
+	
+	/*申請日更新*/
+	$sql = 'UPDATE LINE_DOCS_MS SET APPLYDATE = :Value WHERE userID = :userID';
+	$sth = $dbh->prepare($sql);
+
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
+	$sth->bindValue(':Value', data('Y/m/d'), PDO::PARAM_INT);
+	
+	$sth->execute();
+
+}
 
 ?>

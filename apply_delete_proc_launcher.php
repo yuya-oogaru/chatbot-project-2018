@@ -36,8 +36,11 @@ function aplly_confirm_func($userID, $message, $reply_token){
 
 	
 	if($message == 'はい'){
+	
+		applyRouteData($userID);
+	
 		$post_data = textMessage($reply_token, '経路データを申請しました。');
-				
+		
 		/*一時記憶DBの個人行削除*/
 		deleteTempData($userID);
 		
