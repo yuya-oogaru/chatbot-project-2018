@@ -44,7 +44,7 @@
 ********************************************************/
 <?php
 //**********Flexテンプレート*************
-function ApplyFlexTemplate($reply_token){
+function ApplyFlexTemplate($reply_token, $userID){
 
 	return
 	[
@@ -58,7 +58,7 @@ function ApplyFlexTemplate($reply_token){
 					"body" => [
 	    				"type" => "box",
    		 				"layout" => "vertical",
-    					"contents" => ApplyFlexTemplateContents(1)
+    					"contents" => ApplyFlexTemplateContents($userID)
     				]
 				]
 			]
@@ -67,7 +67,7 @@ function ApplyFlexTemplate($reply_token){
 }
 
 //Flexコンテンツ
-function ApplyFlexTemplateContents($void){
+function ApplyFlexTemplateContents($userID){
 
 	return
 	[
@@ -83,7 +83,7 @@ function ApplyFlexTemplateContents($void){
         	"layout" => "vertical",
         	"margin" => "xxl",
         	"spacing" => "sm",
-        	"contents" => DataListContentsBuilder(10)
+        	"contents" => DataListContentsBuilder($userID)
 		],
 		[
 			"type" => "box",
@@ -97,14 +97,35 @@ function ApplyFlexTemplateContents($void){
 
 /*ToDo以下ファイル分け検討*/
 //Flexサブコンテンツ（項目）ビルダ
-function DataListContentsBuilder($loop){
+function DataListContentsBuilder($userID){
 
 	//リスト名表示
 	$contents[] = array("type" => "text","text" => "登録済み経路一覧","weight"=>"bold","color"=>"#00a100","size"=>"md","margin"=>"md");
+	
+	/*カウンタ変数・略号変数初期化*/
+	$routeno = 1;
+	$icon = '';
 
-	/*サブコンテンツ（項目）配列を指定回数分連結*/
-	for($count = 0; $count < $loop; $count++){
-		$contents[] = DataLisSubContents($count,'9/1.', '株式会社OO.','大阪～京橋.','仮復.','9,999円');
+
+	/*登録済みのデータをすべて取得*/
+	while(getRouteNo($userID, $routeno) != NULL){
+	
+		/*データベースから値を取得*/
+		$date = getDate($userID, $routeno);              /*乗車日*/
+		$routes = getRoute($userID, $routeno);           /*経路*/
+		$price = getPrice($userID, $routeno);            /*合計運賃*/
+		$destination = getDestination($userID, $routeno);/*行先*/
+		$rounds = getRounds($userID, $routeno);          /*往復の有無*/
+		$userPrice = getUserPrice($userID, $routeno);    /*ユーザー請求*/
+		
+		/*ユーザー請求・往復の有無を略号に変換（メニュー選択機能の設計書を参照）*/
+		
+		
+		
+		
+		
+		$contents[] = DataLisSubContents($routeno, $date, $destination, $routes, $icon, $price);
+		$routeno++;
 	}
 
 	//合計金額
@@ -117,6 +138,7 @@ function DataListContentsBuilder($loop){
 	error_log('contents = '.json_encode($contents).'');
 	return $contents;
 }
+
 //Flexサブコンテンツ（項目）
 function DataLisSubContents($no, $date, $destination, $route, $icon ,$price){
 

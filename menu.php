@@ -7,7 +7,7 @@ function menu_func($userID, $message, $reply_token){
 	if($message == '申請'){
 	
 		/*申請確認画面呼び出し*/
-		$post_data = ApplyFlexTemplate($reply_token);
+		$post_data = ApplyFlexTemplate($reply_token, $userID);
 		/*ステータスをaplly_confirmへ移行*/
 		updateStatus($userID, 'aplly_confirm');
 		

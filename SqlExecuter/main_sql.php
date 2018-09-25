@@ -88,22 +88,6 @@ function getUserInfoMsData($userID){
 	return $result[0];
 
 }
-/*LINE_USERINFO_MSの割り当て済み「登録No」確認（未割当の場合はNULLを返す）*/
-/*引数: (ユーザーID, 確認する登録No)*/
-function getUnusedRouteNo($userID, $RouteNo){
-
-	$dbh = dbConnection::getConnection();
-	$sql = 'SELECT  ROUTENO FROM LINE_ROUTES_TR WHERE userID = :userID AND routeno = :routeno';
-	$sth = $dbh->prepare($sql);
-	
-	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
-	$sth->bindValue(':routeno', $RouteNo, PDO::PARAM_INT);
-	
-	$sth->execute();
-	$result = $sth->fetch(PDO::FETCH_NUM);
-	
-	return $result[0];
-}
 
 /*LINE_DOCS_MSへインサート（同ユーザーの既存データがある場合は、インサートしない）*/
 function insertDataToDocsMs($userID){
