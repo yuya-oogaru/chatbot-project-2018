@@ -166,5 +166,22 @@ function getDeleteNo($userID, $RouteNo){
 	return $result[0];
 	
 }
+/***************************************************/
+/*                  登録データ更新                 */
+/***************************************************/
+
+/******登録Noを更新する*******/
+function updateRouteNo($userID, $oldno, $newno){
+
+	$dbh = dbConnection::getConnection();
+	$sql = 'UPDATE LINE_ROUTES_TR SET ROUTENO = :newno WHERE userID = :userID AND routeno = :oldno';
+	$sth = $dbh->prepare($sql);
+
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
+	$sth->bindValue(':newno', $newno, PDO::PARAM_INT);
+	$sth->bindValue(':oldno', $oldno, PDO::PARAM_INT);
+	
+	$sth->execute();
+}
 
 ?>

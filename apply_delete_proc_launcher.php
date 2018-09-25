@@ -9,6 +9,7 @@ function del_inp_num_func($userID, $message, $reply_token){
 		updateStatus($userID, 'del_confirm');
 	}else{
 		$post_data = textMessage($reply_token, '入力された番号に該当するデータは、存在しません。');
+		updateStatus($userID, 'pre_proc');
 	}
 	
 	return $post_data;
