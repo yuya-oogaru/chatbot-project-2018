@@ -56,7 +56,7 @@ function confirmTemplateAction($yes, $no){
 }
 
 //**********Flexテンプレート(経路データ削除)*************
-function FlexTemplate($reply_token, $message_text, $title){
+function DeleteRouteFlexTemplate($reply_token, $message_text, $title, $userID, $RouteNo){
 
 
 	return
@@ -71,7 +71,7 @@ function FlexTemplate($reply_token, $message_text, $title){
 					"body" => [
     					"type" => "box",
     					"layout" => "vertical",
-    					"contents" => FlexTemplateContents($message_text, $title)
+    					"contents" => DeleteRouteFlexTemplateContents($message_text, $title, $userID, $RouteNo)
     				]
 				]
 			]
@@ -80,8 +80,24 @@ function FlexTemplate($reply_token, $message_text, $title){
 }
 
 //Flexコンテンツ
-function FlexTemplateContents($message_text, $title){
+function DeleteRouteFlexTemplateContents($message_text, $title, $userID, $RouteNo){
 
+	/*一時記憶データベースから、データ取得*/
+	
+	$date = getRouteDate($userID, $RouteNo);         /*乗車日*/
+	$routes = getRoute($userID, $RouteNo);           /*経路*/
+	$price = getPrice($userID, $RouteNo);            /*合計運賃*/
+	$destination = getDestination($userID, $RouteNo);/*行先*/
+	$rounds = getRounds($userID, $RouteNo);          /*往復の有無*/
+	$userPrice = getUserPrice($userID, $RouteNo);    /*ユーザー請求*/
+	$comments = getComments($userID, $RouteNo));     /*備考*/
+	
+	if($rounds == 1){
+		$rounds = 'あり';
+	}else{
+		$rounds = 'なし';
+	}
+	
 	return
 	[
 		[
@@ -100,37 +116,37 @@ function FlexTemplateContents($message_text, $title){
 	        	[
 	        		"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('乗車日', '9/20')
+					"contents"=> FlexTemplateContentsSubBox('乗車日', strval($date))
 	        	],
    		     	[
    		     		"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('行先', 'OO精工株式会社')
+					"contents"=> FlexTemplateContentsSubBox('行先', strval($destination))
     	    	],
     	    	[
     	    		"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('経路', '京橋～天王寺')
+					"contents"=> FlexTemplateContentsSubBox('経路', strval($routes))
        	 		],
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('往復の有無', 'あり')
+					"contents"=> FlexTemplateContentsSubBox('往復の有無', strval($rounds))
         		],
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('合計運賃', '180円')
+					"contents"=> FlexTemplateContentsSubBox('合計運賃', '￥'.number_format(strval($price)))
         		],
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('ユーザー請求額', '180円')
+					"contents"=> FlexTemplateContentsSubBox('ユーザー請求額', '￥'.number_format(strval($userPrice)))
         		],
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('備考', '往復有')
+					"contents"=> FlexTemplateContentsSubBox('備考', strval($comments))
         		],
         		[
        				 "type" => "separator",

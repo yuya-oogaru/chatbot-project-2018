@@ -3,7 +3,8 @@
 function del_inp_num_func($userID, $message, $reply_token){
 
 	updateStatus($userID, 'del_confirm');
-	$post_data = FlexTemplate($reply_token, '以上のデータを削除しますか？', '削除データ確認');
+	updateDeleteNoTemp($userID, $message)
+	$post_data = DeleteRouteFlexTemplate($reply_token, '以上のデータを削除しますか？', '削除データ確認', $userID, $routeno);
 	
 	return $post_data;
 
