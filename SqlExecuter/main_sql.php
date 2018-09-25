@@ -166,7 +166,7 @@ function applyRouteData($userID){
 	$sth->execute();
 
 }
-/*選択されたデータを削除する*/
+/******選択されたデータを削除する******/
 function deleteRouteData($userID, $RouteNo){
 
 	$dbh = dbConnection::getConnection();

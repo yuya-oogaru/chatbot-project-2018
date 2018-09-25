@@ -103,28 +103,21 @@ function DataListContentsBuilder($userID){
 	$contents[] = array("type" => "text","text" => "登録済み経路一覧","weight"=>"bold","color"=>"#00a100","size"=>"md","margin"=>"md");
 	
 	/*カウンタ変数・略号変数初期化*/
-	$counter = 1;
+	$routeno = 1;
 	$icon = '　';
 	$textColor = "#555555";
 	
 
 	/*登録済みのデータをすべて取得*/
-	while($counter <= getRouteDataCount($userID)){
+	while(getRouteNo($userID, $routeno) != NULL){
 	
 		/*データベースから値を取得*/
-		$routeno = getRouteNo($userID, $counter);         /*登録No*/
-		$date = getRouteDate($userID, $counter);          /*乗車日*/
-		$routes = getRoute($userID, $counter);            /*経路*/
-		$price = getPrice($userID, $counter);             /*合計運賃*/
-		$destination = getDestination($userID, $counter); /*行先*/
-		$rounds = getRounds($userID, $counter);           /*往復の有無*/
-		$userPrice = getUserPrice($userID, $counter);     /*ユーザー請求*/
-		
-		/*取得している登録Noが欠番の場合*/
-		if($routeno == NULL){
-			$counter++;
-			continue;
-		}
+		$date = getRouteDate($userID, $routeno);          /*乗車日*/
+		$routes = getRoute($userID, $routeno);            /*経路*/
+		$price = getPrice($userID, $routeno);             /*合計運賃*/
+		$destination = getDestination($userID, $routeno); /*行先*/
+		$rounds = getRounds($userID, $routeno);           /*往復の有無*/
+		$userPrice = getUserPrice($userID, $routeno);     /*ユーザー請求*/
 		
 		/*ユーザー請求・往復の有無を略号に変換（メニュー選択機能の設計書を参照）*/
 		if($userPrice > 0){
@@ -142,7 +135,7 @@ function DataListContentsBuilder($userID){
 		$contents[] = DataLisSubContents($routeno, $date.'.', $destination.'.', $routes.'.', $icon, $price, $textColor);
 		
 		/*次のループに備えて変数調整*/
-		$counter++;
+		$routeno++;
 		$icon = '　';
 		$textColor = "#555555";
 	}
