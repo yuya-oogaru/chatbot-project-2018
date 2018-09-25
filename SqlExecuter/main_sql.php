@@ -77,7 +77,7 @@ function insertDataToUserInfoMs($userID, $username){
 function getUserInfoMsData($userID){
 
 	$dbh = dbConnection::getConnection();
-	$sql = 'SELECT  USERNAME FROM LINE_USERINFO_MS WHERE userID = :userID';
+	$sql = 'SELECT  USERID FROM LINE_USERINFO_MS WHERE userID = :userID';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
@@ -111,7 +111,7 @@ function insertDataToDocsMs($userID){
 function getDocsMsData($userID){
 
 	$dbh = dbConnection::getConnection();
-	$sql = 'SELECT  USERNAME FROM LINE_DOCS_MS WHERE userID = :userID';
+	$sql = 'SELECT  USERID FROM LINE_DOCS_MS WHERE userID = :userID';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
