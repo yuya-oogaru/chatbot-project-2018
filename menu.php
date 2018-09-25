@@ -19,8 +19,13 @@ function menu_func($userID, $message, $reply_token){
 	/*機能メニュー画面にて’一件削除’を選択*/
 	}else if($message == '一件削除'){
 	
-		updateStatus($userID, 'del_inp_num');
-		$post_data = textMessage($reply_token, '削除する経路データの番号を入力してください。');
+		if(getRoute($userID, 1) != NULL){
+			updateStatus($userID, 'del_inp_num');
+			$post_data = textMessage($reply_token, '削除する経路データの番号を入力してください。');
+		}else{
+			$post_data = textMessage($reply_token, '登録されているデータはありません。');
+			updateStatus($userID, 'pre_proc');		
+		}
 	
 	/*機能メニュー画面にて’キャンセル’を選択*/
 	}else if($message == 'キャンセル'){
