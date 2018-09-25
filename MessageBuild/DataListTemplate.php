@@ -166,7 +166,7 @@ function DataLisSubContents($no, $date, $destination, $route, $icon ,$price){
 			],
 			[
 				"type" => "text",
-				"text" => ('\\'.number_format(strval($price))),
+				"text" => ('￥'.number_format(strval($price))),
 				"size" => "xxs",
 				"color" => "#111111",
 				"align" => "end"

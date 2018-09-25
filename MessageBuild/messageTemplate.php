@@ -301,12 +301,12 @@ function insertConfirmFlexTemplateContents($message_text, $title, $userID){
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('合計運賃', '\\'.number_format(strval($price)))
+					"contents"=> FlexTemplateContentsSubBox('合計運賃', '￥'.number_format(strval($price)))
         		],
         		[
         			"type"=> "box",
 					"layout"=> "horizontal",
-					"contents"=> FlexTemplateContentsSubBox('ユーザー請求額', number_format(strval($userPrice)).'円')
+					"contents"=> FlexTemplateContentsSubBox('ユーザー請求額', '￥'.number_format(strval($userPrice)))
         		],
         		[
         			"type"=> "box",
