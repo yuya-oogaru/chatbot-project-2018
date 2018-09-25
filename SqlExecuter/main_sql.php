@@ -99,9 +99,9 @@ function insertDataToDocsMs($userID){
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);            /*登録者ID（ラインアカウントID）*/
 	$sth->bindValue(':docsid', 0, PDO::PARAM_INT);
-	$sth->bindValue(':applydate', 0, PDO::PARAM_STR);
-	$sth->bindValue(':issuedate', 0, PDO::PARAM_STR);
-	$sth->bindValue(':adminissuedate', 0, PDO::PARAM_STR);
+	$sth->bindValue(':applydate', 0000-00-00, PDO::PARAM_STR);
+	$sth->bindValue(':issuedate', 0000-00-00, PDO::PARAM_STR);
+	$sth->bindValue(':adminissuedate', 0000-00-00, PDO::PARAM_STR);
 
 	
 	$sth->execute();
