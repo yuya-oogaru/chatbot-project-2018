@@ -92,16 +92,13 @@ function getUserInfoMsData($userID){
 function insertDataToDocsMs($userID){
 
 	$dbh = dbConnection::getConnection();
-	$sql = 'insert into LINE_DOCS_MS (userID, docsid, applydate, issuedate, adminissuedate)'.
-	'values ( :userID, :docsid, :applydate, :issuedate, :adminissuedate)';
+	$sql = 'insert into LINE_DOCS_MS (userID, docsid).values ( :userID, :docsid)';
 	
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);            /*登録者ID（ラインアカウントID）*/
 	$sth->bindValue(':docsid', 0, PDO::PARAM_INT);
-	$sth->bindValue(':applydate', 0000-00-00, PDO::PARAM_STR);
-	$sth->bindValue(':issuedate', 0000-00-00, PDO::PARAM_STR);
-	$sth->bindValue(':adminissuedate', 0000-00-00, PDO::PARAM_STR);
+
 
 	
 	$sth->execute();
