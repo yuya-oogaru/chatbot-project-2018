@@ -90,7 +90,7 @@ function DeleteRouteFlexTemplateContents($message_text, $title, $userID, $RouteN
 	$destination = getDestination($userID, $RouteNo);/*行先*/
 	$rounds = getRounds($userID, $RouteNo);          /*往復の有無*/
 	$userPrice = getUserPrice($userID, $RouteNo);    /*ユーザー請求*/
-	$comments = getComments($userID, $RouteNo));     /*備考*/
+	$comments = getComments($userID, $RouteNo);     /*備考*/
 	
 	if($rounds == 1){
 		$rounds = 'あり';
