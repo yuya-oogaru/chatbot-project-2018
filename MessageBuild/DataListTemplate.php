@@ -112,13 +112,13 @@ function DataListContentsBuilder($userID){
 	while($counter < getRouteDataCount($userID)){
 	
 		/*データベースから値を取得*/
-		$routeno = getRouteNo($userID, $counter)         /*登録No*/
-		$date = getRouteDate($userID, $counter);         /*乗車日*/
-		$routes = getRoute($userID, $counter);           /*経路*/
-		$price = getPrice($userID, $counter);            /*合計運賃*/
-		$destination = getDestination($userID, $counter);/*行先*/
-		$rounds = getRounds($userID, $counter);          /*往復の有無*/
-		$userPrice = getUserPrice($userID, $counter);    /*ユーザー請求*/
+		$routeno = getRouteNo($userID, $counter);         /*登録No*/
+		$date = getRouteDate($userID, $counter);          /*乗車日*/
+		$routes = getRoute($userID, $counter);            /*経路*/
+		$price = getPrice($userID, $counter);             /*合計運賃*/
+		$destination = getDestination($userID, $counter); /*行先*/
+		$rounds = getRounds($userID, $counter);           /*往復の有無*/
+		$userPrice = getUserPrice($userID, $counter);     /*ユーザー請求*/
 		
 		/*取得している登録Noが欠番の場合*/
 		if($routeno == NULL){
