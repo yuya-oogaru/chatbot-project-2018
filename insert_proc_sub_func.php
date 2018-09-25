@@ -47,14 +47,17 @@ function insertRouteData($userID){
 	$userPrice = getUserPriceTemp($userID);    /*ユーザー請求*/
 	$comments = getCommentsTemp($userID);      /*備考*/
 	
-	/*UserInfoへの登録がない場合（初回登録時のみの操作）*/
+	/*データベースLINE_USERINFO_MSへの登録がない場合（初回登録時のみの操作）*/
 	if(getUserInfoMsData($userID) == NULL){
 		insertDataToUserInfoMs($userID, $username);
 	}
 	
 	insertDataToRoutesTr($userID, $routeno, $date, $routes, $price, $destination, $rounds, $userPrice, $comments);
-	//insertDataToDocsMs($userID);
-
+	
+	/**データベースLINE_DOCS_MSへの登録がない場合（初回登録時のみの操作）*/
+	if(getDocsMsData($userID) == NULL){
+		insertDataToDocsMs($userID);
+	}
 
 }
 

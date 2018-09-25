@@ -91,9 +91,36 @@ function getUserInfoMsData($userID){
 /*LINE_DOCS_MSへインサート（同ユーザーの既存データがある場合は、インサートしない）*/
 function insertDataToDocsMs($userID){
 
+	$dbh = dbConnection::getConnection();
+	$sql = 'insert into LINE_DOCS_MS (userID, docsid, applydate, issuedate, adminissuedate)'.
+	'values ( :userID, :docsid, :applydate, :issuedate, :adminissuedate)';
+	
+	$sth = $dbh->prepare($sql);
+	
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);            /*登録者ID（ラインアカウントID）*/
+	$sth->bindValue(':docsid', 0, PDO::PARAM_INT);
+	$sth->bindValue(':applydate', 0, PDO::PARAM_STR);
+	$sth->bindValue(':issuedate', 0, PDO::PARAM_STR);
+	$sth->bindValue(':adminissuedate', 0, PDO::PARAM_STR);
 
+	
+	$sth->execute();
 
 }
+/*LINE_DOCS_MSにユーザーの既存データがあるかどうか確認*/
+function getDocsMsData($userID){
 
+	$dbh = dbConnection::getConnection();
+	$sql = 'SELECT  USERNAME FROM LINE_DOCS_MS WHERE userID = :userID';
+	$sth = $dbh->prepare($sql);
+	
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);
+	
+	$sth->execute();
+	$result = $sth->fetch(PDO::FETCH_NUM);
+	
+	return $result[0];
+
+}
 
 ?>
