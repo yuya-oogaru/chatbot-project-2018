@@ -70,10 +70,8 @@ function getRouteNo($userID){
 	$getNo = 1; /*登録No候補*/
 	
 	/*未割当の番号が見つかるまで繰り返す*/
-	while(getRouteNo($userID, $getNo) != NULL){
-	
-	$getNo += 1;
-	
+	while(getUnusedRouteNo($userID, $getNo) != NULL){
+		$getNo += 1;
 	}
 
 	/*取得した登録Noを返す*/

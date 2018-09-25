@@ -90,7 +90,7 @@ function getUserInfoMsData($userID){
 }
 /*LINE_USERINFO_MSの割り当て済み「登録No」確認（未割当の場合はNULLを返す）*/
 /*引数: (ユーザーID, 確認する登録No)*/
-function getRouteNo($userID, $RouteNo){
+function getUnusedRouteNo($userID, $RouteNo){
 
 	$dbh = dbConnection::getConnection();
 	$sql = 'SELECT  USERID FROM INE_ROUTES_TR WHERE userID = :userID AND routeno = :routeno';
