@@ -24,6 +24,9 @@ function del_confirm_func($userID, $message, $reply_token){
 		$RouteNo = getDeleteNoTemp($userID);
 		deleteRouteData($userID, $RouteNo);
 		
+		/*既存データの登録No再割り当て*/
+		resetRouteNo($userID);
+		
 		$post_data = textMessage($reply_token, '経路データを削除しました。');
 		
 		/*一時記憶DBの個人行削除*/
