@@ -20,6 +20,7 @@ function menu_func($userID, $message, $reply_token){
 	}else if($message == '一件削除'){
 	
 		$post_data = textMessage($reply_token, '未実装です。しばらくお待ちください。');
+		updateStatus($userID, 'pre_proc');
 	
 	/*
 		updateStatus($userID, 'del_inp_num');

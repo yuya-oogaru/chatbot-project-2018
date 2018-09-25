@@ -45,4 +45,6 @@ function sendReplyMessage($post_data, $access_token){
 	$result = curl_exec($ch);
 	curl_close($ch);
 }
+
+
 ?>

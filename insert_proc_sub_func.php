@@ -50,11 +50,6 @@ function insertRouteData($userID){
 	/*経路データの登録Noを取得*/
 	$routeno = getUnusedRouteNo($userID);
 	
-	/*データベースLINE_USERINFO_MSへの登録がない場合（初回登録時のみの操作）*/
-	if(getUserInfoMsData($userID) == NULL){
-		insertDataToUserInfoMs($userID, $username);
-	}
-	
 	insertDataToRoutesTr($userID, $routeno, $date, $routes, $price, $destination, $rounds, $userPrice, $comments);
 	
 	/**データベースLINE_DOCS_MSへの登録がない場合（初回登録時のみの操作）*/
