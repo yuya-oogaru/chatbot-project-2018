@@ -124,7 +124,7 @@ function DataListContentsBuilder($userID){
 		
 		
 		
-		$contents[] = DataLisSubContents($routeno, $date, $destination, $routes, $icon, $price);
+		$contents[] = DataLisSubContents($routeno, $date.'.', $destination.'.', $routes.'.', $icon, $price);
 		$routeno++;
 	}
 
@@ -166,7 +166,7 @@ function DataLisSubContents($no, $date, $destination, $route, $icon ,$price){
 			],
 			[
 				"type" => "text",
-				"text" => $price,
+				"text" => strval($price),
 				"size" => "xxs",
 				"color" => "#111111",
 				"align" => "end"
