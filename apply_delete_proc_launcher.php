@@ -4,7 +4,7 @@ function del_inp_num_func($userID, $message, $reply_token){
 
 	updateStatus($userID, 'del_confirm');
 	updateDeleteNoTemp($userID, $message);
-	$post_data = DeleteRouteFlexTemplate($reply_token, '以上のデータを削除しますか？', '削除データ確認', $userID, $routeno);
+	$post_data = DeleteRouteFlexTemplate($reply_token, '以上のデータを削除しますか？', '削除データ確認', $userID, $message);
 	
 	return $post_data;
 
@@ -13,8 +13,13 @@ function del_inp_num_func($userID, $message, $reply_token){
 function del_confirm_func($userID, $message, $reply_token){
 		
 	if($message == 'はい'){
+		
+		/*データの削除*/
+		$RouteNo = getDeleteNoTemp($userID);
+		deleteRouteData($userID, $RouteNo);
+		
 		$post_data = textMessage($reply_token, '経路データを削除しました。');
-				
+		
 		/*一時記憶DBの個人行削除*/
 		deleteTempData($userID);
 		
