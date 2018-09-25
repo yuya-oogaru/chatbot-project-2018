@@ -34,7 +34,7 @@ function menu_func($userID, $message, $reply_token){
 	/*そのほかの想定外入力*/
 	}else{
 	
-		$post_data = textMessage($reply_token, '無効なコマンドです。メッセージで「メニュー」と入力送信すると、メニュー画面を呼び出すことができます。');
+		$post_data = textMessage($reply_token, 'メッセージ内の選択肢ボタンから選んでください。');
 		
 	}
 	return $post_data;
