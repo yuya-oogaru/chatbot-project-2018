@@ -109,7 +109,7 @@ function DataListContentsBuilder($userID){
 	
 
 	/*登録済みのデータをすべて取得*/
-	while($counter < getRouteDataCount($userID)){
+	while($counter <= getRouteDataCount($userID)){
 	
 		/*データベースから値を取得*/
 		$routeno = getRouteNo($userID, $counter);         /*登録No*/
