@@ -104,7 +104,7 @@ function DataListContentsBuilder($userID){
 	
 	/*カウンタ変数・略号変数初期化*/
 	$routeno = 1;
-	$icon = '';
+	$icon = '　　';
 
 
 	/*登録済みのデータをすべて取得*/
@@ -143,7 +143,7 @@ function DataListContentsBuilder($userID){
 function DataLisSubContents($no, $date, $destination, $route, $icon ,$price){
 
 	//登録Noから経路までを結合
-	$margeText = '['.($no + 1).']'.$date.''.$destination.''.$route.'';
+	$margeText = '['.($no).']'.$date.''.$destination.''.$route.'';
 
 	return
 	[
