@@ -154,7 +154,7 @@ switch($status){
 			
 		}else{
 			/*無効なコマンド*/
-			$post_data = textMessage($reply_token, '無効なコマンド');
+			$post_data = textMessage($reply_token, '無効なコマンドです。メッセージで「メニュー」と入力送信すると、メニュー画面を呼び出すことができます。');
 		}
 		
 		break;
