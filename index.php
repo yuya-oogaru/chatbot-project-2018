@@ -81,6 +81,7 @@ $messageType = mb_strpos($message, 'ジョルダン乗換案内', 4, "UTF-8");
 
 if($messageType != FALSE){
 	updateStatus($userID, 'pre_proc');
+	$status = 'pre_proc';
 }
 
 /***********************************************/
