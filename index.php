@@ -138,7 +138,7 @@ switch($status){
 		}else if($message == 'メニュー'){
 
 			/*M1.メニュー選択要求*/
-			$post_data = MenuListFlexTemplate($reply_token);
+			$post_data = MenuListFlexTemplate($reply_token, $userID);
 			
 			/*ステータスをmenuへ移行*/
 			updateStatus($userID, 'menu');

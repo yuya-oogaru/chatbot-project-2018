@@ -1,6 +1,6 @@
 <?php
 //**********Flexテンプレート*************
-function MenuListFlexTemplate($reply_token){
+function MenuListFlexTemplate($reply_token, $userID){
 
 	return
 	[
@@ -14,7 +14,7 @@ function MenuListFlexTemplate($reply_token){
 					"body" => [
 	    				"type" => "box",
    		 				"layout" => "vertical",
-    					"contents" => MenuListFlexTemplateContents(1)
+    					"contents" => MenuListFlexTemplateContents($userID)
     				]
 				]
 			]
@@ -23,7 +23,7 @@ function MenuListFlexTemplate($reply_token){
 }
 
 //Flexコンテンツ
-function MenuListFlexTemplateContents($void){
+function MenuListFlexTemplateContents($userID){
 
 	return
 	[
@@ -39,7 +39,7 @@ function MenuListFlexTemplateContents($void){
         	"layout" => "vertical",
         	"margin" => "xxl",
         	"spacing" => "sm",
-        	"contents" => DataListContentsBuilder(10)
+        	"contents" => DataListContentsBuilder($userID)
 		],
 		[
 			"type" => "box",
