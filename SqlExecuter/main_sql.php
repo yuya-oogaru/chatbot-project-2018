@@ -64,7 +64,7 @@ function insertDataToRoutesTr($userID,
 function insertDataToUserInfoMs($userID, $username){
 
 	$dbh = dbConnection::getConnection();
-	$sql = 'insert into LINE_ROUTES_TR (userID, username) values ( :userID, :username)';
+	$sql = 'insert into LINE_USERINFO_MS (userID, username) values ( :userID, :username)';
 	$sth = $dbh->prepare($sql);
 	
 	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);            /*登録者ID（ラインアカウントID）*/
