@@ -166,7 +166,7 @@ switch($status){
 			
 		}else if($messageType == 'iosJorudan'){
 		
-			$post_data = textMessage($reply_token, 'iOS版ジョルダン経路案内がサポートされていません。システムの対応までお待ちください。');
+			$post_data = pre_proc_func($userID, $message, $reply_token, $messageType);
 			
 		}else if($message == 'メニュー'){
 
