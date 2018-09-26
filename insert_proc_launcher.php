@@ -21,7 +21,19 @@ function pre_proc_func($userID, $message, $reply_token, $messageType){
 	$price = '0';        /*合計運賃（整数）*/
 
 	/*ジョルダンから経路データ読み取り*/
-	GetRouteData($message, $routes, $date, $price);
+	
+	/*android版*/
+	if($messageType == 'androidJorudan'){
+		GetRouteData($message, $routes, $date, $price);
+	
+	/*iOS版*/
+	}else if($messageType == 'iosJorudan'){
+		GetRouteDataOniOS($message, $routes, $date, $price);
+		
+	}else{
+		$post_data = textMessage($reply_token, 'ジョルダン検索結果からのデータ読み取りに失敗しました。もう一度検索結果を張り直してください。');
+		return $post_data;
+	}
 	
 	updateStatus($userID, 'ins_inp_office');
 	
