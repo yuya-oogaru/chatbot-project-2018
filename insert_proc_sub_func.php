@@ -42,7 +42,7 @@ function GetRouteDataOniOS($message, &$routes, &$Date, &$price){
 	$totalPriceEndPos  :運賃合計の記述箇所（末尾）
 	********************************/
 	
-	$routeEndPos = mb_strpos($message, '\n',1 , "UTF-8");
+	$routeEndPos = strpos($message, "\n",1);
 	$dateEndPos = mb_strpos($message, '(', 1, "UTF-8");
 	$transitTimePos = mb_strpos($message, '乗換', 1, "UTF-8");
 	$totalPricePos = mb_strpos($message, '　', $transitTimePos, "UTF-8");
