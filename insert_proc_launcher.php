@@ -114,7 +114,6 @@ function ins_inp_others_func($userID, $message, $reply_token){
 	updateCommentsTemp($userID, $message);
 	
 	/*内容確認を要求*/
-	//$post_data = FlexTemplate($reply_token, '以上の内容で登録しますか？', '内容確認');
 	$post_data = insertConfirmFlexTemplate($reply_token, '以上の内容で登録しますか？', '内容確認', $userID);
 	
 	return $post_data;
