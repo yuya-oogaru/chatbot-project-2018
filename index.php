@@ -74,7 +74,7 @@ $status = searchStatus($userID);
 
 /************メッセージの種類判断***********************/
 
-$messageType = function checkMessageType($json_obj);
+$messageType = checkMessageType($json_obj);
 
 /******経路登録だけは、どの状態からでもアクセス可能*********/
 

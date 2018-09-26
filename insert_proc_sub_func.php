@@ -1,6 +1,6 @@
 <?php
 
-/*ジョルダンフォーマットの経路データを取得*/
+/*ジョルダンフォーマットの経路データを取得（android版）*/
 function GetRouteData($message, &$routes, &$Date, &$price){
 
 	/*******************************
@@ -30,6 +30,15 @@ function GetRouteData($message, &$routes, &$Date, &$price){
 	/*合計運賃取得*/
 	$price = mb_substr($message, $totalPricePos, ($totalPriceEndPos - $totalPricePos), "UTF-8");
 }
+
+/*ジョルダンフォーマットの経路データを取得(iOS版)*/
+
+
+
+
+
+
+
 
 
 /*入力されたデータをデータベースに登録*/
