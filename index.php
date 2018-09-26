@@ -74,18 +74,16 @@ $status = searchStatus($userID);
 
 /************メッセージの種類判断***********************/
 
-/*メッセージが、ジョルダン検索結果かどうか判断（違う場合は'FALSE'が返る）*/
-$messageType = mb_strpos($message, 'ジョルダン乗換案内', 4, "UTF-8");
-
+$messageType = function checkMessageType($json_obj);
 
 /******経路登録だけは、どの状態からでもアクセス可能*********/
 
-if($messageType != FALSE){
+if(($messageType != 'textMessage')&&
+	($messageType != 'unsupported')){
+	
 	updateStatus($userID, 'pre_proc');
 	$status = 'pre_proc';
 }
-
-/***********************************************/
 
 /**********デバッグオプション・登録データ全消去**********/
 if($message == '全削除'){
@@ -112,6 +110,9 @@ if($message == 'ステータス'){
 	sendReplyMessage($post_data, $access_token);
 	return;
 }
+/**************応答メッセージ初期化*************************/
+
+$post_data = textMessage($reply_token, 'default message');
 
 /****************ステータスに応じた処理呼び出し******************
 
@@ -159,9 +160,13 @@ del_confirm :ユーザーが削除内容の確認を行っている状態。
 switch($status){
 	case 'pre_proc':
 		
-		if($messageType != FALSE){
+		if($messageType == 'androidJorudan'){
 			/*I１．経路データ読み取り＝＞行先入力要求*/
 			$post_data = pre_proc_func($userID, $message, $reply_token);
+			
+		}else if($messageType == 'iosJorudan'){
+		
+			$post_data = textMessage($reply_token, 'iOS版ジョルダン経路案内がサポートされていません。システムの対応までお待ちください。');
 			
 		}else if($message == 'メニュー'){
 
