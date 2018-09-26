@@ -33,7 +33,6 @@ require_once (__DIR__ . '/apply_delete_proc_sub_func.php');    /*経路データ
 /*LINEBotアクセストークン(heroku側で定義)*/
 $access_token = getenv('CHANNEL_ACCESS_TOKEN');
 
-
 /****************************************************
          ここから、Botのメイン処理に移ります。
 *****************************************************/
@@ -41,18 +40,18 @@ $access_token = getenv('CHANNEL_ACCESS_TOKEN');
 
 /**************ユーザー情報読み取り*******************/
 
-//APIから送信されてきたイベントオブジェクトを取得
+/*APIから送信されてきたイベントオブジェクトを取得*/
 $json_string = file_get_contents('php://input');
 $json_obj = json_decode($json_string);
 
 /*受信jsonデータ確認*/
 error_log('receive_data = '.$json_string.'');
 
-//イベントオブジェクトから必要な情報を抽出
+/*イベントオブジェクトから必要な情報を取得*/
 $message = $json_obj->{"events"}[0]->{"message"}->{"text"};
 $reply_token = $json_obj->{"events"}[0]->{"replyToken"};
 
-//ユーザーID取得
+/*ユーザーID取得*/
 $userID = $json_obj->{"events"}[0]->{"source"}->{"userId"};
 /*ユーザー名の取得*/
 $userName = getLineUserName($void);
@@ -160,12 +159,9 @@ del_confirm :ユーザーが削除内容の確認を行っている状態。
 switch($status){
 	case 'pre_proc':
 		
-		if($messageType == 'androidJorudan'){
+		if(($messageType == 'androidJorudan')||
+			($messageType == 'iosJorudan')){
 			/*I１．経路データ読み取り＝＞行先入力要求*/
-			$post_data = pre_proc_func($userID, $message, $reply_token, $messageType);
-			
-		}else if($messageType == 'iosJorudan'){
-		
 			$post_data = pre_proc_func($userID, $message, $reply_token, $messageType);
 			
 		}else if($message == 'メニュー'){

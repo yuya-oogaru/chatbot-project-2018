@@ -21,8 +21,8 @@ function GetRouteData($message, &$routes, &$Date, &$price){
 	/*経路取得*/
 	$routes = mb_substr($message, 0, $routeEndPos, "UTF-8");
 
-	/*中継地点を省く*/
-	$routes = removeTransitPoint($routes);
+	/*中継地点を省く(動作不完全)*/
+	//$routes = removeTransitPoint($routes);
 	
 	/*乗車日取得*/
 	$Date = mb_substr($message, ($routeEndPos + 1), (($dateEndPos - $routeEndPos) - 1), "UTF-8");
@@ -52,7 +52,7 @@ function GetRouteDataOniOS($message, &$routes, &$Date, &$price){
 	/*経路取得*/
 	$routes = mb_substr($message, 0, $routeEndPos, "UTF-8");
 
-	/*中継地点を省く*/
+	/*中継地点を省く（動作不完全）*/
 	//$routes = removeTransitPoint($routes);
 	
 	/*乗車日取得*/
