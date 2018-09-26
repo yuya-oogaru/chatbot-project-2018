@@ -121,9 +121,13 @@ function DataListContentsBuilder($userID){
 		
 		/*ユーザー請求・往復の有無を略号に変換（メニュー選択機能の設計書を参照）*/
 		if($userPrice > 0){
+			/*仮に入れたホワイトスペースを省く*/
+			$icon = str_replace('　', '', $icon);
 			$icon = $icon.'仮';
 		}
 		if($rounds == 1){
+			/*仮に入れたホワイトスペースを省く*/
+			$icon = str_replace('　', '', $icon);
 			$icon = $icon.'復';
 		}
 		

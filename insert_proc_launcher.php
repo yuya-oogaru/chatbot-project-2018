@@ -13,7 +13,7 @@
 
 
 /****************ジョルダンデータ読み取り*****************/
-function pre_proc_func($userID, $message, $reply_token){
+function pre_proc_func($userID, $message, $reply_token, $messageType){
 
 	/*データ格納変数*/
 	$routes = 'default'; /*経路（文字列）*/

@@ -162,7 +162,7 @@ switch($status){
 		
 		if($messageType == 'androidJorudan'){
 			/*I１．経路データ読み取り＝＞行先入力要求*/
-			$post_data = pre_proc_func($userID, $message, $reply_token);
+			$post_data = pre_proc_func($userID, $message, $reply_token, $messageType);
 			
 		}else if($messageType == 'iosJorudan'){
 		
