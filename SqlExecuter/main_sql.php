@@ -41,7 +41,7 @@ function insertDataToRoutesTr($userID,
 	$comments
 ){
 
-	$routes = str_replace('〜', '：', $routes);
+	$routes = str_replace('〜', '～', $routes);
 	
 	$dbh = dbConnection::getConnection();
 	$sql = 'insert into LINE_ROUTES_TR (userID, routeno, routedate, destination, route, rounds, price, userprice, comments, apply)'.
