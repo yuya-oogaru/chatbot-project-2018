@@ -41,6 +41,8 @@ function insertDataToRoutesTr($userID,
 	$comments
 ){
 
+	$price = str_replace('～', ',', $price);
+	
 	$dbh = dbConnection::getConnection();
 	$sql = 'insert into LINE_ROUTES_TR (userID, routeno, routedate, destination, route, rounds, price, userprice, comments, apply)'.
 	'values ( :userID, :routeno, :routedate, :destination, :route, :rounds, :price, :userprice, :comments, :apply)';
@@ -50,7 +52,7 @@ function insertDataToRoutesTr($userID,
 	$sth->bindValue(':routeno', $routeno, PDO::PARAM_INT);
 	$sth->bindValue(':routedate', $date, PDO::PARAM_STR);
 	$sth->bindValue(':destination', $destination, PDO::PARAM_STR);
-	$sth->bindValue(':route', mb_convert_encoding($routes, "UTF-8"), PDO::PARAM_STR);
+	$sth->bindValue(':route', $routes, PDO::PARAM_STR);
 	$sth->bindValue(':rounds', $rounds, PDO::PARAM_INT);
 	$sth->bindValue(':price', $price, PDO::PARAM_INT);
 	$sth->bindValue(':userprice', $userPrice, PDO::PARAM_INT);
