@@ -61,7 +61,7 @@ if(getUserInfoMsData($userID) == NULL){
 	insertDataToUserInfoMs($userID, $userName);
 /*登録がある場合はユーザーネーム更新*/
 }else{
-	update_userNames($userID, $username);
+	update_userNames($userID, $userName);
 }
 	
 /*************ユーザーのステータス確認******************/
