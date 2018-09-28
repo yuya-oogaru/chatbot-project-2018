@@ -73,7 +73,19 @@ function insertDataToUserInfoMs($userID, $username){
 	$sth->bindValue(':username', $username, PDO::PARAM_STR);
 
 	$sth->execute();
+}
+
+/*LINE_USERINFO_MSのユーザーネーム更新*/
+function update_userNames($userID, $username){
+
+	$dbh = dbConnection::getConnection();
+	$sql = 'UPDATE LINE_USERINFO_MS SET USERNAME = :username WHERE userID = :userID';
+	$sth = $dbh->prepare($sql);
 	
+	$sth->bindValue(':userID', $userID, PDO::PARAM_INT);            /*登録者ID（ラインアカウントID）*/
+	$sth->bindValue(':username', $username, PDO::PARAM_STR);
+
+	$sth->execute();
 }
 /*LINE_USERINFO_MSにユーザーの既存データがあるかどうか確認*/
 function getUserInfoMsData($userID){

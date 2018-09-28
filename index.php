@@ -59,6 +59,9 @@ $userName = getLineUserName($void);
 /*データベースLINE_USERINFO_MSへの登録がない場合（初回登録時のみの操作）*/
 if(getUserInfoMsData($userID) == NULL){
 	insertDataToUserInfoMs($userID, $userName);
+/*登録がある場合はユーザーネーム更新*/
+}else{
+	update_userNames($userID, $username);
 }
 	
 /*************ユーザーのステータス確認******************/
